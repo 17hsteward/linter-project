@@ -4,10 +4,10 @@
 Specified in pom.xml
 
 ## Contributors
-YOUR_NAME, YOUR_NAME, YOUR_NAME
+Marcus Henderson, YOUR_NAME, YOUR_NAME
 
 ## Team Member's Engineering Notebooks (one per person)
-- NAME: LINK
+- Marcus Henderson: https://docs.google.com/document/d/1GKaI9gCqr-uoVFOof6udHNu9-scfd9s1eBxveSWc8S4/edit?usp=sharing 
 - NAME: LINK
 - NAME: LINK
 
@@ -16,7 +16,7 @@ YOUR_NAME, YOUR_NAME, YOUR_NAME
 
 | Developer | Style Check | Principle Check | Pattern Check | A Feature (optional) |
 |:----------|:------------|:----------------|:--------------|:---------------------|
-| NAME      |             |                 |               |                      |
+| Marcus Henderson      |             |                 |               |                      |
 | NAME      |             |                 |               |                      |
 | NAME      |             |                 |               |                      |
 
