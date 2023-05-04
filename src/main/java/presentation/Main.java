@@ -19,15 +19,14 @@ import org.objectweb.asm.tree.ClassNode;
 public class Main {
 
     public static void main(String[] args) throws IOException {
+    	//choose a java file to compile
     	JFileChooser chooser=new JFileChooser();
     	chooser.showOpenDialog(chooser);
     	File file=chooser.getSelectedFile();
-    	
     	System.out.println(file.getAbsolutePath());
     	
     	
     	JavaCompiler javac = ToolProvider.getSystemJavaCompiler();
-		ByteArrayOutputStream out=new ByteArrayOutputStream();
         int result = javac.run(null, null, null, file.getAbsolutePath());
         if(result!=0) {
         	return;
@@ -43,7 +42,6 @@ public class Main {
 			e.printStackTrace();
 		}
 		
-//		FileInputStream in=new FileInputStream(file);
 		ClassReader reader=new ClassReader(in);
 
 		// Step 2. ClassNode is just a data container for the parsed class
@@ -54,6 +52,7 @@ public class Main {
 		printClass(classNode);
     }
     
+    //code from MyFirstLinter for test input validity
     private static void printClass(ClassNode classNode) {
 		System.out.println("Class's Internal JVM name: " + classNode.name);
 		System.out.println("User-friendly name: "
