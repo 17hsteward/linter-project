@@ -15,20 +15,11 @@ import javax.tools.JavaCompiler;
 import javax.tools.ToolProvider;
 
 import org.objectweb.asm.ClassReader;
-import org.objectweb.asm.Opcodes;
-import org.objectweb.asm.Type;
-import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.ClassNode;
-import org.objectweb.asm.tree.FieldNode;
-import org.objectweb.asm.tree.InsnList;
-import org.objectweb.asm.tree.MethodInsnNode;
-import org.objectweb.asm.tree.MethodNode;
-import org.objectweb.asm.tree.VarInsnNode;
-
 import domain.MyClass;
 
 public class Main {
-
+	//will split main code to different function or file later
     public static void main(String[] args) throws IOException {
     	List<MyClass> myClasses=new LinkedList<>();
     	//choose a java file to compile
@@ -38,21 +29,25 @@ public class Main {
 //        chooser.setFileFilter(filter);
 //        chooser.showOpenDialog(null);
 //    	File[] files=chooser.getSelectedFiles();
-    	File[] files= new File[]{new File("./src/main/java/Test.java")};
+    	File[] files=new File[]{new File("./src/test/java/domain/Test.java")};//choose specific file to test accessing
     	
+    	JavaCompiler javac = ToolProvider.getSystemJavaCompiler();
+    	int result;
+    	String resources="./src/main/resources/";
     	for(File file:files) {
-    		System.out.println(file.getAbsolutePath());
+    		//need to check file type is .java here
+    		System.out.println("compiling    "+file.getName()+"        at    "+file.getAbsolutePath());
+    		
     		//compile java code to class file
-    		JavaCompiler javac = ToolProvider.getSystemJavaCompiler();
-            int result = javac.run(null, null, null, file.getAbsolutePath());
+            result = javac.run(null, null, null, file.getAbsolutePath());
             if(result!=0) {
-            	return;
+            	System.out.println("fail to compile "+file.getName());
+            	continue;
             }
             //move destination, maybe in datasource layer later
             String className=file.getAbsolutePath().replace(".java", ".class");
             File from=new File(className);
-    		File to=new File("./src/main/resources/"+from.getName());
-    		System.out.println("create class file in "+to.getAbsolutePath());
+    		File to=new File(resources+from.getName());
     		try {
         		FileInputStream fi = new FileInputStream(from);
     	    	FileOutputStream fo = new FileOutputStream(to);
@@ -74,6 +69,7 @@ public class Main {
     			// TODO Auto-generated catch block
     			e.printStackTrace();
     		}
+    		
 
     		ClassReader reader=new ClassReader(in);
     		ClassNode classNode = new ClassNode();
@@ -81,7 +77,10 @@ public class Main {
     		
     		MyClass mc=new MyClass(classNode);
 			myClasses.add(mc);
-			mc.printClass();
+			mc.printClass();//print the class to verify
+			
+			in.close();
+			to.delete();//comment this line to keep the class file in src/main/resources/
     	}
     	//start test here
     	//JFrame frame;

@@ -9,14 +9,13 @@ import org.objectweb.asm.tree.FieldNode;
 import org.objectweb.asm.tree.MethodNode;
 
 public class MyClass {
-	//modify the access modifier and add getters later
-	ClassNode classNode;
-	String className;
-	String extend;
-	boolean p;
-	List<String> implement;
-	List<FieldNode> fields;
-	List<MethodNode> methods;
+	private ClassNode classNode;
+	private String className;
+	private String extend;
+	private boolean p;
+	private List<String> implement;
+	private List<FieldNode> fields;
+	private List<MethodNode> methods;
 	
 	public MyClass(ClassNode cn) {
 		this.classNode=cn;
@@ -27,10 +26,21 @@ public class MyClass {
 		this.fields=cn.fields;
 		this.methods=cn.methods;
 	}
+	
+	//build some getters, and might have uml getter for type conversion
+	
+	/**
+	 * print class UML content
+	 */
 	public void printClass() {
 		System.out.println(this.toClassUML());
 	}
 	
+	/**
+	 * generate UML code for internal field and method
+	 * Types might need to be processed from asm type
+	 * @return UML code for class
+	 */
 	public String toClassUML() {
 		String s="";
 		s+="class "+className+"{\n";
@@ -77,12 +87,11 @@ public class MyClass {
 					s+=",";
 				}
 			}
-//			System.out.println(s);
 			int i=method.desc.lastIndexOf(')')+1;
 			s+=method.desc.substring(0, i)+":"+method.desc.substring(i);
 			s+="\n";
 		}
-		s+="}";
+		s+="}\n";
 //		System.out.println(s);
 		return s;
 	}
@@ -90,8 +99,13 @@ public class MyClass {
 	 * get the relation to other class in string uml
 	 * @return uml code that points to other class
 	 */
-	public String toRelation() {
+	public String toRelationUML() {
+		//has a
+		//extend
+		//implement
+		//dependent
 		String s="";
+		s+="\n";
 		return s;
 	}
 }
