@@ -32,12 +32,13 @@ public class Main {
     public static void main(String[] args) throws IOException {
     	List<MyClass> myClasses=new LinkedList<>();
     	//choose a java file to compile
-    	JFileChooser chooser=new JFileChooser();
-        chooser.setMultiSelectionEnabled(true);
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("Java Files", "java");
-        chooser.setFileFilter(filter);
-        chooser.showOpenDialog(null);
-    	File[] files=chooser.getSelectedFiles();
+//    	JFileChooser chooser=new JFileChooser();
+//        chooser.setMultiSelectionEnabled(true);
+//        FileNameExtensionFilter filter = new FileNameExtensionFilter("Java Files", "java");
+//        chooser.setFileFilter(filter);
+//        chooser.showOpenDialog(null);
+//    	File[] files=chooser.getSelectedFiles();
+    	File[] files= new File[]{new File("./src/main/java/Test.java")};
     	
     	for(File file:files) {
     		System.out.println(file.getAbsolutePath());
@@ -80,6 +81,7 @@ public class Main {
     		
     		MyClass mc=new MyClass(classNode);
 			myClasses.add(mc);
+			mc.printClass();
     	}
     	//start test here
     	//JFrame frame;
