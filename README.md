@@ -17,7 +17,7 @@ Marcus Henderson, Hailey Steward,  Yuchen Cai, Kelly Xu
 | Developer | Style Check | Principle Check | Pattern Check | A Feature (optional) |
 |:----------|:------------|:----------------|:--------------|:---------------------|
 | Marcus Henderson      |    Bad Names         |                 |     Template Method Pattern          |                      |
-| Hailey Steward    | Missing implementations of abstract types        |         Least Knowledge Principle        |     Adapter Pattern          |                    |
+| Hailey Steward    |       |         Least Knowledge Principle        |     Adapter Pattern          |                    |
 | Yuchen Cai      | Access modifier | Method chaining | Observer pattern |                      |
 | Kelly Xu     | Data Class Detection | Coupling and Cohesion |  |                      |
 
