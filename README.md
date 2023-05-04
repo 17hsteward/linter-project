@@ -18,7 +18,7 @@ Marcus Henderson, Hailey Steward,  Yuchen Cai, Kelly Xu
 |:----------|:------------|:----------------|:--------------|:---------------------|
 | Marcus Henderson      |    Bad Names         |                 |     Template Method Pattern          |                      |
 | Hailey Steward    | Missing implementations of abstract types        |         Least Knowledge Principle        |     Adapter Pattern          |                    |
-| Yuchen Cai      |             |                 |               |                      |
+| Yuchen Cai      | Access modifier | Method chaining | Observer pattern |                      |
 | Kelly Xu     | Data Class Detection | Coupling and Cohesion |  |                      |
 
 
