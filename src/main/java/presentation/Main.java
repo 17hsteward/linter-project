@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.LinkedList;
 
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -24,9 +25,12 @@ import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.VarInsnNode;
 
+import domain.MyClass;
+
 public class Main {
 
     public static void main(String[] args) throws IOException {
+    	List<MyClass> myClasses=new LinkedList<>();
     	//choose a java file to compile
     	JFileChooser chooser=new JFileChooser();
         chooser.setMultiSelectionEnabled(true);
@@ -83,6 +87,9 @@ public class Main {
 			printFields(classNode);
 			
 			printMethods(classNode);
+			
+			MyClass mc=new MyClass(classNode);
+			myClasses.add(mc);
     	}
     	
     }
