@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.List;
+import java.util.LinkedList;
 
 import org.objectweb.asm.Attribute;
 import org.objectweb.asm.Opcodes;
@@ -9,22 +10,32 @@ import org.objectweb.asm.tree.FieldNode;
 import org.objectweb.asm.tree.MethodNode;
 
 public class MyClass {
-	private ClassNode classNode;
+//	private ClassNode classNode;
 	private String className;
 	private String extend;
 	private boolean p;
 	private List<String> implement;
-	private List<FieldNode> fields;
-	private List<MethodNode> methods;
+	private List<MyField> fields;
+	private List<MyMethod> methods;
+	//innerclass
 	
 	public MyClass(ClassNode cn) {
-		this.classNode=cn;
+//		this.classNode=cn;
 		this.className=cn.name;
-		this.p=(classNode.access & Opcodes.ACC_PUBLIC) != 0;
+		this.p=(cn.access & Opcodes.ACC_PUBLIC) != 0;
 		this.extend=cn.superName;
 		this.implement=cn.interfaces;
-		this.fields=cn.fields;
-		this.methods=cn.methods;
+		System.out.println("extend "+this.extend);
+		System.out.println("implement "+this.implement);
+
+		this.fields=new LinkedList<>();
+		this.methods=new LinkedList<>();
+		for(FieldNode f:cn.fields) {
+			this.fields.add(new MyField(f));
+		}
+		for(MethodNode f:cn.methods) {
+			this.methods.add(new MyMethod(f));
+		}
 	}
 	
 	//build some getters, and might have uml getter for type conversion
@@ -44,55 +55,13 @@ public class MyClass {
 	public String toClassUML() {
 		String s="";
 		s+="class "+className+"{\n";
-		for(FieldNode field:fields) {
-			switch(field.access&(Opcodes.ACC_PUBLIC+Opcodes.ACC_PROTECTED+Opcodes.ACC_PRIVATE)) {
-				case Opcodes.ACC_PUBLIC:
-					s+="+";
-					break;
-				case Opcodes.ACC_PROTECTED:
-					s+="#";
-					break;
-				case Opcodes.ACC_PRIVATE:
-					s+="-";
-					break;
-				default:
-					s+="~";
-			}
-			//final,static
-			s+=field.name+":"+field.desc;
-			
-			s+="\n";
+		for(MyField f:this.fields) {
+			s+="    "+f.toUML()+"\n";
 		}
-		for(MethodNode method:methods) {
-			switch(method.access&(Opcodes.ACC_PUBLIC+Opcodes.ACC_PROTECTED+Opcodes.ACC_PRIVATE)) {
-				case Opcodes.ACC_PUBLIC:
-					s+="+";
-					break;
-				case Opcodes.ACC_PROTECTED:
-					s+="#";
-					break;
-				case Opcodes.ACC_PRIVATE:
-					s+="-";
-					break;
-				default:
-					s+="~";
-			}
-			s+=method.name;
-			
-			//input arguments
-			if(method.attrs!=null) {
-				for(Attribute a:method.attrs) {
-					s+=a.type+":";
-					s+=a.toString();
-					s+=",";
-				}
-			}
-			int i=method.desc.lastIndexOf(')')+1;
-			s+=method.desc.substring(0, i)+":"+method.desc.substring(i);
-			s+="\n";
+		for(MyMethod m:this.methods) {
+			s+="    "+m.toUML()+"\n";
 		}
 		s+="}\n";
-//		System.out.println(s);
 		return s;
 	}
 	/**
@@ -101,9 +70,17 @@ public class MyClass {
 	 */
 	public String toRelationUML() {
 		//has a
+		//for all fields
+		
 		//extend
+		//java/lang/Object
+		
 		//implement
+		//[]
+		
 		//dependent
+		//for all methods
+		
 		String s="";
 		s+="\n";
 		return s;
