@@ -6,7 +6,7 @@ import org.objectweb.asm.Attribute;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.MethodNode;
 
-public class MyMethod {
+public class MyMethod implements UML{
 //	private MethodNode methodNode;
 	private String name;
 	private int access;
@@ -37,13 +37,13 @@ public class MyMethod {
 		}
 		
 		s+=name;
-		if(attrs!=null) {
-			for(Attribute a:attrs) {
-				s+=a.type+":";
-				s+=a.toString();
-				s+=",";
-			}
-		}
+//		if(attrs!=null) {
+//			for(Attribute a:attrs) {
+//				s+=UML.typeConvert(a.type)+":";
+//				s+=a.toString();
+//				s+=",";
+//			}
+//		}
 		int i=desc.lastIndexOf(')')+1;
 		s+=desc.substring(0, i)+":"+desc.substring(i);
 		

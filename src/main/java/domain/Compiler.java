@@ -39,9 +39,7 @@ public class Compiler {
 			}
 			if(f.getName().endsWith(".java")) {
 				if(javac.run(null, null, null, f.getAbsolutePath())==0) {
-					String className=f.getAbsolutePath().replace(".java", ".class");
-		            
-		    		File classFile=new File(className);
+		    		File classFile=this.reader.getClassFromJava(f.getAbsolutePath());
 		            InputStream in = null;
 		    		try {
 		    			in = new FileInputStream(classFile);
@@ -57,7 +55,7 @@ public class Compiler {
 		    		
 		    		MyClass mc=new MyClass(classNode);
 					myClasses.add(mc);
-					mc.printClass();//print the class to verify
+//					mc.printClass();//print the class to verify
 					
 					in.close();
 					classFile.delete();//comment this line to keep the class file in src/main/resources/

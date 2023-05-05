@@ -3,7 +3,7 @@ package domain;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.FieldNode;
 
-public class MyField {
+public class MyField implements UML{
 //	private FieldNode fieldNode;
 	private String name;
 	private String desc;
@@ -29,6 +29,6 @@ public class MyField {
 			default:
 				s="~";
 		}
-		return s+this.name+":"+this.desc;
+		return s+this.name+":"+UML.typeConvert(this.desc);
 	}
 }

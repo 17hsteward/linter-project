@@ -7,9 +7,14 @@ public class Test {
 	protected boolean c;
 	private float d;
 	int[] e;
-	List<Integer> f;
+	List<Integer> l1;
+	List<String> l2;
 	final int af=0;
 	static int as=0;
+	
+	double g;
+	long h;
+	Integer i;
 	
 	public void f1() {
 		a=0;

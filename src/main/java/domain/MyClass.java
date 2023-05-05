@@ -25,9 +25,8 @@ public class MyClass {
 		this.p=(cn.access & Opcodes.ACC_PUBLIC) != 0;
 		this.extend=cn.superName;
 		this.implement=cn.interfaces;
-		System.out.println("extend "+this.extend);
-		System.out.println("implement "+this.implement);
-
+//		System.out.println("extend "+this.extend);
+//		System.out.println("implement "+this.implement);
 		this.fields=new LinkedList<>();
 		this.methods=new LinkedList<>();
 		for(FieldNode f:cn.fields) {
@@ -68,20 +67,25 @@ public class MyClass {
 	 * get the relation to other class in string uml
 	 * @return uml code that points to other class
 	 */
-	public String toRelationUML() {
+	public String toRelationUML() {//input list of existing class
+		String s="";
 		//has a
 		//for all fields
 		
 		//extend
 		//java/lang/Object
-		
+		if(!this.extend.equals(s)) {
+			s+=this.className+"-|>"+this.extend+"\n";
+		}
 		//implement
 		//[]
+		for(String i:this.implement) {
+			s+=this.className+"..|>"+i+"\n";
+		}
 		
 		//dependent
-		//for all methods
+		//for all methods internal types
 		
-		String s="";
 		s+="\n";
 		return s;
 	}

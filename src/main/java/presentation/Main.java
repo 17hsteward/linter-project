@@ -1,23 +1,15 @@
 package presentation;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 import java.util.LinkedList;
 
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.tools.JavaCompiler;
-import javax.tools.ToolProvider;
-
-import org.objectweb.asm.ClassReader;
-import org.objectweb.asm.tree.ClassNode;
 import domain.MyClass;
 import domain.Compiler;
+import domain.UMLGenerator;
 
 public class Main {
 	//will split main code to different function or file later
@@ -34,8 +26,9 @@ public class Main {
     	Compiler c=new Compiler();
     	myClasses=c.read(files);
     	
-    	//start test here
-    	//JFrame frame;
+    	UMLGenerator uml=new UMLGenerator(myClasses);
+    	System.out.println(uml.generateAllUMLCode());
+    	//start check here
     }
 
     
