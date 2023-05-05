@@ -16,14 +16,15 @@ public class Main {
     public static void main(String[] args) throws IOException {
     	List<MyClass> myClasses=new LinkedList<>();
     	//choose a java file to compile
-//    	JFileChooser chooser=new JFileChooser("./");
-//        chooser.setMultiSelectionEnabled(true);
-//        FileNameExtensionFilter filter = new FileNameExtensionFilter("Java Files", "java");
-//        chooser.setFileFilter(filter);
-//        chooser.showOpenDialog(null);
-//    	File[] files=chooser.getSelectedFiles();
+    	JFileChooser chooser=new JFileChooser("./");
+        chooser.setMultiSelectionEnabled(true);
+        chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Java Files", "java");
+        chooser.setFileFilter(filter);
+        chooser.showOpenDialog(null);
+    	File[] files=chooser.getSelectedFiles();
 //    	File[] files=new File[]{new File("./src/test/java/domain/Test.java")};//choose specific file to test accessing
-    	File[] files=new File[]{new File("./")};
+//    	File[] files=new File[]{new File("./")};
     	
     	Compiler c=new Compiler();
     	myClasses=c.read(files);

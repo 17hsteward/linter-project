@@ -12,6 +12,7 @@ public class MyMethod implements UML{
 	private int access;
 	List<Attribute> attrs;
 	private String desc;
+	//sub method from other classes
 	
 	public MyMethod(MethodNode mn) {
 		access=mn.access&(Opcodes.ACC_PUBLIC+Opcodes.ACC_PROTECTED+Opcodes.ACC_PRIVATE);
@@ -45,7 +46,7 @@ public class MyMethod implements UML{
 //			}
 //		}
 		int i=desc.lastIndexOf(')')+1;
-		s+=desc.substring(0, i)+":"+desc.substring(i);
+		s+=UML.typeConvert(desc.substring(0, i))+":"+UML.typeConvert(desc.substring(i));
 		
 		return s;
 	}

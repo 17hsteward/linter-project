@@ -17,7 +17,12 @@ public class MyClass {
 	private List<String> implement;
 	private List<MyField> fields;
 	private List<MyMethod> methods;
+	
+//	private MyClass extend;
+//	private List<MyClass> implement;
 	//innerclass
+	//whether is abstract or interface
+	//package
 	
 	public MyClass(ClassNode cn) {
 //		this.classNode=cn;

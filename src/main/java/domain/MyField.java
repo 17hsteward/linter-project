@@ -8,11 +8,13 @@ public class MyField implements UML{
 	private String name;
 	private String desc;
 	private int access;
+	private String signature;
 	
 	public MyField(FieldNode mf) {
 		access=mf.access&(Opcodes.ACC_PUBLIC+Opcodes.ACC_PROTECTED+Opcodes.ACC_PRIVATE);
 		this.name=mf.name;
 		this.desc=mf.desc;
+		this.signature=mf.signature;
 	}
 	public String toUML() {
 		String s;
@@ -29,6 +31,12 @@ public class MyField implements UML{
 			default:
 				s="~";
 		}
-		return s+this.name+":"+UML.typeConvert(this.desc);
+		
+		if(this.signature!=null) {
+			s+=this.name+":"+UML.typeConvert(this.signature);
+		}else {
+			s+=this.name+":"+UML.typeConvert(this.desc);
+		}
+		return s;
 	}
 }
