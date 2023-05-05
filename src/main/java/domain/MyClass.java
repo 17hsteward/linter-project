@@ -53,7 +53,7 @@ public class MyClass {
 	 */
 	public String toClassUML() {
 		String s="";
-		s+="class "+className+"{\n";
+		s+="class "+className.replaceAll("/",".")+"{\n";
 		for(MyField f:this.fields) {
 			s+="    "+f.toUML()+"\n";
 		}
@@ -68,25 +68,25 @@ public class MyClass {
 	 * @return uml code that points to other class
 	 */
 	public String toRelationUML() {//input list of existing class
+		String name=this.className.replaceAll("/",".");
 		String s="";
 		//has a
 		//for all fields
 		
 		//extend
 		//java/lang/Object
-		if(!this.extend.equals(s)) {
-			s+=this.className+"-|>"+this.extend+"\n";
+		if(!this.extend.equals("java/lang/Object")) {
+			s+=name+"-|>"+this.extend.replaceAll("/",".")+"\n";
 		}
 		//implement
 		//[]
 		for(String i:this.implement) {
-			s+=this.className+"..|>"+i+"\n";
+			s+=name+"..|>"+i.replaceAll("/",".")+"\n";
 		}
 		
 		//dependent
 		//for all methods internal types
 		
-		s+="\n";
 		return s;
 	}
 }

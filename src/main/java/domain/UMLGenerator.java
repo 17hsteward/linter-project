@@ -13,7 +13,7 @@ public class UMLGenerator {
 	 */
 	public String generateAllUMLCode() {
 		String s="@startuml\n";
-		//add package later, or package is already in name? 
+		//TODO:package 
 		for(MyClass myClass:myClasses) {
 			s+=myClass.toClassUML();
 		}
@@ -23,6 +23,4 @@ public class UMLGenerator {
 		s+="@enduml\n";
 		return s;
 	}
-	//may have other methods to convert some asm type to normal type, then each MyClass needs to return something other than string
-	//can use hashmap to convert string, or include it in MyClass
 }

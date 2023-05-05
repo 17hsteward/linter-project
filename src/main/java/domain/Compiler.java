@@ -3,7 +3,6 @@ package domain;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -29,15 +28,8 @@ public class Compiler {
 		List<MyClass> myClasses=new LinkedList<>();
 		for(File f:files) {
 			if(f.isDirectory()) {
-				File[] sub=new File[f.list().length];
-				int i=0;
-				for(String s:f.list()) {
-					sub[i]=new File(s);
-					i++;
-				}
-				myClasses.addAll(read(sub));
-			}
-			if(f.getName().endsWith(".java")) {
+				myClasses.addAll(read(f.listFiles()));
+			}else if(f.getName().endsWith(".java")) {
 				if(javac.run(null, null, null, f.getAbsolutePath())==0) {
 		    		File classFile=this.reader.getClassFromJava(f.getAbsolutePath());
 		            InputStream in = null;

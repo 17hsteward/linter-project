@@ -19,6 +19,7 @@ public interface UML {
 		types.put("Ljava/lang/String;","string");
 		types.put("Ljava/util/List;","List<>");
 		types.put("Ljava/lang/Integer;","Integer");
+		types.put("Ljava/io/File;","file");
 		if(types.containsKey(type)) {
 			return types.get(type);
 		}
