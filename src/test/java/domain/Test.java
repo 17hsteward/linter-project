@@ -15,6 +15,7 @@ public class Test {
 		a=0;
 	}
 	int f2(int g) {
+		f1();
 		return a;
 	}
 	public String f3(String s,int i,float f) {
