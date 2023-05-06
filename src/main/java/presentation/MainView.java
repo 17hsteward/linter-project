@@ -24,6 +24,7 @@ public class MainView {
 		frame.setTitle("main view");
 		frame.setSize(960,540);
 		JPanel p1=new JPanel();
+		frame.add(p1,BorderLayout.NORTH);
 		
 		JLabel l1=new JLabel("please import java files");
 		p1.add(l1);
@@ -41,9 +42,7 @@ public class MainView {
 		        chooser.setFileFilter(filter);
 		        chooser.showOpenDialog(null);
 		    	File[] files=chooser.getSelectedFiles();
-//		    	File[] files=new File[]{new File("./src/test/java/domain/Test.java")};//choose specific file to test accessing
-//		    	File[] files=new File[]{new File("./")};
-		    	
+		    	l1.setText("loading");
 		    	try {
 					myClasses=c.read(files);
 				} catch (IOException exception) {
@@ -56,12 +55,13 @@ public class MainView {
 		});
 		p1.add(b1);
 		
-		JButton b2=new JButton("import text.java");
+		JButton b2=new JButton("import src/test/java/domain/Test.java");
 		b2.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				l1.setText("loading");
 		    	File[] files=new File[]{new File("./src/test/java/domain/Test.java")};//choose specific file to test accessing
 //		    	File[] files=new File[]{new File("./")};
 		    	try {
@@ -70,13 +70,13 @@ public class MainView {
 					// TODO Auto-generated catch block
 					exception.printStackTrace();
 				}
-		    	l1.setText("test imported");
+		    	l1.setText("test file imported");
 			}
 			
 		});
 		p1.add(b2);
 		
-		JButton b3=new JButton("display UML code");
+		JButton b3=new JButton("print UML code in console");
 		b3.addActionListener(new ActionListener() {
 
 			@Override
@@ -91,14 +91,33 @@ public class MainView {
 					String code=uml.generateAllUMLCode();
 			    	System.out.println(code);
 			    	l1.setText("UML printed");
-			    	new UMLViewer(code);
 				}
 			}
 			
 		});
 		p1.add(b3);
 		
-		frame.add(p1,BorderLayout.NORTH);
+		JButton b4=new JButton("display UML code in window");
+		b4.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if(myClasses==null||myClasses.size()==0) {
+					System.out.println("please import files first");
+					l1.setText("please import files first");
+				}else {
+					//open UMLViewer
+					UMLGenerator uml=new UMLGenerator(myClasses);
+					String code=uml.generateAllUMLCode();
+			    	l1.setText("UML displayed");
+			    	new UMLViewer(code);
+				}
+			}
+			
+		});
+		p1.add(b4);
+		
 		frame.setVisible(true);
 		
 	}

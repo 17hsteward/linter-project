@@ -5,8 +5,6 @@ import java.io.File;
 public class Reader {
 	public File getClassFromJava(String javaPath) {
 		String classPath=javaPath.replace(".java", ".class");
-        File classFile=new File(classPath);
-//        System.out.println(javaPath);
-        return classFile;
+        return new File(classPath);
 	}
 }

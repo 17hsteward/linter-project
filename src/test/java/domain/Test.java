@@ -11,6 +11,8 @@ public class Test {
 	List<String> l2;
 	final int af=0;
 	static int as=0;
+	final static int asf=0;
+	int[][][] array;
 	
 	double g;
 	long h;

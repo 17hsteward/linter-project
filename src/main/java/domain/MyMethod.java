@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import org.objectweb.asm.Attribute;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.MethodNode;
+import org.objectweb.asm.tree.ParameterNode;
 
 public class MyMethod implements UML{
 //	private MethodNode methodNode;
@@ -16,9 +17,13 @@ public class MyMethod implements UML{
 	private List<String> parameters;
 	private String returnType;
 	//sub method from other classes
+	private boolean isStatic;
+	private boolean isFinal;
 	
 	public MyMethod(MethodNode mn) {
-		access=mn.access&(Opcodes.ACC_PUBLIC+Opcodes.ACC_PROTECTED+Opcodes.ACC_PRIVATE);
+		this.access=mn.access&(Opcodes.ACC_PUBLIC+Opcodes.ACC_PROTECTED+Opcodes.ACC_PRIVATE);
+		this.isStatic=(mn.access&Opcodes.ACC_STATIC)!=0;
+		this.isFinal=(mn.access&Opcodes.ACC_FINAL)!=0;
 //		attrs=mn.attrs;
 		this.name=mn.name;
 		this.desc=mn.desc;
@@ -64,19 +69,13 @@ public class MyMethod implements UML{
 			default:
 				s="~";
 		}
-		
-		s+=name;
-//		if(attrs!=null) {
-//			for(Attribute a:attrs) {
-//				s+=UML.typeConvert(a.type)+":";
-//				s+=a.toString();
-//				s+=",";
-//			}
-//		}
-//		int i=desc.lastIndexOf(')')+1;
-//		System.out.println(desc);
-//		s+=UML.typeConvert(desc.substring(0, i))+":"+UML.typeConvert(desc.substring(i));
-		s+="(";
+		if(isStatic) {
+			s+="{static}";
+		}
+		if(isFinal) {
+			s+="{final}";
+		}
+		s+=name+"(";
 		for(String s2:this.parameters) {
 			s+=UML.typeConvert(s2)+",";
 		}

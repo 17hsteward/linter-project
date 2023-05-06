@@ -12,8 +12,13 @@ public class MyField implements UML{
 	private boolean isList;
 	private String listType;
 	
+	private boolean isStatic;
+	private boolean isFinal;
+	
 	public MyField(FieldNode mf) {
-		access=mf.access&(Opcodes.ACC_PUBLIC+Opcodes.ACC_PROTECTED+Opcodes.ACC_PRIVATE);
+		this.access=mf.access&(Opcodes.ACC_PUBLIC+Opcodes.ACC_PROTECTED+Opcodes.ACC_PRIVATE);
+		this.isStatic=(mf.access&Opcodes.ACC_STATIC)!=0;
+		this.isFinal=(mf.access&Opcodes.ACC_FINAL)!=0;
 		this.name=mf.name;
 		this.desc=mf.desc;
 		this.signature=mf.signature;
@@ -37,6 +42,12 @@ public class MyField implements UML{
 				break;
 			default:
 				s="~";
+		}
+		if(isStatic) {
+			s+="{static}";
+		}
+		if(isFinal) {
+			s+="{final}";
 		}
 		if(isList) {
 			//list

@@ -3,6 +3,7 @@ package presentation;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.awt.Image;
 import java.io.File;
 import java.io.FileNotFoundException;
 
@@ -14,7 +15,7 @@ public class UMLViewer {
 		//https://plantuml.com/api
 		JFrame frame=new JFrame("UML viewer");
 		frame.setTitle("UML view");
-		frame.setSize(480,270);
+		frame.setSize(1440,810);
 		OutputStream png = null;
 		SourceStringReader reader = new SourceStringReader(code);
 		// Write the first image to "png"
@@ -27,8 +28,13 @@ public class UMLViewer {
 		}
 		JPanel p=new JPanel();
 		ImageIcon i=new ImageIcon("./src/main/resources/uml.png");
-		JLabel l=new JLabel(i);
-		frame.add(l);
+		//rescale
+		Image i2=i.getImage().getScaledInstance(frame.getWidth(), frame.getHeight(), Image.SCALE_DEFAULT);
+		ImageIcon i3=new ImageIcon(i2);
+		
+		JLabel l=new JLabel(i3);
+		p.add(l);
+		frame.add(p);
 		
 		frame.setVisible(true);
 	}
