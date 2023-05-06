@@ -11,7 +11,7 @@ public class MyMethod implements UML{
 //	private MethodNode methodNode;
 	private String name;
 	private int access;
-	List<Attribute> attrs;
+//	List<Attribute> attrs;
 	private String desc;
 	private List<String> parameters;
 	private String returnType;
@@ -19,14 +19,13 @@ public class MyMethod implements UML{
 	
 	public MyMethod(MethodNode mn) {
 		access=mn.access&(Opcodes.ACC_PUBLIC+Opcodes.ACC_PROTECTED+Opcodes.ACC_PRIVATE);
-		attrs=mn.attrs;
+//		attrs=mn.attrs;
 		this.name=mn.name;
 		this.desc=mn.desc;
 		int i=desc.lastIndexOf(')');
-//		System.out.println(desc);
-//		System.out.println(this.desc.substring(1,i));
-//		System.out.println(this.desc.substring(i+1));
 		this.parameters=new LinkedList<>();
+		//parse input argument
+		
 		for(String s:this.desc.substring(1,i).split(";")) {
 			if(s.isBlank()) {
 				continue;
@@ -40,12 +39,13 @@ public class MyMethod implements UML{
 				}
 				continue;
 			}
+			if(s.equals("List<")) {
+				s+=">";
+			}
 			this.parameters.add(s);
 		}
-//		for(String s:this.parameters) {
-//			System.out.println(s);
-//		}System.out.println();
 		
+		//return type
 		this.returnType=this.desc.substring(i+1);
 	}
 	public String toUML() {

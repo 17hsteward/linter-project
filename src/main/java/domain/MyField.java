@@ -19,7 +19,8 @@ public class MyField implements UML{
 		this.signature=mf.signature;
 		this.isList=this.signature!=null;
 		if(this.isList) {
-			this.listType=this.signature.substring(this.signature.indexOf("<")+1,this.signature.length()-2);
+			this.listType=this.signature.substring(this.signature.indexOf("<")+1,this.signature.length()-3);
+			
 		}
 	}
 	public String toUML() {

@@ -16,9 +16,12 @@ public interface UML {
 		types.put("D", "double");
 		types.put("J","long");
 		types.put("V","void");
+		types.put("C","char");
+		types.put("B","byte");
+		types.put("S","short");
 		types.put("Ljava/lang/String;","String");
 		types.put("Ljava/lang/String","String");
-		types.put("Ljava/util/List;","List<");//
+		types.put("Ljava/util/List;","List<>");//
 		types.put("Ljava/util/List","List<");//
 		types.put("Ljava/lang/Integer;","Integer");
 		types.put("Ljava/lang/Integer","Integer");

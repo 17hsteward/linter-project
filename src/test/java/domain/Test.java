@@ -15,6 +15,9 @@ public class Test {
 	double g;
 	long h;
 	Integer i;
+	char j;
+	byte k;
+	short l;
 	
 	public void f1() {
 		a=0;
@@ -25,5 +28,14 @@ public class Test {
 	}
 	public String f3(String s,int i,float f) {
 		return s;
+	}
+	public List<Integer> f4(List<Integer> l){
+		return l;
+	}
+	public void f5(int i,int j) {
+		int k=i+j;
+		String s=String.valueOf(k);
+		char cha=s.charAt(0);
+		int in=this.f2(k);
 	}
 }
