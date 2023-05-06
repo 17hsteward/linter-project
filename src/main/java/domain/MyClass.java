@@ -23,11 +23,16 @@ public class MyClass {
 	//innerclass
 	//whether is abstract or interface
 	//package
+	private boolean isAbstract;
+	private boolean isInterface;
+	private String packageName;
 	
 	public MyClass(ClassNode cn) {
 //		this.classNode=cn;
 		this.className=cn.name;
 		this.p=(cn.access & Opcodes.ACC_PUBLIC) != 0;
+		this.isAbstract=(cn.access & Opcodes.ACC_ABSTRACT) != 0;
+		this.isInterface=(cn.access & Opcodes.ACC_INTERFACE) != 0;
 		this.extend=cn.superName;
 		this.implement=cn.interfaces;
 //		System.out.println("extend "+this.extend);
@@ -40,6 +45,10 @@ public class MyClass {
 		for(MethodNode f:cn.methods) {
 			this.methods.add(new MyMethod(f));
 		}
+//		this.packageName;
+		this.className=this.className.replaceAll("/",".");
+		this.packageName=this.className.substring(0,this.className.lastIndexOf("."));
+		this.className=this.className.substring(this.className.lastIndexOf(".")+1);
 	}
 	
 	//build some getters, and might have uml getter for type conversion
@@ -58,7 +67,20 @@ public class MyClass {
 	 */
 	public String toClassUML() {
 		String s="";
-		s+="class "+className.replaceAll("/",".")+"{\n";
+		if(this.isInterface) {
+			s+="interface";
+		}else if(this.isAbstract){
+			s+="abstract class";
+		}else {
+			s+="class";
+		}
+		
+		s+=" ";
+		if(!this.packageName.isBlank()) {
+			s+=this.packageName+".";
+		}
+		s+=this.className;
+		s+="{\n";
 		for(MyField f:this.fields) {
 			s+="    "+f.toUML()+"\n";
 		}
@@ -73,7 +95,6 @@ public class MyClass {
 	 * @return uml code that points to other class
 	 */
 	public String toRelationUML() {//input list of existing class
-		String name=this.className.replaceAll("/",".");
 		String s="";
 		//has a
 		//for all fields
@@ -81,12 +102,12 @@ public class MyClass {
 		//extend
 		//java/lang/Object
 		if(!this.extend.equals("java/lang/Object")) {
-			s+=name+"-|>"+this.extend.replaceAll("/",".")+"\n";
+			s+=this.className+"-|>"+this.extend.replaceAll("/",".")+"\n";
 		}
 		//implement
 		//[]
 		for(String i:this.implement) {
-			s+=name+"..|>"+i.replaceAll("/",".")+"\n";
+			s+=this.className+"..|>"+i.replaceAll("/",".")+"\n";
 		}
 		
 		//dependent

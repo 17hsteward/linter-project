@@ -14,6 +14,7 @@ import domain.UMLGenerator;
 public class Main {
 	//will split main code to different function or file later
     public static void main(String[] args) throws IOException {
+    	//these code may move to MainView
     	List<MyClass> myClasses=new LinkedList<>();
     	//choose a java file to compile
     	JFileChooser chooser=new JFileChooser("./");
