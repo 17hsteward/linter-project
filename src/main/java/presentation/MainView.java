@@ -76,7 +76,7 @@ public class MainView {
 		});
 		p1.add(b2);
 		
-		JButton b3=new JButton("print UML code");
+		JButton b3=new JButton("display UML code");
 		b3.addActionListener(new ActionListener() {
 
 			@Override
@@ -88,8 +88,10 @@ public class MainView {
 				}else {
 					//open UMLViewer
 					UMLGenerator uml=new UMLGenerator(myClasses);
-			    	System.out.println(uml.generateAllUMLCode());
+					String code=uml.generateAllUMLCode();
+			    	System.out.println(code);
 			    	l1.setText("UML printed");
+			    	new UMLViewer(code);
 				}
 			}
 			
