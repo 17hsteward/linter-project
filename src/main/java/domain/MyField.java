@@ -9,12 +9,18 @@ public class MyField implements UML{
 	private String desc;
 	private int access;
 	private String signature;
+	private boolean isList;
+	private String listType;
 	
 	public MyField(FieldNode mf) {
 		access=mf.access&(Opcodes.ACC_PUBLIC+Opcodes.ACC_PROTECTED+Opcodes.ACC_PRIVATE);
 		this.name=mf.name;
 		this.desc=mf.desc;
 		this.signature=mf.signature;
+		this.isList=this.signature!=null;
+		if(this.isList) {
+			this.listType=this.signature.substring(this.signature.indexOf("<")+1,this.signature.length()-2);
+		}
 	}
 	public String toUML() {
 		String s;
@@ -31,10 +37,11 @@ public class MyField implements UML{
 			default:
 				s="~";
 		}
-		
-		if(this.signature!=null) {
-			s+=this.name+":"+UML.typeConvert(this.signature);
+		if(isList) {
+			//list
+			s+=this.name+":List<"+UML.typeConvert(this.listType)+">";
 		}else {
+			//not list
 			s+=this.name+":"+UML.typeConvert(this.desc);
 		}
 		return s;

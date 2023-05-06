@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.List;
+import java.util.LinkedList;
 
 import org.objectweb.asm.Attribute;
 import org.objectweb.asm.Opcodes;
@@ -12,6 +13,8 @@ public class MyMethod implements UML{
 	private int access;
 	List<Attribute> attrs;
 	private String desc;
+	private List<String> parameters;
+	private String returnType;
 	//sub method from other classes
 	
 	public MyMethod(MethodNode mn) {
@@ -19,6 +22,31 @@ public class MyMethod implements UML{
 		attrs=mn.attrs;
 		this.name=mn.name;
 		this.desc=mn.desc;
+		int i=desc.lastIndexOf(')');
+//		System.out.println(desc);
+//		System.out.println(this.desc.substring(1,i));
+//		System.out.println(this.desc.substring(i+1));
+		this.parameters=new LinkedList<>();
+		for(String s:this.desc.substring(1,i).split(";")) {
+			if(s.isBlank()) {
+				continue;
+			}
+			
+			if(s.contains("/")) {
+				s=UML.typeConvert(s);
+			}else {
+				for(char c:s.toCharArray()) {
+					this.parameters.add(String.valueOf(c));
+				}
+				continue;
+			}
+			this.parameters.add(s);
+		}
+//		for(String s:this.parameters) {
+//			System.out.println(s);
+//		}System.out.println();
+		
+		this.returnType=this.desc.substring(i+1);
 	}
 	public String toUML() {
 		String s;
@@ -45,9 +73,17 @@ public class MyMethod implements UML{
 //				s+=",";
 //			}
 //		}
-		int i=desc.lastIndexOf(')')+1;
-		s+=UML.typeConvert(desc.substring(0, i))+":"+UML.typeConvert(desc.substring(i));
-		
+//		int i=desc.lastIndexOf(')')+1;
+//		System.out.println(desc);
+//		s+=UML.typeConvert(desc.substring(0, i))+":"+UML.typeConvert(desc.substring(i));
+		s+="(";
+		for(String s2:this.parameters) {
+			s+=UML.typeConvert(s2)+",";
+		}
+		if(s.charAt(s.length()-1)==',') {
+			s=s.substring(0, s.length()-1);
+		}
+		s+="):"+UML.typeConvert(this.returnType);
 		return s;
 	}
 }
