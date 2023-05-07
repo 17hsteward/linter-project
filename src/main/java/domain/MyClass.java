@@ -9,4 +9,5 @@ public abstract class MyClass {
 	public abstract String getExtend();
 	public abstract List<String> getImplement();
 	public abstract List<String> getDependent();
+	public abstract void getAllClasses(List<String> classNames);
 }

@@ -83,7 +83,7 @@ public class ASMClass extends MyClass {
 		for(MyMethod m:this.methods) {
 			s+="    "+m.toUML()+"\n";
 		}
-		s+="}\n";
+		s+="}\n\n";
 		return s;
 	}
 	/**
@@ -114,14 +114,10 @@ public class ASMClass extends MyClass {
 		
 		//dependent
 		//for all methods internal types
-		for(MyMethod mm:methods) {
-			for(String d:mm.getDependent()) {
-				if(names.contains(d)) {
-					s+=this.packageName+"."+this.className+"..>"+d+"\n";
-				}
-			}
+		for(String d:this.dependent) {
+			s+=this.packageName+"."+this.className+"..>"+d+"\n";
 		}
-		
+
 		return s;
 	}
 	
@@ -151,5 +147,16 @@ public class ASMClass extends MyClass {
 	public List<String> getDependent() {
 		// TODO Auto-generated method stub
 		return this.dependent;
+	}
+
+	public void getAllClasses(List<String> names) {
+		// TODO Auto-generated method stub
+		for(MyMethod mm:methods) {
+			for(String d:mm.getDependent()) {
+				if(names.contains(d)&&!this.dependent.contains(d)) {
+					this.dependent.add(d);
+				}
+			}
+		}
 	}
 }
