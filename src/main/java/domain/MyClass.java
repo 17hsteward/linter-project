@@ -115,7 +115,7 @@ public class MyClass {
 		for(MyMethod mm:methods) {
 			for(String d:mm.getDependent()) {
 				if(names.contains(d)) {
-					s+=this.packageName+"."+this.className+"..>"+d;
+					s+=this.packageName+"."+this.className+"..>"+d+"\n";
 				}
 			}
 		}
