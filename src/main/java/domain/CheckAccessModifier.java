@@ -20,11 +20,12 @@ public class CheckAccessModifier extends Check{
 				if((f.getAccess()&Opcodes.ACC_PRIVATE)!=0) {
 					for(MyClass c2:myClasses) {
 						//c2 get dependency
+						;
 					}
 				}
 			}
 		}
-		return "result of access modifier check respond";
+		return "result of access modifier check; ";
 	}
 
 	@Override

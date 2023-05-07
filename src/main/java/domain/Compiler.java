@@ -47,10 +47,10 @@ public class Compiler {
 		    		
 		    		MyClass mc=new MyClass(classNode);
 					myClasses.add(mc);
-//					mc.printClass();//print the class to verify
+					//mc.printClass();//print the class to verify
 					
 					in.close();
-					classFile.delete();//comment this line to keep the class file in src/main/resources/
+					classFile.delete();//comment this line to keep the class file with their java file
 				}else{
 					System.out.println("fail to compile "+f.getName());
 				}

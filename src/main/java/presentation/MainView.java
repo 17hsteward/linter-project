@@ -13,6 +13,8 @@ import javax.swing.*;
 
 import domain.Check;
 import domain.CheckAccessModifier;
+import domain.CheckMethodChaining;
+import domain.CheckObserverPattern;
 import domain.Compiler;
 import domain.MyClass;
 import domain.UMLGenerator;
@@ -24,6 +26,8 @@ public class MainView {
 	public MainView() {
 		this.checks=new LinkedList<>();
 		this.checks.add(new CheckAccessModifier());
+		this.checks.add(new CheckMethodChaining());
+		this.checks.add(new CheckObserverPattern());
 		
 		this.c=new Compiler();
 		JFrame frame=new JFrame();
@@ -168,12 +172,15 @@ public class MainView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				String checkResult="";
 				for(int i=0;i<checkBoxes.size();i++) {
 					if(checkBoxes.get(i).isSelected()) {
 						String s=checks.get(i).test(myClasses);
-						result.setText(s);
+						checkResult+=s;
+						
 					}
 				}
+				result.setText(checkResult);
 			}
 			
 		});

@@ -1,3 +1,42 @@
 @startuml
-note "Replace this with your work" as N1
+abstract class Project{
++Project(File[])
+}
+abstract class Package{
+
+}
+
+abstract class Class{
+
+}
+
+abstract class Method{
+
+}
+
+abstract class Field{
+
+}
+
+abstract class Check{
++{abstract}test(p:Project):String
+}
+
+enum AccessModifier{
+public
+private
+protected
+}
+
+Enum ClassRelation{
+
+}
+
+Project-->"*"Package
+Package-->"*"Class
+Class-->"*"Method
+Class-->"*"Field
+
+
+
 @enduml
