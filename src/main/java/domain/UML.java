@@ -34,6 +34,12 @@ public interface UML {
 		if(type.startsWith("Ljava/util/List<")) {
 			type=type.replaceFirst("Ljava/util/List<", "List<");
 		}
+		if(type.charAt(type.length()-1)==',') {
+			type=type.substring(0,type.length()-1);
+		}
+		if(type.charAt(0)=='L') {
+			type=type.substring(1);
+		}
 		return type;
 	}
 }

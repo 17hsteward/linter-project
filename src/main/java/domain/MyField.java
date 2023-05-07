@@ -25,7 +25,6 @@ public class MyField implements UML{
 		this.isList=this.signature!=null;
 		if(this.isList) {
 			this.listType=this.signature.substring(this.signature.indexOf("<")+1,this.signature.length()-3);
-			
 		}
 	}
 	public String toUML() {
@@ -57,5 +56,12 @@ public class MyField implements UML{
 			s+=this.name+":"+UML.typeConvert(this.desc);
 		}
 		return s;
+	}
+	public String getType() {
+		if(isList) {
+			return this.listType;
+		}else {
+			return this.desc;
+		}
 	}
 }

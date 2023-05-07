@@ -3,7 +3,6 @@ package domain;
 import java.util.List;
 import java.util.LinkedList;
 
-import org.objectweb.asm.Attribute;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.FieldNode;
@@ -13,7 +12,7 @@ public class MyClass {
 //	private ClassNode classNode;
 	private String className;
 	private String extend;
-	private boolean p;
+//	private boolean p;
 	private List<String> implement;
 	private List<MyField> fields;
 	private List<MyMethod> methods;
@@ -21,8 +20,6 @@ public class MyClass {
 //	private MyClass extend;
 //	private List<MyClass> implement;
 	//innerclass
-	//whether is abstract or interface
-	//package
 	private boolean isAbstract;
 	private boolean isInterface;
 	private String packageName;
@@ -30,7 +27,7 @@ public class MyClass {
 	public MyClass(ClassNode cn) {
 //		this.classNode=cn;
 		this.className=cn.name;
-		this.p=(cn.access & Opcodes.ACC_PUBLIC) != 0;
+//		this.p=(cn.access & Opcodes.ACC_PUBLIC) != 0;
 		this.isAbstract=(cn.access & Opcodes.ACC_ABSTRACT) != 0;
 		this.isInterface=(cn.access & Opcodes.ACC_INTERFACE) != 0;
 		this.extend=cn.superName;
@@ -45,7 +42,6 @@ public class MyClass {
 		for(MethodNode f:cn.methods) {
 			this.methods.add(new MyMethod(f));
 		}
-//		this.packageName;
 		this.className=this.className.replaceAll("/",".");
 		this.packageName=this.className.substring(0,this.className.lastIndexOf("."));
 		this.className=this.className.substring(this.className.lastIndexOf(".")+1);
@@ -94,25 +90,34 @@ public class MyClass {
 	 * get the relation to other class in string uml
 	 * @return uml code that points to other class
 	 */
-	public String toRelationUML() {//input list of existing class
+	public String toRelationUML(List<String> names) {//input list of existing class
 		String s="";
 		//has a
 		//for all fields
-		
+		for(MyField mf:fields) {
+//			System.out.println(UML.typeConvert(mf.getType()));
+			if(names.contains(UML.typeConvert(mf.getType()))) {
+				s+=this.packageName+"."+this.className+"->"+UML.typeConvert(mf.getType())+"\n";
+			}
+		}
 		//extend
 		//java/lang/Object
 		if(!this.extend.equals("java/lang/Object")) {
-			s+=this.className+"-|>"+this.extend.replaceAll("/",".")+"\n";
+			s+=this.packageName+"."+this.className+"-|>"+this.extend.replaceAll("/",".")+"\n";
 		}
 		//implement
 		//[]
 		for(String i:this.implement) {
-			s+=this.className+"..|>"+i.replaceAll("/",".")+"\n";
+			s+=this.packageName+"."+this.className+"..|>"+i.replaceAll("/",".")+"\n";
 		}
 		
 		//dependent
 		//for all methods internal types
 		
 		return s;
+	}
+	
+	public String getName() {
+		return this.packageName+"."+this.className;
 	}
 }
