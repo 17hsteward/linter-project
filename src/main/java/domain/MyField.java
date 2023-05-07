@@ -64,4 +64,7 @@ public class MyField implements UML{
 			return this.desc;
 		}
 	}
+	public int getAccess() {
+		return this.access;
+	}
 }

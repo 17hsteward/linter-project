@@ -126,4 +126,10 @@ public class MyClass {
 	public String getName() {
 		return this.packageName+"."+this.className;
 	}
+	public List<MyField> getFields(){
+		return this.fields;
+	}
+	public List<MyMethod> getMethods(){
+		return this.methods;
+	}
 }
