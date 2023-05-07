@@ -37,7 +37,7 @@ public interface UML {
 		if(type.charAt(type.length()-1)==',') {
 			type=type.substring(0,type.length()-1);
 		}
-		if(type.charAt(0)=='L') {
+		if(type.charAt(0)=='L'&&!type.startsWith("List")) {
 			type=type.substring(1);
 		}
 		return type;

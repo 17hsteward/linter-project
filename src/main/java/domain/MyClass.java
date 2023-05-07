@@ -17,8 +17,6 @@ public class MyClass {
 	private List<MyField> fields;
 	private List<MyMethod> methods;
 	
-//	private MyClass extend;
-//	private List<MyClass> implement;
 	//innerclass
 	private boolean isAbstract;
 	private boolean isInterface;
@@ -95,16 +93,17 @@ public class MyClass {
 		//has a
 		//for all fields
 		for(MyField mf:fields) {
-//			System.out.println(UML.typeConvert(mf.getType()));
 			if(names.contains(UML.typeConvert(mf.getType()))) {
-				s+=this.packageName+"."+this.className+"->"+UML.typeConvert(mf.getType())+"\n";
+				s+=this.packageName+"."+this.className+"-->"+UML.typeConvert(mf.getType())+"\n";
 			}
 		}
+		
 		//extend
 		//java/lang/Object
 		if(!this.extend.equals("java/lang/Object")) {
-			s+=this.packageName+"."+this.className+"-|>"+this.extend.replaceAll("/",".")+"\n";
+			s+=this.packageName+"."+this.className+"--|>"+this.extend.replaceAll("/",".")+"\n";
 		}
+		
 		//implement
 		//[]
 		for(String i:this.implement) {
@@ -113,6 +112,13 @@ public class MyClass {
 		
 		//dependent
 		//for all methods internal types
+		for(MyMethod mm:methods) {
+			for(String d:mm.getDependent()) {
+				if(names.contains(d)) {
+					s+=this.packageName+"."+this.className+"..>"+d;
+				}
+			}
+		}
 		
 		return s;
 	}

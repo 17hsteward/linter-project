@@ -22,7 +22,7 @@ public class MainView {
 		
 		JFrame frame=new JFrame();
 		frame.setTitle("main view");
-		frame.setSize(960,540);
+		frame.setSize(1440,810);
 		JPanel p1=new JPanel();
 		frame.add(p1,BorderLayout.NORTH);
 		
@@ -75,6 +75,27 @@ public class MainView {
 			
 		});
 		p1.add(b2);
+		
+		JButton b2Linter=new JButton("import this project");
+		b2Linter.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				l1.setText("loading");
+//		    	File[] files=new File[]{new File("./src/test/java/domain/Test.java")};//choose specific file to test accessing
+		    	File[] files=new File[]{new File("./")};
+		    	try {
+					myClasses=c.read(files);
+				} catch (IOException exception) {
+					// TODO Auto-generated catch block
+					exception.printStackTrace();
+				}
+		    	l1.setText("test file imported");
+			}
+			
+		});
+		p1.add(b2Linter);
 		
 		JButton b3=new JButton("print UML code in console");
 		b3.addActionListener(new ActionListener() {

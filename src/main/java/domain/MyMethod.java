@@ -30,6 +30,7 @@ public class MyMethod implements UML{
 	private boolean isStatic;
 	private boolean isFinal;
 	private InsnList instructions;
+	private List<String> dependent;
 	//other classes be used
 	
 	public MyMethod(MethodNode mn) {
@@ -40,6 +41,7 @@ public class MyMethod implements UML{
 		this.desc=mn.desc;
 		int i=desc.lastIndexOf(')');
 		this.parameters=new LinkedList<>();
+		this.dependent=new LinkedList<>();//for all InstNode, identify type and add to it
 		this.instructions=mn.instructions;
 		/**
 		System.out.println("\n"+this.name);
@@ -80,7 +82,13 @@ public class MyMethod implements UML{
 			//IntInsnNode
 			//JumpInsnNode
 			//TypeInsnNode
-			
+			//IincInsnNode
+			//InsnNode
+			//InvokeDynamicInsnNode
+			//LdcInsnNode
+			//LookupSwitchInsnNode
+			//MultiANewArrayInsnNode
+			//TableSwitchInsnNode
 			
 		}
 		System.out.println(this.instructions.size());
@@ -108,6 +116,11 @@ public class MyMethod implements UML{
 		//return type
 		this.returnType=this.desc.substring(i+1);
 	}
+	
+	public List<String> getDependent(){
+		return this.dependent;
+	}
+	
 	public String toUML() {
 		String s;
 		
