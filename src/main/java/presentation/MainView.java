@@ -117,7 +117,6 @@ public class MainView {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				if(myClasses==null||myClasses.size()==0) {
-					System.out.println("please import files first");
 					l1.setText("please import files first");
 				}else {
 					//open UMLViewer
@@ -138,7 +137,6 @@ public class MainView {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				if(myClasses==null||myClasses.size()==0) {
-					System.out.println("please import files first");
 					l1.setText("please import files first");
 				}else {
 					//open UMLViewer

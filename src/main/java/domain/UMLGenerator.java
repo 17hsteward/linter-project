@@ -20,10 +20,10 @@ public class UMLGenerator {
 	public String generateAllUMLCode() {
 		String s="@startuml\n";
 		for(MyClass myClass:myClasses) {
-			s+=myClass.toClassUML();
+			s+=((ASMClass)myClass).toClassUML();
 		}
 		for(MyClass myClass:myClasses) {
-			s+=myClass.toRelationUML(this.myClassNames);
+			s+=((ASMClass)myClass).toRelationUML(this.myClassNames);
 		}
 		s+="@enduml\n";
 		return s;

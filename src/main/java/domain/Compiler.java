@@ -45,7 +45,7 @@ public class Compiler {
 		    		ClassNode classNode = new ClassNode();
 		    		reader.accept(classNode, ClassReader.EXPAND_FRAMES);
 		    		
-		    		MyClass mc=new MyClass(classNode);
+		    		MyClass mc=new ASMClass(classNode);
 					myClasses.add(mc);
 					//mc.printClass();//print the class to verify
 					

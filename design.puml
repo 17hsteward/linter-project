@@ -28,7 +28,7 @@ private
 protected
 }
 
-Enum ClassRelation{
+enum ClassRelation{
 
 }
 
