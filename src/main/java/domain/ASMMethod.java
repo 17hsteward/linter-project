@@ -158,4 +158,7 @@ public class ASMMethod extends MyMethod implements UML{
 		s+="):"+UML.typeConvert(this.returnType);
 		return s;
 	}
+	public String getName() {
+		return this.name;
+	}
 }

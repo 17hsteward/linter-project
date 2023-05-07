@@ -14,18 +14,28 @@ public class CheckAccessModifier extends Check{
 		//for all class, check their path relationship
 		//for all method call
 		//check whether exists same field or method and compare privacy
+		String result="";
 		for(MyClass c:myClasses) {
 			for(MyField f:c.getFields()) {
 				//check for not private field
 				if((f.getAccess()&Opcodes.ACC_PRIVATE)!=0) {
+					boolean has=false;
 					for(MyClass c2:myClasses) {
+						if(c==c2) {
+							continue;
+						}
 						//c2 get dependency
-						;
+						if(c2.getDependent().contains(c.getName())) {
+							has=true;
+						}
+					}
+					if(!has) {
+						result+="unnecessary access modifier for "+f.getName()+" in class "+c.getName();
 					}
 				}
 			}
 		}
-		return "result of access modifier check; ";
+		return result;
 	}
 
 	@Override

@@ -67,4 +67,7 @@ public class ASMField extends MyField implements UML{
 	public int getAccess() {
 		return this.access;
 	}
+	public String getName() {
+		return this.name;
+	}
 }

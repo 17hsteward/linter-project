@@ -150,7 +150,6 @@ public class ASMClass extends MyClass {
 	}
 
 	public void getAllClasses(List<String> names) {
-		// TODO Auto-generated method stub
 		for(MyMethod mm:methods) {
 			for(String d:mm.getDependent()) {
 				if(names.contains(d)&&!this.dependent.contains(d)) {
