@@ -18,7 +18,7 @@ Marcus Henderson, Hailey Steward,  Yuchen Cai, Kelly Xu
 |:----------|:------------|:----------------|:--------------|:---------------------|
 | Marcus Henderson      |    Oracle Naming Conventions        |       Liskov's Substitution Principle          |     Template Method Pattern          |                      |
 | Hailey Steward    |  Missing implementations of abstract types     |        Hollywood         |     Adapter Pattern          |                    |
-| Yuchen Cai      | Access modifier | Method chaining | Observer pattern |                      |
+| Yuchen Cai      | Access modifier | Method chaining | Observer pattern | UML code |
 | Kelly Xu     | Data Class Detection | Coupling and Cohesion | Three Layer Principle | Generate plantUML code and Diagram |
 
 

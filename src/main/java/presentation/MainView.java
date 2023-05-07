@@ -6,10 +6,13 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.LinkedList;
 
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.*;
 
+import domain.Check;
+import domain.CheckAccessModifier;
 import domain.Compiler;
 import domain.MyClass;
 import domain.UMLGenerator;
@@ -17,14 +20,20 @@ import domain.UMLGenerator;
 public class MainView {
 	List<MyClass> myClasses;
 	Compiler c;
+	List<Check> checks;
 	public MainView() {
-		c=new Compiler();
+		this.checks=new LinkedList<>();
+		this.checks.add(new CheckAccessModifier());
 		
+		this.c=new Compiler();
 		JFrame frame=new JFrame();
 		frame.setTitle("main view");
 		frame.setSize(1440,810);
+		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
 		JPanel p1=new JPanel();
 		frame.add(p1,BorderLayout.NORTH);
+		JPanel p2=new JPanel();
+		frame.add(p2);
 		
 		JLabel l1=new JLabel("please import java files");
 		p1.add(l1);
@@ -138,6 +147,38 @@ public class MainView {
 			
 		});
 		p1.add(b4);
+		
+		JLabel l2=new JLabel("select checks");
+		p2.add(l2);
+		
+		JLabel result=new JLabel("");
+		
+		List<JCheckBox> checkBoxes=new LinkedList<>();
+		for(Check check:checks) {
+			JLabel boxLabel=new JLabel(check.getName());
+			JCheckBox box=new JCheckBox();
+			checkBoxes.add(box);
+			p2.add(boxLabel);
+			p2.add(box);
+		}
+		JButton start=new JButton("start");
+		p2.add(start);
+		start.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				for(int i=0;i<checkBoxes.size();i++) {
+					if(checkBoxes.get(i).isSelected()) {
+						String s=checks.get(i).test(myClasses);
+						result.setText(s);
+					}
+				}
+			}
+			
+		});
+		p2.add(result);
+		
 		
 		frame.setVisible(true);
 		

@@ -2,7 +2,7 @@ package domain;
 
 import java.util.List;
 
-public class AccessModifierCheck extends Check{
+public class CheckAccessModifier extends Check{
 
 	@Override
 	public String test(List<MyClass> myClasses) {
@@ -12,7 +12,13 @@ public class AccessModifierCheck extends Check{
 		//for all class, check their path relationship
 		//for all method call
 		//check whether exists same field or method and compare privacy
-		return null;
+		return "result of access modifier check respond";
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return "check access modifier";
 	}
 
 }
