@@ -33,14 +33,10 @@ public class Compiler {
 				if(javac.run(null, null, null, f.getAbsolutePath())==0) {
 		    		File classFile=this.reader.getClassFromJava(f.getAbsolutePath());
 		            InputStream in = null;
-		    		try {
-		    			in = new FileInputStream(classFile);
+					try {
+						in = new FileInputStream(classFile);
 						ClassReader reader= null;
-						try {
-							reader = new ClassReader(in);
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
+						reader = new ClassReader(in);
 						ClassNode classNode = new ClassNode();
 						reader.accept(classNode, ClassReader.EXPAND_FRAMES);
 
@@ -50,10 +46,9 @@ public class Compiler {
 
 						in.close();
 						classFile.delete();//comment this line to keep the class file with their java file
-		    		} catch (IOException e) {
-						System.out.println("fail to compile "+f.getName());
-		    		}
-
+					} catch (IOException e) {
+							System.out.println("fail to compile "+f.getName());
+					}
 				}
 			}
 		}
