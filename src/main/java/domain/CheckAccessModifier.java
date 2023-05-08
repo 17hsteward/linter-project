@@ -15,8 +15,8 @@ public class CheckAccessModifier extends Check{
 		//for all method call
 		//check whether exists same field or method and compare privacy
 		String result="";
-		//check field
 		for(MyClass c:myClasses) {
+			//check field
 			for(MyField f:c.getFields()) {
 				//check for not private field
 				if((f.getAccess()&Opcodes.ACC_PRIVATE)!=0) {
@@ -31,12 +31,26 @@ public class CheckAccessModifier extends Check{
 						}
 					}
 					if(!has) {
-						result+="unnecessary access modifier for "+f.getName()+" in class "+c.getName();
+						result+="unnecessary access modifier privacy for field "+f.getName()+" in class "+c.getName();
+					}
+				}
+			}
+			//check method
+			for(MyMethod m:c.getMethods()) {
+				if((m.getAccess()&Opcodes.ACC_PRIVATE)!=0) {
+					boolean has=false;
+					for(MyClass c2:myClasses) {
+						if(c==c2) {
+							continue;
+						}
+						//requires further analysis on the method body
+//						if(c2.getDependent())
 					}
 				}
 			}
 		}
-		//check method
+		
+		
 		return result;
 	}
 

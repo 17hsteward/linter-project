@@ -45,7 +45,7 @@ public class ASMMethod extends MyMethod implements UML{
 			}else if(node instanceof InsnNode) {
 //				System.out.println("	"+((InsnNode)node).getType());
 			}else if(node instanceof MethodInsnNode) {
-//				System.out.println("	"+((MethodInsnNode)node).name);
+				System.out.println(((MethodInsnNode)node).owner+"	"+((MethodInsnNode)node).name);
 			}else if(node instanceof FieldInsnNode) {
 //				System.out.println("	"+((FieldInsnNode)node).name);
 //				System.out.println("	"+((FieldInsnNode)node).owner);
@@ -88,6 +88,7 @@ public class ASMMethod extends MyMethod implements UML{
 			
 		}
 		
+		
 		//parse input argument
 		for(String s:this.desc.substring(1,i).split(";")) {
 			if(s.isBlank()) {
@@ -110,7 +111,7 @@ public class ASMMethod extends MyMethod implements UML{
 		//return type
 		this.returnType=this.desc.substring(i+1);
 	}
-	
+
 	public String toUML() {
 		String s;
 		
@@ -143,5 +144,36 @@ public class ASMMethod extends MyMethod implements UML{
 		s+="):"+UML.typeConvert(this.returnType);
 		return s;
 	}
-	
+
+	public boolean isGetter(){
+		if(instructions.size()!=3){
+			return false;
+		}
+		AbstractInsnNode insn1 = instructions.get(0);
+		if((insn1.getOpcode() & Opcodes.ALOAD)==0){
+			return false;
+		}
+		AbstractInsnNode insn2 = instructions.get(1);
+		if((insn2.getOpcode() & Opcodes.GETFIELD)==0){
+			return false;
+		}
+		return true;
+	}
+
+	public  boolean isSetter(){
+		if(instructions.size()!=4){
+			return false;
+		}
+		AbstractInsnNode insn1 = instructions.get(0);
+		if((insn1.getOpcode() & Opcodes.ALOAD)==0){
+			return false;
+		}
+		AbstractInsnNode insn3 = instructions.get(2);
+		if((insn3.getOpcode() & Opcodes.PUTFIELD)==0){
+			return false;
+		}
+		return true;
+	}
+
+
 }
