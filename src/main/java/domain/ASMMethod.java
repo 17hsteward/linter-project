@@ -2,6 +2,8 @@ package domain;
 
 import java.util.List;
 import java.util.LinkedList;
+
+import net.sourceforge.plantuml.activitydiagram3.Instruction;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.FieldInsnNode;
@@ -158,6 +160,37 @@ public class ASMMethod extends MyMethod implements UML{
 		s+="):"+UML.typeConvert(this.returnType);
 		return s;
 	}
+
+	public boolean isGetter(){
+		if(instructions.size()!=3){
+			return false;
+		}
+		AbstractInsnNode insn1 = instructions.get(0);
+		if((insn1.getOpcode() & Opcodes.ALOAD)==0){
+			return false;
+		}
+		AbstractInsnNode insn2 = instructions.get(1);
+		if((insn2.getOpcode() & Opcodes.GETFIELD)==0){
+			return false;
+		}
+		return true;
+	}
+
+	public  boolean isSetter(){
+		if(instructions.size()!=4){
+			return false;
+		}
+		AbstractInsnNode insn1 = instructions.get(0);
+		if((insn1.getOpcode() & Opcodes.ALOAD)==0){
+			return false;
+		}
+		AbstractInsnNode insn3 = instructions.get(2);
+		if((insn3.getOpcode() & Opcodes.PUTFIELD)==0){
+			return false;
+		}
+		return true;
+	}
+
 	public String getName() {
 		return this.name;
 	}
