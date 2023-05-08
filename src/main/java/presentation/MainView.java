@@ -13,6 +13,8 @@ import javax.swing.*;
 
 import domain.*;
 import domain.Compiler;
+import domain.MyClass;
+import domain.UMLGenerator;
 
 public class MainView {
 	List<MyClass> myClasses;
@@ -24,7 +26,10 @@ public class MainView {
 		this.checks.add(new CheckMethodChaining());
 		this.checks.add(new CheckObserverPattern());
 		this.checks.add(new CheckDataClass());
-		
+		this.checks.add(new CheckAbstractInstance());
+		this.checks.add(new CheckHollyWoodPrinciple());
+		this.checks.add(new CheckAdapterPattern());
+
 		this.c=new Compiler();
 		JFrame frame=new JFrame();
 		frame.setTitle("main view");
