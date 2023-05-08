@@ -18,4 +18,7 @@ public abstract class MyMethod {
 	public String getName() {
 		return this.name;
 	}
+	public int getAccess() {
+		return this.access;
+	}
 }
