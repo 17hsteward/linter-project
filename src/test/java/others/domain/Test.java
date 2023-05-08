@@ -1,4 +1,4 @@
-package domain;
+package others.domain;
 import java.util.List;
 
 public class Test {

@@ -1,8 +1,8 @@
-package domain;
+package JUnitTests;
 
 import org.junit.jupiter.api.Test;
 
-public class AbstractInstance {
+public class TestCheckAbstractInstance {
 
     @Test
     public void checkIfClassAbstract_Success(){

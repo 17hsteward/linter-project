@@ -1,8 +1,8 @@
-package domain;
+package JUnitTests;
 
 import org.junit.jupiter.api.Test;
 
-public class HollywoodPrinciple {
+public class TestCheckHollywoodPrinciple {
     @Test
     public void violatesPrinciple(){
 

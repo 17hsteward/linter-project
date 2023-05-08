@@ -1,4 +1,4 @@
-package hasDataClass;
+package filesToTest.hasDataClass;
 
 public class Animal {
     private String name;
