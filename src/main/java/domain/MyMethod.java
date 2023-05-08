@@ -21,4 +21,7 @@ public abstract class MyMethod {
 	public int getAccess() {
 		return this.access;
 	}
+
+	public abstract boolean isGetter();
+	public abstract boolean isSetter();
 }

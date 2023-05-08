@@ -145,4 +145,35 @@ public class ASMMethod extends MyMethod implements UML{
 		return s;
 	}
 
+	public boolean isGetter(){
+		if(instructions.size()!=3){
+			return false;
+		}
+		AbstractInsnNode insn1 = instructions.get(0);
+		if((insn1.getOpcode() & Opcodes.ALOAD)==0){
+			return false;
+		}
+		AbstractInsnNode insn2 = instructions.get(1);
+		if((insn2.getOpcode() & Opcodes.GETFIELD)==0){
+			return false;
+		}
+		return true;
+	}
+
+	public  boolean isSetter(){
+		if(instructions.size()!=4){
+			return false;
+		}
+		AbstractInsnNode insn1 = instructions.get(0);
+		if((insn1.getOpcode() & Opcodes.ALOAD)==0){
+			return false;
+		}
+		AbstractInsnNode insn3 = instructions.get(2);
+		if((insn3.getOpcode() & Opcodes.PUTFIELD)==0){
+			return false;
+		}
+		return true;
+	}
+
+
 }
