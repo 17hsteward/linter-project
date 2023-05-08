@@ -2,8 +2,11 @@ package presentation;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -34,21 +37,19 @@ public class MainView {
 		this.c=new Compiler();
 		JFrame frame=new JFrame();
 		frame.setTitle("main view");
-		frame.setSize(1440,810);
+		frame.setSize(1440,540);
 		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
 		JPanel p1=new JPanel();
-		frame.add(p1,BorderLayout.NORTH);
+		frame.add(p1,BorderLayout.SOUTH);
 		JPanel p2=new JPanel();
-		frame.add(p2);
-		JPanel ptext=new JPanel();
-		JScrollPane sp=new JScrollPane();
-		sp.setPreferredSize(new Dimension(960,540));
-		sp.setVerticalScrollBarPolicy(sp.VERTICAL_SCROLLBAR_AS_NEEDED);
-		sp.setHorizontalScrollBarPolicy(sp.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		JTextArea textArea=new JTextArea(960,540);
-		ptext.add(sp);
-		sp.add(textArea);
-		frame.add(ptext,BorderLayout.SOUTH);
+		p2.setLayout(new FlowLayout());
+		frame.add(p2,BorderLayout.NORTH);
+		
+		JTextArea textArea = new JTextArea();
+		JScrollPane scrollPane = new JScrollPane(textArea); 
+		textArea.setEditable(false);
+		frame.add(scrollPane);
+		
 		
 		JLabel l1=new JLabel("please import java files");
 		p1.add(l1);
@@ -120,6 +121,7 @@ public class MainView {
 					String code=uml.generateAllUMLCode();
 			    	System.out.println(code);
 			    	l1.setText("UML printed");
+			    	textArea.setText(code);
 				}
 			}
 			
@@ -146,14 +148,25 @@ public class MainView {
 		});
 		p1.add(b4);
 		
-		JLabel l2=new JLabel("select checks:        ");
+		JLabel l2=new JLabel("select checks:        select all");
 		p2.add(l2);
-		
-		JLabel result=new JLabel("");
-		
+		JCheckBox all=new JCheckBox();
+		p2.add(all);
 		List<JCheckBox> checkBoxes=new LinkedList<>();
+		all.addItemListener(new ItemListener() {
+
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				// TODO Auto-generated method stub
+				for(JCheckBox check:checkBoxes) {
+					check.setSelected(all.isSelected());
+				}
+			}
+			
+		});
+		
 		for(Check check:checks) {
-			JLabel boxLabel=new JLabel(check.getName());
+			JLabel boxLabel=new JLabel("    "+check.getName());
 			JCheckBox box=new JCheckBox();
 			checkBoxes.add(box);
 			p2.add(boxLabel);
@@ -169,16 +182,13 @@ public class MainView {
 				String checkResult="";
 				for(int i=0;i<checkBoxes.size();i++) {
 					if(checkBoxes.get(i).isSelected()) {
-						String s=checks.get(i).test(myClasses);
-						checkResult+=s;
-						
+						checkResult+=checks.get(i).getName()+":\n"+checks.get(i).test(myClasses)+"\n";
 					}
 				}
-				result.setText(checkResult);
+				textArea.setText(checkResult);
 			}
 			
 		});
-		p2.add(result);
 		
 		
 		frame.setVisible(true);
