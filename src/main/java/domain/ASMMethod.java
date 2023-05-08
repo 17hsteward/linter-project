@@ -1,9 +1,6 @@
 package domain;
 
-import java.util.List;
 import java.util.LinkedList;
-
-import net.sourceforge.plantuml.activitydiagram3.Instruction;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.FieldInsnNode;
@@ -21,15 +18,7 @@ import org.objectweb.asm.tree.VarInsnNode;
 
 public class ASMMethod extends MyMethod implements UML{
 //	private MethodNode methodNode;
-	private String name;
-	private int access;
-	private String desc;
-	private List<String> parameters;
-	private String returnType;
-	private boolean isStatic;
-	private boolean isFinal;
 	private InsnList instructions;
-	private LinkedList<String> dependent;
 	//other classes be used
 	
 	public ASMMethod(MethodNode mn) {
@@ -56,7 +45,7 @@ public class ASMMethod extends MyMethod implements UML{
 			}else if(node instanceof InsnNode) {
 //				System.out.println("	"+((InsnNode)node).getType());
 			}else if(node instanceof MethodInsnNode) {
-//				System.out.println("	"+((MethodInsnNode)node).name);
+				System.out.println(((MethodInsnNode)node).owner+"	"+((MethodInsnNode)node).name);
 			}else if(node instanceof FieldInsnNode) {
 //				System.out.println("	"+((FieldInsnNode)node).name);
 //				System.out.println("	"+((FieldInsnNode)node).owner);
@@ -79,16 +68,16 @@ public class ASMMethod extends MyMethod implements UML{
 			}else {
 //				System.out.println("unrecorded node type");
 			}
-			//LabelNode
-			//LineNumberNode
+			//LabelNode					for jump purpose, usually appear before LineNumberNode
+			//LineNumberNode			line number of original code
 			//VarInsnNode
 			//InsnNode
 			//MethodInsnNode
-			//FieldInsnNode
+			//FieldInsnNode				dependency
 			//FrameNode
 			//IntInsnNode
 			//JumpInsnNode
-			//TypeInsnNode
+			//TypeInsnNode				dependency
 			//IincInsnNode
 			//InsnNode
 			//InvokeDynamicInsnNode
@@ -119,15 +108,10 @@ public class ASMMethod extends MyMethod implements UML{
 			}
 			this.parameters.add(s);
 		}
-		
 		//return type
 		this.returnType=this.desc.substring(i+1);
 	}
-	
-	public List<String> getDependent(){
-		return this.dependent;
-	}
-	
+
 	public String toUML() {
 		String s;
 		
@@ -161,37 +145,4 @@ public class ASMMethod extends MyMethod implements UML{
 		return s;
 	}
 
-	public boolean isGetter(){
-		if(instructions.size()!=3){
-			return false;
-		}
-		AbstractInsnNode insn1 = instructions.get(0);
-		if((insn1.getOpcode() & Opcodes.ALOAD)==0){
-			return false;
-		}
-		AbstractInsnNode insn2 = instructions.get(1);
-		if((insn2.getOpcode() & Opcodes.GETFIELD)==0){
-			return false;
-		}
-		return true;
-	}
-
-	public  boolean isSetter(){
-		if(instructions.size()!=4){
-			return false;
-		}
-		AbstractInsnNode insn1 = instructions.get(0);
-		if((insn1.getOpcode() & Opcodes.ALOAD)==0){
-			return false;
-		}
-		AbstractInsnNode insn3 = instructions.get(2);
-		if((insn3.getOpcode() & Opcodes.PUTFIELD)==0){
-			return false;
-		}
-		return true;
-	}
-
-	public String getName() {
-		return this.name;
-	}
 }
