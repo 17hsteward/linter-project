@@ -68,12 +68,7 @@ public class MainView {
 		        chooser.showOpenDialog(null);
 		    	File[] files=chooser.getSelectedFiles();
 		    	l1.setText("loading");
-		    	try {
-					myClasses=c.read(files);
-				} catch (IOException exception) {
-					// TODO Auto-generated catch block
-					exception.printStackTrace();
-				}
+		    	myClasses=c.read(files);
 		    	l1.setText("files imported");
 			}
 			
@@ -89,12 +84,7 @@ public class MainView {
 				l1.setText("loading");
 		    	File[] files=new File[]{new File("./src/test/others/domain/Test.java")};//choose specific file to test accessing
 //		    	File[] files=new File[]{new File("./")};
-		    	try {
-					myClasses=c.read(files);
-				} catch (IOException exception) {
-					// TODO Auto-generated catch block
-					exception.printStackTrace();
-				}
+				myClasses=c.read(files);
 		    	l1.setText("test file imported");
 			}
 			
@@ -110,12 +100,7 @@ public class MainView {
 				l1.setText("loading");
 //		    	File[] files=new File[]{new File("./src/test/java/domain/Test.java")};//choose specific file to test accessing
 		    	File[] files=new File[]{new File("./src/main/java")};
-		    	try {
-					myClasses=c.read(files);
-				} catch (IOException exception) {
-					// TODO Auto-generated catch block
-					exception.printStackTrace();
-				}
+		    	myClasses=c.read(files);
 		    	l1.setText("test file imported");
 			}
 			

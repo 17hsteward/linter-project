@@ -1,8 +1,8 @@
-package domain;
+package JUnitTests;
 
 import org.junit.jupiter.api.Test;
 
-public class AdapterPattern {
+public class TestCheckAdapterPattern {
     @Test
     public void isTargetInterfacePresent_Success(){
 

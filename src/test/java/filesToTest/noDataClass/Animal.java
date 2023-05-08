@@ -1,4 +1,4 @@
-package noDataClass;
+package filesToTest.noDataClass;
 
 public class Animal{
 

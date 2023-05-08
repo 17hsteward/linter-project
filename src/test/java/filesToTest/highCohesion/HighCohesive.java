@@ -1,4 +1,4 @@
-package highCohesion;
+package filesToTest.highCohesion;
 
 /**
  * copied from https://www.javaguides.net/2018/08/cohesion-in-java-with-example.html

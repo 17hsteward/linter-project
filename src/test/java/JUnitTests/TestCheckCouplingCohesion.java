@@ -1,6 +1,8 @@
+package JUnitTests;
+
 import org.junit.jupiter.api.Test;
 
-public class TestCheckThreeLayer {
+public class TestCheckCouplingCohesion {
     @Test
     void test1() {
     }
