@@ -150,7 +150,7 @@ public class MainView {
 		});
 		p1.add(b4);
 		
-		JLabel l2=new JLabel("select checks");
+		JLabel l2=new JLabel("select checks:        ");
 		p2.add(l2);
 		
 		JLabel result=new JLabel("");

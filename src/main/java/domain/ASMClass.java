@@ -10,30 +10,17 @@ import org.objectweb.asm.tree.MethodNode;
 
 public class ASMClass extends MyClass {
 //	private ClassNode classNode;
-	private String className;
-	private String extend;
-//	private boolean p;
-	private List<String> implement;
-	private List<MyField> fields;
-	private List<MyMethod> methods;
-	private List<String> dependent;
-	
-	//innerclass
-	private boolean isAbstract;
-	private boolean isInterface;
-	private String packageName;
+	List<ASMField> fields;
+	List<ASMMethod> methods;
 	
 	public ASMClass(ClassNode cn) {
 //		this.classNode=cn;
 		this.className=cn.name;
-//		this.p=(cn.access & Opcodes.ACC_PUBLIC) != 0;
 		this.isAbstract=(cn.access & Opcodes.ACC_ABSTRACT) != 0;
 		this.isInterface=(cn.access & Opcodes.ACC_INTERFACE) != 0;
 		this.extend=cn.superName;
 		this.implement=cn.interfaces;
 		this.dependent=new LinkedList<>();
-//		System.out.println("extend "+this.extend);
-//		System.out.println("implement "+this.implement);
 		this.fields=new LinkedList<>();
 		this.methods=new LinkedList<>();
 		for(FieldNode f:cn.fields) {
@@ -46,8 +33,6 @@ public class ASMClass extends MyClass {
 		this.packageName=this.className.substring(0,this.className.lastIndexOf("."));
 		this.className=this.className.substring(this.className.lastIndexOf(".")+1);
 	}
-	
-	//build some getters, and might have uml getter for type conversion
 	
 	/**
 	 * print class UML content
@@ -77,10 +62,10 @@ public class ASMClass extends MyClass {
 		}
 		s+=this.className;
 		s+="{\n";
-		for(MyField f:this.fields) {
+		for(ASMField f:this.fields) {
 			s+="    "+f.toUML()+"\n";
 		}
-		for(MyMethod m:this.methods) {
+		for(ASMMethod m:this.methods) {
 			s+="    "+m.toUML()+"\n";
 		}
 		s+="}\n\n";
@@ -120,36 +105,10 @@ public class ASMClass extends MyClass {
 
 		return s;
 	}
-	
-	public String getName() {
-		return this.packageName+"."+this.className;
-	}
-	public List<MyField> getFields(){
-		return this.fields;
-	}
-	public List<MyMethod> getMethods(){
-		return this.methods;
-	}
-
-	@Override
-	public String getExtend() {
-		// TODO Auto-generated method stub
-		return this.extend;
-	}
-
-	@Override
-	public List<String> getImplement() {
-		// TODO Auto-generated method stub
-		return this.implement;
-	}
-
-	@Override
-	public List<String> getDependent() {
-		// TODO Auto-generated method stub
-		return this.dependent;
-	}
-
-	public void getAllClasses(List<String> names) {
+	/**
+	 * Input all the other classes and find the dependent by going through all methods and match with other classes
+	 */
+	public void setDependent(List<String> names) {
 		for(MyMethod mm:methods) {
 			for(String d:mm.getDependent()) {
 				if(names.contains(d)&&!this.dependent.contains(d)) {

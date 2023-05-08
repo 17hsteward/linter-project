@@ -1,6 +1,5 @@
 package domain;
 
-import java.util.List;
 import java.util.LinkedList;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.AbstractInsnNode;
@@ -19,15 +18,7 @@ import org.objectweb.asm.tree.VarInsnNode;
 
 public class ASMMethod extends MyMethod implements UML{
 //	private MethodNode methodNode;
-	private String name;
-	private int access;
-	private String desc;
-	private List<String> parameters;
-	private String returnType;
-	private boolean isStatic;
-	private boolean isFinal;
 	private InsnList instructions;
-	private LinkedList<String> dependent;
 	//other classes be used
 	
 	public ASMMethod(MethodNode mn) {
@@ -77,16 +68,16 @@ public class ASMMethod extends MyMethod implements UML{
 			}else {
 //				System.out.println("unrecorded node type");
 			}
-			//LabelNode
-			//LineNumberNode
+			//LabelNode					for jump purpose, usually appear before LineNumberNode
+			//LineNumberNode			line number of original code
 			//VarInsnNode
 			//InsnNode
 			//MethodInsnNode
-			//FieldInsnNode
+			//FieldInsnNode				dependency
 			//FrameNode
 			//IntInsnNode
 			//JumpInsnNode
-			//TypeInsnNode
+			//TypeInsnNode				dependency
 			//IincInsnNode
 			//InsnNode
 			//InvokeDynamicInsnNode
@@ -96,7 +87,6 @@ public class ASMMethod extends MyMethod implements UML{
 			//TableSwitchInsnNode
 			
 		}
-		
 		
 		//parse input argument
 		for(String s:this.desc.substring(1,i).split(";")) {
@@ -117,13 +107,8 @@ public class ASMMethod extends MyMethod implements UML{
 			}
 			this.parameters.add(s);
 		}
-		
 		//return type
 		this.returnType=this.desc.substring(i+1);
-	}
-	
-	public List<String> getDependent(){
-		return this.dependent;
 	}
 	
 	public String toUML() {
@@ -158,7 +143,5 @@ public class ASMMethod extends MyMethod implements UML{
 		s+="):"+UML.typeConvert(this.returnType);
 		return s;
 	}
-	public String getName() {
-		return this.name;
-	}
+	
 }

@@ -15,6 +15,7 @@ public class CheckAccessModifier extends Check{
 		//for all method call
 		//check whether exists same field or method and compare privacy
 		String result="";
+		//check field
 		for(MyClass c:myClasses) {
 			for(MyField f:c.getFields()) {
 				//check for not private field
@@ -35,6 +36,7 @@ public class CheckAccessModifier extends Check{
 				}
 			}
 		}
+		//check method
 		return result;
 	}
 

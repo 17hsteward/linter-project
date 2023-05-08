@@ -5,12 +5,6 @@ import org.objectweb.asm.tree.FieldNode;
 
 public class ASMField extends MyField implements UML{
 //	private FieldNode fieldNode;
-	private String name;
-	private String desc;
-	private int access;
-	private String signature;
-	private boolean isList;
-	private String listType;
 	
 	private boolean isStatic;
 	private boolean isFinal;
@@ -20,11 +14,10 @@ public class ASMField extends MyField implements UML{
 		this.isStatic=(mf.access&Opcodes.ACC_STATIC)!=0;
 		this.isFinal=(mf.access&Opcodes.ACC_FINAL)!=0;
 		this.name=mf.name;
-		this.desc=mf.desc;
-		this.signature=mf.signature;
-		this.isList=this.signature!=null;
+		this.desc=mf.desc;//field type in asm format
+		this.isList=mf.signature!=null;
 		if(this.isList) {
-			this.listType=this.signature.substring(this.signature.indexOf("<")+1,this.signature.length()-3);
+			this.listType=mf.signature.substring(mf.signature.indexOf("<")+1,mf.signature.length()-3);
 		}
 	}
 	public String toUML() {
@@ -57,17 +50,5 @@ public class ASMField extends MyField implements UML{
 		}
 		return s;
 	}
-	public String getType() {
-		if(isList) {
-			return this.listType;
-		}else {
-			return this.desc;
-		}
-	}
-	public int getAccess() {
-		return this.access;
-	}
-	public String getName() {
-		return this.name;
-	}
+	
 }
