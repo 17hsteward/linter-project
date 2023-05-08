@@ -81,7 +81,7 @@ public class MainView {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				l1.setText("loading");
-		    	File[] files=new File[]{new File("./src/test/others/domain/Test.java")};//choose specific file to test accessing
+		    	File[] files=new File[]{new File("./src/test/java/others/domain/Test.java")};//choose specific file to test accessing
 //		    	File[] files=new File[]{new File("./")};
 				myClasses=c.read(files);
 		    	l1.setText("test file imported");
