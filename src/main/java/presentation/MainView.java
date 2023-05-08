@@ -11,13 +11,8 @@ import java.util.LinkedList;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.*;
 
-import domain.Check;
-import domain.CheckAccessModifier;
-import domain.CheckMethodChaining;
-import domain.CheckObserverPattern;
+import domain.*;
 import domain.Compiler;
-import domain.MyClass;
-import domain.UMLGenerator;
 
 public class MainView {
 	List<MyClass> myClasses;
@@ -28,6 +23,7 @@ public class MainView {
 		this.checks.add(new CheckAccessModifier());
 		this.checks.add(new CheckMethodChaining());
 		this.checks.add(new CheckObserverPattern());
+		this.checks.add(new CheckDataClass());
 		
 		this.c=new Compiler();
 		JFrame frame=new JFrame();

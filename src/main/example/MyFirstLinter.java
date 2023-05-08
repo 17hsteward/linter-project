@@ -1,4 +1,4 @@
-package example;
+
 
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.Opcodes;
