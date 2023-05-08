@@ -45,7 +45,7 @@ public class ASMMethod extends MyMethod implements UML{
 			}else if(node instanceof InsnNode) {
 //				System.out.println("	"+((InsnNode)node).getType());
 			}else if(node instanceof MethodInsnNode) {
-				System.out.println(((MethodInsnNode)node).owner+"	"+((MethodInsnNode)node).name);
+//				System.out.println(((MethodInsnNode)node).owner+"	"+((MethodInsnNode)node).name);
 			}else if(node instanceof FieldInsnNode) {
 //				System.out.println("	"+((FieldInsnNode)node).name);
 //				System.out.println("	"+((FieldInsnNode)node).owner);

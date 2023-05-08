@@ -1,6 +1,6 @@
 package domain;
 
-public abstract class MyField{
+public abstract class MyField implements UML{
 	String name;
 	String desc;//field type
 	boolean isList;

@@ -2,7 +2,7 @@ package domain;
 
 import java.util.List;
 
-public abstract class MyMethod {
+public abstract class MyMethod implements UML{
 	String name;
 	int access;
 	String desc;

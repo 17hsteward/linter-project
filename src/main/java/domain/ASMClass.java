@@ -10,8 +10,8 @@ import org.objectweb.asm.tree.MethodNode;
 
 public class ASMClass extends MyClass {
 //	private ClassNode classNode;
-	List<ASMField> fields;
-	List<ASMMethod> methods;
+//	List<MyField> fields;
+//	List<MyMethod> methods;
 	
 	public ASMClass(ClassNode cn) {
 //		this.classNode=cn;
@@ -62,10 +62,10 @@ public class ASMClass extends MyClass {
 		}
 		s+=this.className;
 		s+="{\n";
-		for(ASMField f:this.fields) {
+		for(MyField f:this.fields) {
 			s+="    "+f.toUML()+"\n";
 		}
-		for(ASMMethod m:this.methods) {
+		for(MyMethod m:this.methods) {
 			s+="    "+m.toUML()+"\n";
 		}
 		s+="}\n\n";
