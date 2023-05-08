@@ -1,6 +1,7 @@
 package presentation;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -39,6 +40,15 @@ public class MainView {
 		frame.add(p1,BorderLayout.NORTH);
 		JPanel p2=new JPanel();
 		frame.add(p2);
+		JPanel ptext=new JPanel();
+		JScrollPane sp=new JScrollPane();
+		sp.setPreferredSize(new Dimension(960,540));
+		sp.setVerticalScrollBarPolicy(sp.VERTICAL_SCROLLBAR_AS_NEEDED);
+		sp.setHorizontalScrollBarPolicy(sp.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		JTextArea textArea=new JTextArea(960,540);
+		ptext.add(sp);
+		sp.add(textArea);
+		frame.add(ptext,BorderLayout.SOUTH);
 		
 		JLabel l1=new JLabel("please import java files");
 		p1.add(l1);
@@ -76,7 +86,7 @@ public class MainView {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				l1.setText("loading");
-		    	File[] files=new File[]{new File("./src/test/java/domain/Test.java")};//choose specific file to test accessing
+		    	File[] files=new File[]{new File("./src/test/others/domain/Test.java")};//choose specific file to test accessing
 //		    	File[] files=new File[]{new File("./")};
 		    	try {
 					myClasses=c.read(files);
@@ -98,7 +108,7 @@ public class MainView {
 				// TODO Auto-generated method stub
 				l1.setText("loading");
 //		    	File[] files=new File[]{new File("./src/test/java/domain/Test.java")};//choose specific file to test accessing
-		    	File[] files=new File[]{new File("./")};
+		    	File[] files=new File[]{new File("./src/main/java")};
 		    	try {
 					myClasses=c.read(files);
 				} catch (IOException exception) {

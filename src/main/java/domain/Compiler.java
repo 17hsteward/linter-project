@@ -28,7 +28,7 @@ public class Compiler {
 		List<MyClass> myClasses=new LinkedList<>();
 		for(File f:files) {
 			if(f.isDirectory()) {
-				myClasses.addAll(read(f.listFiles()));
+				myClasses.addAll(this.read(f.listFiles()));
 			}else if(f.getName().endsWith(".java")) {
 				if(javac.run(null, null, null, f.getAbsolutePath())==0) {
 		    		File classFile=this.reader.getClassFromJava(f.getAbsolutePath());
