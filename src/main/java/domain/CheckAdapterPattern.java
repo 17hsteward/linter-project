@@ -10,6 +10,6 @@ public class CheckAdapterPattern extends Check{
 
     @Override
     public String getName() {
-        return "check for observer pattern";
+        return "check adapter pattern";
     }
 }
