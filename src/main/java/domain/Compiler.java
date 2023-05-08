@@ -24,7 +24,7 @@ public class Compiler {
 		javac = ToolProvider.getSystemJavaCompiler();
 		this.reader=new Reader();
 	}
-	public List<MyClass> read(File[] files) throws IOException{
+	public List<MyClass> read(File[] files){
 		List<MyClass> myClasses=new LinkedList<>();
 		for(File f:files) {
 			if(f.isDirectory()) {
@@ -35,24 +35,25 @@ public class Compiler {
 		            InputStream in = null;
 		    		try {
 		    			in = new FileInputStream(classFile);
-		    		} catch (FileNotFoundException e) {
-		    			// TODO Auto-generated catch block
-		    			e.printStackTrace();
-		    		}
-		    		
+						ClassReader reader= null;
+						try {
+							reader = new ClassReader(in);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+						ClassNode classNode = new ClassNode();
+						reader.accept(classNode, ClassReader.EXPAND_FRAMES);
 
-		    		ClassReader reader=new ClassReader(in);
-		    		ClassNode classNode = new ClassNode();
-		    		reader.accept(classNode, ClassReader.EXPAND_FRAMES);
-		    		
-		    		MyClass mc=new ASMClass(classNode);//speicify for ASMClass
-					myClasses.add(mc);
-					//mc.printClass();//print the class to verify
-					
-					in.close();
-					classFile.delete();//comment this line to keep the class file with their java file
-				}else{
-					System.out.println("fail to compile "+f.getName());
+						MyClass mc=new ASMClass(classNode);//speicify for ASMClass
+						myClasses.add(mc);
+						//mc.printClass();//print the class to verify
+
+						in.close();
+						classFile.delete();//comment this line to keep the class file with their java file
+		    		} catch (IOException e) {
+						System.out.println("fail to compile "+f.getName());
+		    		}
+
 				}
 			}
 		}
