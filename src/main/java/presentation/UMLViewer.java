@@ -27,14 +27,17 @@ public class UMLViewer {
 			e.printStackTrace();
 		}
 		JPanel p=new JPanel();
+		
 		ImageIcon i=new ImageIcon("./src/main/resources/uml.png");
 		//rescale
-		Image i2=i.getImage().getScaledInstance(frame.getWidth(), frame.getHeight(), Image.SCALE_DEFAULT);
-		ImageIcon i3=new ImageIcon(i2);
+//		Image i2=i.getImage().getScaledInstance(frame.getWidth(), frame.getHeight(), Image.SCALE_DEFAULT);
+//		ImageIcon i3=new ImageIcon(i2);
 		
-		JLabel l=new JLabel(i3);
+		JLabel l=new JLabel(i);
 		p.add(l);
-		frame.add(p);
+		
+		JScrollPane scrollPane = new JScrollPane(p);
+		frame.add(scrollPane);
 		
 		frame.setVisible(true);
 	}

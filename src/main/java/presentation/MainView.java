@@ -22,6 +22,7 @@ public class MainView {
 	List<Check> checks;
 	public MainView() {
 		this.checks=new LinkedList<>();
+		//add checks here
 		this.checks.add(new CheckAccessModifier());
 		this.checks.add(new CheckMethodChaining());
 		this.checks.add(new CheckObserverPattern());
@@ -29,6 +30,8 @@ public class MainView {
 		this.checks.add(new CheckAbstractInstance());
 		this.checks.add(new CheckHollyWoodPrinciple());
 		this.checks.add(new CheckAdapterPattern());
+		this.checks.add(new CheckCouplingCohesion());
+		this.checks.add(new CheckThreeLayer());
 
 		this.c=new Compiler();
 		JFrame frame=new JFrame();

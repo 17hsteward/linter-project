@@ -30,7 +30,11 @@ public class ASMClass extends MyClass {
 			this.methods.add(new ASMMethod(m));
 		}
 		this.className=this.className.replaceAll("/",".");
-		this.packageName=this.className.substring(0,this.className.lastIndexOf("."));
+		if(this.className.lastIndexOf(".")!=-1) {
+			this.packageName=this.className.substring(0,this.className.lastIndexOf("."));
+		}else {
+			this.packageName="";
+		}
 		this.className=this.className.substring(this.className.lastIndexOf(".")+1);
 	}
 	
