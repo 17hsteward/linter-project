@@ -1,14 +1,12 @@
 package presentation;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import java.util.LinkedList;
 
@@ -17,8 +15,6 @@ import javax.swing.*;
 
 import domain.*;
 import domain.Compiler;
-import domain.MyClass;
-import domain.UMLGenerator;
 
 public class MainView {
 	List<MyClass> myClasses;
@@ -40,15 +36,24 @@ public class MainView {
 		frame.setSize(1440,540);
 		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
 		JPanel p1=new JPanel();
-		frame.add(p1,BorderLayout.SOUTH);
+//		frame.add(p1,BorderLayout.SOUTH);
 		JPanel p2=new JPanel();
-		p2.setLayout(new FlowLayout());
-		frame.add(p2,BorderLayout.NORTH);
+//		p2.setLayout(new FlowLayout());
+//		frame.add(p2,BorderLayout.NORTH);
+		p2.setBounds(10,10,400,500);
+		p1.setBounds(1000,10,400,500);
+		frame.add(p1);
+		frame.add(p2);
+		JPanel p3=new JPanel();
+//		p3.setBounds(1000,10,500,500);
+		frame.add(p3);
 		
-		JTextArea textArea = new JTextArea();
+		JTextArea textArea = new JTextArea(20,40);
 		JScrollPane scrollPane = new JScrollPane(textArea); 
 		textArea.setEditable(false);
-		frame.add(scrollPane);
+		p3.add(scrollPane);
+//		textArea.setBounds(1000,10,800,500);
+//		scrollPane.setBounds(1000,10,600,500);
 		
 		
 		JLabel l1=new JLabel("please import java files");

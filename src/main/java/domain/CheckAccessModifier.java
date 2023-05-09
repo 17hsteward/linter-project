@@ -3,6 +3,8 @@ package domain;
 import java.util.List;
 
 import org.objectweb.asm.Opcodes;
+import org.objectweb.asm.tree.AbstractInsnNode;
+import org.objectweb.asm.tree.MethodInsnNode;
 
 public class CheckAccessModifier extends Check{
 
@@ -18,8 +20,9 @@ public class CheckAccessModifier extends Check{
 		for(MyClass c:myClasses) {
 			//check field
 			for(MyField f:c.getFields()) {
+				
 				//check for not private field
-				if((f.getAccess()&Opcodes.ACC_PRIVATE)!=0) {
+				if((f.getAccess()&Opcodes.ACC_PRIVATE)==0) {
 					boolean has=false;
 					for(MyClass c2:myClasses) {
 						if(c==c2) {
@@ -28,28 +31,48 @@ public class CheckAccessModifier extends Check{
 						//c2 get dependency
 						if(c2.getDependent().contains(c.getName())) {
 							has=true;
+							break;
 						}
 					}
 					if(!has) {
-						result+="unnecessary access modifier privacy for field "+f.getName()+" in class "+c.getName();
+						result+="unnecessary access modifier for field "+f.getName()+" in class "+c.getName()+"\n";
 					}
 				}
 			}
 			//check method
 			for(MyMethod m:c.getMethods()) {
-				if((m.getAccess()&Opcodes.ACC_PRIVATE)!=0) {
+				String methodName=c.getName()+"."+m.getName();
+				if(m.getName().equals("<init>")) {
+					continue;
+				}
+				if((m.getAccess()&Opcodes.ACC_PRIVATE)==0) {
 					boolean has=false;
 					for(MyClass c2:myClasses) {
 						if(c==c2) {
 							continue;
 						}
 						//requires further analysis on the method body
-//						if(c2.getDependent())
+						for(MyMethod m2:c2.getMethods()) {
+							
+							for(AbstractInsnNode node:((ASMMethod)m2).getInstructions()) {
+								if(node instanceof MethodInsnNode) {
+									if((((MethodInsnNode)node).owner.replaceAll("/",".")+"."+((MethodInsnNode)node).name).equals(methodName)){
+										has=true;
+										break;
+									}
+								}
+							}
+						}
+					}
+					if(!has) {
+						result+="unnecessary access modifier for method "+m.getName()+" in class "+c.getName()+"\n";
 					}
 				}
 			}
 		}
-		
+		if(result.isBlank()) {
+			result="null";
+		}
 		
 		return result;
 	}
