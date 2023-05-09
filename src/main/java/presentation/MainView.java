@@ -1,7 +1,6 @@
 package presentation;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -20,6 +19,7 @@ public class MainView {
 	List<MyClass> myClasses;
 	Compiler c;
 	List<Check> checks;
+	JTextArea textArea;
 	public MainView() {
 		this.checks=new LinkedList<>();
 		//add checks here
@@ -35,29 +35,22 @@ public class MainView {
 
 		this.c=new Compiler();
 		JFrame frame=new JFrame();
-		frame.setTitle("main view");
-		frame.setSize(1440,540);
+		frame.setTitle("linter");
+		frame.setSize(1440,810);
 		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
 		JPanel p1=new JPanel();
-//		frame.add(p1,BorderLayout.SOUTH);
+		frame.add(p1,BorderLayout.EAST);
 		JPanel p2=new JPanel();
-//		p2.setLayout(new FlowLayout());
-//		frame.add(p2,BorderLayout.NORTH);
-		p2.setBounds(10,10,400,500);
-		p1.setBounds(1000,10,400,500);
-		frame.add(p1);
-		frame.add(p2);
+		frame.add(p2,BorderLayout.WEST);
+		p1.setLayout(new BoxLayout(p1, BoxLayout.Y_AXIS));
+		p2.setLayout(new BoxLayout(p2, BoxLayout.Y_AXIS));
 		JPanel p3=new JPanel();
-//		p3.setBounds(1000,10,500,500);
 		frame.add(p3);
 		
-		JTextArea textArea = new JTextArea(20,40);
+		textArea = new JTextArea(45,80);
 		JScrollPane scrollPane = new JScrollPane(textArea); 
 		textArea.setEditable(false);
 		p3.add(scrollPane);
-//		textArea.setBounds(1000,10,800,500);
-//		scrollPane.setBounds(1000,10,600,500);
-		
 		
 		JLabel l1=new JLabel("please import java files");
 		p1.add(l1);
@@ -75,9 +68,9 @@ public class MainView {
 		        chooser.setFileFilter(filter);
 		        chooser.showOpenDialog(null);
 		    	File[] files=chooser.getSelectedFiles();
-		    	l1.setText("loading");
 		    	myClasses=c.read(files);
 		    	l1.setText("files imported");
+		    	showClasses();
 			}
 			
 		});
@@ -89,11 +82,10 @@ public class MainView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				l1.setText("loading");
 		    	File[] files=new File[]{new File("./src/test/java/others/domain/Test.java")};//choose specific file to test accessing
-//		    	File[] files=new File[]{new File("./")};
 				myClasses=c.read(files);
 		    	l1.setText("test file imported");
+		    	showClasses();
 			}
 			
 		});
@@ -105,11 +97,10 @@ public class MainView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				l1.setText("loading");
-//		    	File[] files=new File[]{new File("./src/test/java/domain/Test.java")};//choose specific file to test accessing
 		    	File[] files=new File[]{new File("./src/main/java")};
 		    	myClasses=c.read(files);
 		    	l1.setText("test file imported");
+		    	showClasses();
 			}
 			
 		});
@@ -156,8 +147,20 @@ public class MainView {
 		});
 		p1.add(b4);
 		
-		JLabel l2=new JLabel("select checks:        select all");
-		p2.add(l2);
+		JButton b5=new JButton("show class names");
+		b5.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				showClasses();
+			}
+			
+		});
+		p1.add(b5);
+		
+		p2.add(new JLabel("select checks:"));
+		p2.add(new JLabel("select all"));
 		JCheckBox all=new JCheckBox();
 		p2.add(all);
 		List<JCheckBox> checkBoxes=new LinkedList<>();
@@ -174,11 +177,13 @@ public class MainView {
 		});
 		
 		for(Check check:checks) {
+			JPanel subPanel=new JPanel();
 			JLabel boxLabel=new JLabel("    "+check.getName());
 			JCheckBox box=new JCheckBox();
 			checkBoxes.add(box);
-			p2.add(boxLabel);
-			p2.add(box);
+			subPanel.add(boxLabel);
+			subPanel.add(box);
+			p2.add(subPanel);
 		}
 		JButton start=new JButton("start");
 		p2.add(start);
@@ -188,6 +193,9 @@ public class MainView {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				String checkResult="";
+				if(myClasses==null) {
+					return;
+				}
 				for(int i=0;i<checkBoxes.size();i++) {
 					if(checkBoxes.get(i).isSelected()) {
 						checkResult+=checks.get(i).getName()+":\n"+checks.get(i).test(myClasses)+"\n";
@@ -198,8 +206,18 @@ public class MainView {
 			
 		});
 		
-		
 		frame.setVisible(true);
 		
+	}
+	
+	private void showClasses() {
+		String s="";
+		if(this.myClasses==null) {
+			return;
+		}
+		for(MyClass c:this.myClasses) {
+			s+=c.getName()+"\n";
+		}
+		this.textArea.setText(s);
 	}
 }

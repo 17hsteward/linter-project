@@ -2,7 +2,6 @@ package domain;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -40,8 +39,9 @@ public class Compiler {
 						ClassNode classNode = new ClassNode();
 						reader.accept(classNode, ClassReader.EXPAND_FRAMES);
 
-						MyClass mc=new ASMClass(classNode);//speicify for ASMClass
-						myClasses.add(mc);
+						MyClass c=new ASMClass(classNode);//speicify for ASMClass
+						c.setPath(f.getAbsolutePath());
+						myClasses.add(c);
 						//mc.printClass();//print the class to verify
 
 						in.close();

@@ -12,6 +12,7 @@ public abstract class MyClass {
 	List<String> dependent;
 	boolean isAbstract;
 	boolean isInterface;
+	String path;
 	public abstract void setDependent(List<String> classNames);
 	
 	public List<MyField> getFields(){
@@ -31,5 +32,11 @@ public abstract class MyClass {
 	}
 	public List<String> getDependent() {
 		return this.dependent;
+	}
+	public void setPath(String p) {
+		this.path=p;
+	}
+	public String getPath() {
+		return this.path;
 	}
 }
