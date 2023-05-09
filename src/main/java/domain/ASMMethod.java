@@ -175,5 +175,7 @@ public class ASMMethod extends MyMethod implements UML{
 		return true;
 	}
 
-
+	public InsnList getInstructions() {
+		return this.instructions;
+	}
 }
