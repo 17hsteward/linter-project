@@ -40,11 +40,11 @@ public class CheckMethodChaining extends Check {
 					}else if(node instanceof InsnNode) {
 //						System.out.println("	opcode:"+((InsnNode)node).getOpcode());
 					}else if(node instanceof MethodInsnNode) {
-						if(!m.getName().equals("<init>")){
-							i++;
-						}
 						if(method) {
 							i=0;
+						}
+						if(!m.getName().equals("<init>")){
+							i++;
 						}
 						if(i>1) {
 							result+="method chain detected in class "+c.getName()+" in method "+m.getName()+" at line "+line+"\n";
