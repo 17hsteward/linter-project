@@ -57,9 +57,10 @@ public class Compiler {
 						c.setPath(f.getAbsolutePath());
 						myClasses.add(c);
 						//mc.printClass();//print the class to verify
-
 						in.close();
-						classFile.delete();//comment this line to keep the class file with their java file
+						for(File file:trueFiles){
+							this.reader.getClassFromJava(file.getAbsolutePath()).delete();
+						}//comment this line to keep the class file with their java file
 					} catch (IOException e) {
 						System.out.println("fail to compile " + f.getName());
 					}
