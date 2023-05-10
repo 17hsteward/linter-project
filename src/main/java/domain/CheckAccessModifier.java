@@ -35,7 +35,7 @@ public class CheckAccessModifier extends Check{
 						}
 					}
 					if(!has) {
-						result+="unnecessary access modifier for field "+f.getName()+" in class "+c.getName()+"\n";
+						result+="field \""+f.getName()+"\" in class \""+c.getName()+"\" can be private\n";
 					}
 				}
 			}
@@ -68,7 +68,7 @@ public class CheckAccessModifier extends Check{
 						}
 					}
 					if(!has) {
-						result+="unnecessary access modifier for method "+m.getName()+" in class "+c.getName()+"\n";
+						result+="method \""+m.getName()+"\" in class \""+c.getName()+"\" can be private\n";
 					}
 				}
 			}

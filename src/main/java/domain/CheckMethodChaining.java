@@ -6,7 +6,6 @@ import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.FieldInsnNode;
 import org.objectweb.asm.tree.InsnList;
 import org.objectweb.asm.tree.InsnNode;
-import org.objectweb.asm.tree.LabelNode;
 import org.objectweb.asm.tree.LineNumberNode;
 import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.TypeInsnNode;
@@ -25,10 +24,8 @@ public class CheckMethodChaining extends Check {
 				int i=0;
 				int line=0;
 				boolean method=false;
-//				System.out.println(((ASMMethod)m).getInstructions());
 				InsnList instructions=((ASMMethod)m).getInstructions();
 				for(AbstractInsnNode node:instructions) {
-//					System.out.println(node.getClass());
 					if(!(node instanceof MethodInsnNode)&&!method) {
 						i=0;
 					}
@@ -37,23 +34,20 @@ public class CheckMethodChaining extends Check {
 						line=((LineNumberNode)node).line;
 					}else if(node instanceof VarInsnNode) {
 						i=0;
-					}else if(node instanceof InsnNode) {
-//						System.out.println("	opcode:"+((InsnNode)node).getOpcode());
 					}else if(node instanceof MethodInsnNode) {
 						if(method) {
 							i=0;
+						}else {
+							if(!m.getName().equals("<init>")&&!((MethodInsnNode)node).owner.startsWith("java")){//exclude system calls
+								i++;
+							}
+							if(i>1) {
+								result+="method chaining detected in class "+c.getName()+" in method "+m.getName()+" at line "+line+"\n";
+							}
+							method=true;
 						}
-						if(!m.getName().equals("<init>")){
-							i++;
-						}
-						if(i>1) {
-							result+="method chain detected in class "+c.getName()+" in method "+m.getName()+" at line "+line+"\n";
-						}
-						method=true;
 					}else if(node instanceof FieldInsnNode) {
 						i=0;
-					}else if(node instanceof TypeInsnNode) {
-//						System.out.println("	type:"+((TypeInsnNode)node).desc);
 					}
 					if(!(node instanceof MethodInsnNode)) {
 						method=false;

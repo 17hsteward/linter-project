@@ -11,12 +11,10 @@ public class CheckObserverPattern extends Check {
 		String result="";
 		for(int i=0;i<myClasses.size()-1;i++) {
 			MyClass c=myClasses.get(i);
-			for(int j=0;j<myClasses.size();j++) {
-				if(i<j) {
-					MyClass c2=myClasses.get(j);
-					if(c.getDependent().contains(c2.getName())&&c2.getDependent().contains(c.getName())) {
-						result+="class "+c.getName()+" and class "+c2.getName()+" are dependent on each other. Try to apply observer pattern\n";
-					}
+			for(int j=i+1;j<myClasses.size();j++) {
+				MyClass c2=myClasses.get(j);
+				if(c.getDependent().contains(c2.getName())&&c2.getDependent().contains(c.getName())) {
+					result+="class "+c.getName()+" and class "+c2.getName()+" are dependent on each other. Try to apply observer pattern\n";
 				}
 			}
 		}
