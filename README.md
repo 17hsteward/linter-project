@@ -14,12 +14,12 @@ Marcus Henderson, Hailey Steward,  Yuchen Cai, Kelly Xu
 ## Features
 
 
-| Developer | Style Check | Principle Check | Pattern Check | A Feature (optional) |
-|:----------|:------------|:----------------|:--------------|:---------------------|
-| Marcus Henderson      |    Oracle Naming Conventions        |       Liskov's Substitution Principle          |     Template Method Pattern          |                      |
-| Hailey Steward    |  Missing implementations of abstract types     |        Hollywood         |     Adapter Pattern          |                    |
-| Yuchen Cai      | Access modifier | Method chaining | Observer pattern | UML code |
-| Kelly Xu     | Data Class Detection | Coupling and Cohesion | Three Layer Principle | Generate plantUML code and Diagram |
+| Developer | Style Check | Principle Check | Pattern Check | A Feature (optional)                                                                                                      |
+|:----------|:------------|:----------------|:--------------|:--------------------------------------------------------------------------------------------------------------------------|
+| Marcus Henderson      |    Oracle Naming Conventions        |       Liskov's Substitution Principle          |     Template Method Pattern          |                                                                                                                           |
+| Hailey Steward    |  Missing implementations of abstract types     |        Hollywood         |     Adapter Pattern          |                                                                                                                           |
+| Yuchen Cai      | Access modifier | Method chaining | Observer pattern | Generate plantUML code and diagram                                                                                        |
+| Kelly Xu     | Data Class Detection | Coupling and Cohesion | Three Layer Principle | Check if the input code faithfully translates a input PlantUML diagram; Compare the differences between two plantUML code |
 
 
 Possible principles:
