@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.LinkedList;
 
 public class UMLGenerator {
-	List<MyClass> myClasses;
-	List<String> myClassNames;
+	private List<MyClass> myClasses;
+	private List<String> myClassNames;
 	public UMLGenerator(List<MyClass> myClasses) {
 		this.myClasses=myClasses;
 		this.myClassNames=new LinkedList<>();

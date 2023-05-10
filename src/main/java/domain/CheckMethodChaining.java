@@ -18,41 +18,45 @@ public class CheckMethodChaining extends Check {
 	public String test(List<MyClass> myClasses) {
 		// TODO Auto-generated method stub
 		//check whether one line contains lots of methods, and suggests to split them or gather their classes
+		//in one line node, methodInsn, Insn/TypeInsn
 		String result="";
 		for(MyClass c:myClasses) {
 			for(MyMethod m:c.getMethods()) {
 				int i=0;
-				int line = 0;
+				int line=0;
+				boolean method=false;
 //				System.out.println(((ASMMethod)m).getInstructions());
 				InsnList instructions=((ASMMethod)m).getInstructions();
 				for(AbstractInsnNode node:instructions) {
 //					System.out.println(node.getClass());
-					if(node instanceof LabelNode) {
-//						System.out.println();
-					}else if(node instanceof LineNumberNode) {
+					if(!(node instanceof MethodInsnNode)&&!method) {
+						i=0;
+					}
+					if(node instanceof LineNumberNode) {
 						i=0;
 						line=((LineNumberNode)node).line;
-//						System.out.println("line "+((LineNumberNode)node).line);
 					}else if(node instanceof VarInsnNode) {
 						i=0;
-//						System.out.println("	var:"+((VarInsnNode)node).var);
-//						System.out.println("	var type:"+((VarInsnNode)node).getType());
 					}else if(node instanceof InsnNode) {
 //						System.out.println("	opcode:"+((InsnNode)node).getOpcode());
 					}else if(node instanceof MethodInsnNode) {
-//						System.out.println("    method class"+((MethodInsnNode)node).owner+"	"+((MethodInsnNode)node).name+"(?)");
-						i++;
-						if(i>2&&!m.getName().equals("<init>")) {
+						if(!m.getName().equals("<init>")){
+							i++;
+						}
+						if(method) {
+							i=0;
+						}
+						if(i>1) {
 							result+="method chain detected in class "+c.getName()+" in method "+m.getName()+" at line "+line+"\n";
 						}
+						method=true;
 					}else if(node instanceof FieldInsnNode) {
 						i=0;
-//						System.out.println("	var name:"+((FieldInsnNode)node).name);
-//						System.out.println("	var class:"+((FieldInsnNode)node).owner);
-//						String f=UML.typeConvert(((FieldInsnNode)node).desc);
-//						System.out.println("    type"+f);
 					}else if(node instanceof TypeInsnNode) {
 //						System.out.println("	type:"+((TypeInsnNode)node).desc);
+					}
+					if(!(node instanceof MethodInsnNode)) {
+						method=false;
 					}
 				}
 			}
