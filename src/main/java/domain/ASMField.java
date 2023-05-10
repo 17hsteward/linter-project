@@ -6,9 +6,6 @@ import org.objectweb.asm.tree.FieldNode;
 public class ASMField extends MyField implements UML{
 //	private FieldNode fieldNode;
 	
-	private boolean isStatic;
-	private boolean isFinal;
-	
 	public ASMField(FieldNode mf) {
 		this.access=mf.access&(Opcodes.ACC_PUBLIC+Opcodes.ACC_PROTECTED+Opcodes.ACC_PRIVATE);
 		this.isStatic=(mf.access&Opcodes.ACC_STATIC)!=0;

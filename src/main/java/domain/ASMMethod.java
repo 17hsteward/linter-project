@@ -4,22 +4,13 @@ import java.util.LinkedList;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.FieldInsnNode;
-import org.objectweb.asm.tree.FrameNode;
 import org.objectweb.asm.tree.InsnList;
-import org.objectweb.asm.tree.InsnNode;
-import org.objectweb.asm.tree.IntInsnNode;
-import org.objectweb.asm.tree.JumpInsnNode;
-import org.objectweb.asm.tree.LabelNode;
-import org.objectweb.asm.tree.LineNumberNode;
-import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.TypeInsnNode;
-import org.objectweb.asm.tree.VarInsnNode;
 
 public class ASMMethod extends MyMethod implements UML{
 //	private MethodNode methodNode;
 	private InsnList instructions;
-	//other classes be used
 	
 	public ASMMethod(MethodNode mn) {
 		this.access=mn.access&(Opcodes.ACC_PUBLIC+Opcodes.ACC_PROTECTED+Opcodes.ACC_PRIVATE);
@@ -32,48 +23,24 @@ public class ASMMethod extends MyMethod implements UML{
 		this.dependent=new LinkedList<>();//for all InstNode, identify type and add to it
 		this.instructions=mn.instructions;
 		
-//		System.out.println("\n"+this.name);
-//		System.out.println(this.instructions.size());
 		for(AbstractInsnNode node:this.instructions) {
-//			System.out.println(node.getClass());
-			if(node instanceof LabelNode) {
-//				System.out.println(((LabelNode)node).getLabel());
-			}else if(node instanceof LineNumberNode) {
-//				System.out.println("line "+((LineNumberNode)node).line);
-			}else if(node instanceof VarInsnNode) {
-//				System.out.println("	"+((VarInsnNode)node).var);
-			}else if(node instanceof InsnNode) {
-//				System.out.println("	"+((InsnNode)node).getType());
-			}else if(node instanceof MethodInsnNode) {
-//				System.out.println(((MethodInsnNode)node).owner+"	"+((MethodInsnNode)node).name);
-			}else if(node instanceof FieldInsnNode) {
-//				System.out.println("	"+((FieldInsnNode)node).name);
-//				System.out.println("	"+((FieldInsnNode)node).owner);
+			if(node instanceof FieldInsnNode) {
 				String m=UML.typeConvert(((FieldInsnNode)node).desc);
 				if(!this.dependent.contains(m)) {
 					this.dependent.add(m);
 				}
-			}else if(node instanceof FrameNode) {
-//				System.out.println("	"+((FrameNode)node));
-			}else if(node instanceof IntInsnNode) {
-//				System.out.println("	"+((IntInsnNode)node));
-			}else if(node instanceof JumpInsnNode) {
-//				System.out.println("	"+((JumpInsnNode)node));
 			}else if(node instanceof TypeInsnNode) {
-//				System.out.println("	"+((TypeInsnNode)node).desc);
 				String m=UML.typeConvert(((TypeInsnNode)node).desc);
 				if(!this.dependent.contains(m)) {
 					this.dependent.add(m);
 				}
-			}else {
-//				System.out.println("unrecorded node type");
 			}
 			//LabelNode					for jump purpose, usually appear before LineNumberNode
 			//LineNumberNode			line number of original code
-			//VarInsnNode
-			//InsnNode
-			//MethodInsnNode
-			//FieldInsnNode				dependency
+			//VarInsnNode				variable, type
+			//InsnNode					instruction, https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-7.html
+			//MethodInsnNode			method
+			//FieldInsnNode				field, dependency
 			//FrameNode
 			//IntInsnNode
 			//JumpInsnNode
@@ -87,7 +54,6 @@ public class ASMMethod extends MyMethod implements UML{
 			//TableSwitchInsnNode
 			
 		}
-		
 		
 		//parse input argument
 		for(String s:this.desc.substring(1,i).split(";")) {

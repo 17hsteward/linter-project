@@ -10,8 +10,6 @@ import org.objectweb.asm.tree.MethodNode;
 
 public class ASMClass extends MyClass {
 //	private ClassNode classNode;
-//	List<MyField> fields;
-//	List<MyMethod> methods;
 	
 	public ASMClass(ClassNode cn) {
 //		this.classNode=cn;

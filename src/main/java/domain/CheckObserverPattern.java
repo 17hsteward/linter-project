@@ -9,14 +9,11 @@ public class CheckObserverPattern extends Check {
 		// TODO Auto-generated method stub
 		//for each two classes, if both of them call each other, suggest the observer pattern
 		String result="";
-		for(MyClass c:myClasses) {
-//			System.out.println(c.getName());
-//			for(String s:c.getDependent()) {
-//				System.out.print("	"+s+"	");
-//			}
-//			System.out.println();
-			for(MyClass c2:myClasses) {
-				if(c!=c2) {
+		for(int i=0;i<myClasses.size()-1;i++) {
+			MyClass c=myClasses.get(i);
+			for(int j=0;j<myClasses.size();j++) {
+				if(i<j) {
+					MyClass c2=myClasses.get(j);
 					if(c.getDependent().contains(c2.getName())&&c2.getDependent().contains(c.getName())) {
 						result+="class "+c.getName()+" and class "+c2.getName()+" are dependent on each other. Try to apply observer pattern\n";
 					}
@@ -24,7 +21,7 @@ public class CheckObserverPattern extends Check {
 			}
 		}
 		if(result.isBlank()) {
-			result="null";
+			result="no issue found";
 		}
 		return result;
 	}

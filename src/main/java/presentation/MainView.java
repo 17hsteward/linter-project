@@ -37,7 +37,7 @@ public class MainView {
 		JFrame frame=new JFrame();
 		frame.setTitle("linter");
 		frame.setSize(1440,810);
-		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		JPanel p1=new JPanel();
 		frame.add(p1,BorderLayout.EAST);
 		JPanel p2=new JPanel();
@@ -55,8 +55,8 @@ public class MainView {
 		JLabel l1=new JLabel("please import java files");
 		p1.add(l1);
 		
-		JButton b1=new JButton("import java files");
-		b1.addActionListener(new ActionListener() {
+		JButton b0=new JButton("import java files");
+		b0.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -74,10 +74,10 @@ public class MainView {
 			}
 			
 		});
-		p1.add(b1);
+		p1.add(b0);
 		
-		JButton b2=new JButton("import src/test/java/domain/Test.java");
-		b2.addActionListener(new ActionListener() {
+		JButton b1=new JButton("import src/test/java/domain/Test.java");
+		b1.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -89,10 +89,10 @@ public class MainView {
 			}
 			
 		});
-		p1.add(b2);
+		p1.add(b1);
 		
-		JButton b2Linter=new JButton("import this project");
-		b2Linter.addActionListener(new ActionListener() {
+		JButton b2=new JButton("import this project");
+		b2.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -104,7 +104,7 @@ public class MainView {
 			}
 			
 		});
-		p1.add(b2Linter);
+		p1.add(b2);
 		
 		JButton b3=new JButton("print UML code in console");
 		b3.addActionListener(new ActionListener() {
@@ -127,7 +127,7 @@ public class MainView {
 		});
 		p1.add(b3);
 		
-		JButton b4=new JButton("display UML code in window");
+		JButton b4=new JButton("display UML in new window");
 		b4.addActionListener(new ActionListener() {
 
 			@Override
@@ -160,10 +160,21 @@ public class MainView {
 		p1.add(b5);
 		
 		p2.add(new JLabel("select checks:"));
+		List<JCheckBox> checkBoxes=new LinkedList<>();
+		
+		for(Check check:checks) {
+			JPanel subPanel=new JPanel();
+			JLabel boxLabel=new JLabel("    "+check.getName());
+			JCheckBox box=new JCheckBox();
+			checkBoxes.add(box);
+			subPanel.add(boxLabel);
+			subPanel.add(box);
+			p2.add(subPanel);
+		}
+		
 		p2.add(new JLabel("select all"));
 		JCheckBox all=new JCheckBox();
 		p2.add(all);
-		List<JCheckBox> checkBoxes=new LinkedList<>();
 		all.addItemListener(new ItemListener() {
 
 			@Override
@@ -175,16 +186,6 @@ public class MainView {
 			}
 			
 		});
-		
-		for(Check check:checks) {
-			JPanel subPanel=new JPanel();
-			JLabel boxLabel=new JLabel("    "+check.getName());
-			JCheckBox box=new JCheckBox();
-			checkBoxes.add(box);
-			subPanel.add(boxLabel);
-			subPanel.add(box);
-			p2.add(subPanel);
-		}
 		JButton start=new JButton("start");
 		p2.add(start);
 		start.addActionListener(new ActionListener() {
@@ -194,11 +195,12 @@ public class MainView {
 				// TODO Auto-generated method stub
 				String checkResult="";
 				if(myClasses==null) {
+					textArea.setText("please load files first");
 					return;
 				}
 				for(int i=0;i<checkBoxes.size();i++) {
 					if(checkBoxes.get(i).isSelected()) {
-						checkResult+=checks.get(i).getName()+":\n"+checks.get(i).test(myClasses)+"\n";
+						checkResult+=checks.get(i).getName()+":\n"+checks.get(i).test(myClasses)+"\n\n";
 					}
 				}
 				textArea.setText(checkResult);

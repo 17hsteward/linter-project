@@ -29,7 +29,6 @@ public class CheckMethodChaining extends Check {
 //					System.out.println(node.getClass());
 					if(node instanceof LabelNode) {
 //						System.out.println();
-						i=0;
 					}else if(node instanceof LineNumberNode) {
 						i=0;
 						line=((LineNumberNode)node).line;
@@ -57,6 +56,9 @@ public class CheckMethodChaining extends Check {
 					}
 				}
 			}
+		}
+		if(result.isBlank()) {
+			result="no issue found";
 		}
 		return result;
 	}

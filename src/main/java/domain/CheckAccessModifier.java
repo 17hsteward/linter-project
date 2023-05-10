@@ -45,6 +45,9 @@ public class CheckAccessModifier extends Check{
 				if(m.getName().equals("<init>")) {
 					continue;
 				}
+				if(!c.getExtend().isBlank()||!c.getImplement().isEmpty()) {
+					continue;
+				}
 				if((m.getAccess()&Opcodes.ACC_PRIVATE)==0) {
 					boolean has=false;
 					for(MyClass c2:myClasses) {
@@ -71,9 +74,10 @@ public class CheckAccessModifier extends Check{
 			}
 		}
 		if(result.isBlank()) {
-			result="null";
+			result="no issue found";
+		}else {
+			result="following fields or methods can be private\n"+result;
 		}
-		
 		return result;
 	}
 
