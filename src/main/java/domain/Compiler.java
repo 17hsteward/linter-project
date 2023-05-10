@@ -12,7 +12,7 @@ import javax.tools.ToolProvider;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.tree.ClassNode;
 
-import datasource.Reader;
+import data.Reader;
 
 import java.util.LinkedList;
 
