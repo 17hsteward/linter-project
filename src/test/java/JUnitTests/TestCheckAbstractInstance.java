@@ -138,7 +138,7 @@ public class TestCheckAbstractInstance {
         List<MyClass> classNodes = compiler.read(files);
         Check abstractInstanceCheck = new CheckAbstractInstance();
         String violationString = abstractInstanceCheck.test(classNodes);
-        assertEquals("",violationString);
+        assertEquals("No issues found",violationString);
     }
 
     @Test
@@ -180,7 +180,7 @@ public class TestCheckAbstractInstance {
         List<MyClass> classNodes = compiler.read(files);
         Check abstractInstanceCheck = new CheckAbstractInstance();
         String violationString = abstractInstanceCheck.test(classNodes);
-        assertEquals("",violationString);
+        assertEquals("No issues found",violationString);
     }
 
     @Test

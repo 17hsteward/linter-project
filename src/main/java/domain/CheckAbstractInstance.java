@@ -66,6 +66,8 @@ public class CheckAbstractInstance extends Check {
                 }
             }
         }
+        if(violationString.length()==0)
+            violationString.append("No issues found");
         return violationString.toString();
     }
 
