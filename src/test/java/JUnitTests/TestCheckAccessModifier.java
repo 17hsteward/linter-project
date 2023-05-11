@@ -18,7 +18,6 @@ public class TestCheckAccessModifier {
     void existCanBePrivate_success() {
         classes = Helper.getClasses("hasUnusedNonPrivate");
         String result = check.test(classes);
-        System.out.println(result);
         assertTrue(result.contains("public_unused")&&result.contains("protected_unused")&&result.contains("default_unused")&&result.contains("notCalled"));
     }
 }

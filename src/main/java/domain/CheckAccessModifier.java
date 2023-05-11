@@ -57,6 +57,10 @@ public class CheckAccessModifier extends Check{
 				if(m.getName().equals("<init>")) {
 					continue;
 				}
+				if(!c.getExtend().contains("java")||!c.getImplement().isEmpty()) {
+					//extend or implement other classes
+					continue;
+				}
 				String methodName=c.getName()+"."+m.getName();
 				if((m.getAccess()&Opcodes.ACC_PRIVATE)==0) {
 					boolean has=false;
