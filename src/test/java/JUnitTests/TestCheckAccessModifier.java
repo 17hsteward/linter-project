@@ -16,8 +16,9 @@ public class TestCheckAccessModifier {
 
     @Test
     void existCanBePrivate_success() {
-        classes = Helper.getClasses("public");
+        classes = Helper.getClasses("hasUnusedNonPrivate");
         String result = check.test(classes);
+        System.out.println(result);
         assertTrue(result.length()>20);
     }
 }
