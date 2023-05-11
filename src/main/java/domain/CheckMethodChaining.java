@@ -22,6 +22,7 @@ public class CheckMethodChaining extends Check {
 				int i=0;
 				int line=0;
 				boolean method=false;
+				boolean found=false;
 				InsnList instructions=((ASMMethod)m).getInstructions();
 				for(AbstractInsnNode node:instructions) {
 					if(!(node instanceof MethodInsnNode)&&!method) {
@@ -30,20 +31,19 @@ public class CheckMethodChaining extends Check {
 					if(node instanceof LineNumberNode) {
 						i=0;
 						line=((LineNumberNode)node).line;
+						found=false;
 					}else if(node instanceof VarInsnNode) {
 						i=0;
 					}else if(node instanceof MethodInsnNode) {
-						if(method) {
-							i=0;
-						}else {
-							if(!m.getName().equals("<init>")&&!((MethodInsnNode)node).owner.startsWith("java")){//exclude system calls
-								i++;
-							}
-							if(i>1) {
-								result+="method chaining detected in class "+c.getName()+" in method "+m.getName()+" at line "+line+"\n";
-							}
-							method=true;
+						//exclude init, system calls, iterator
+						if(!m.getName().equals("<init>")&&!((MethodInsnNode)node).owner.startsWith("java")&&!((MethodInsnNode)node).name.equals("iterator")){
+							i++;
 						}
+						if(i>1&&!found) {
+							result+="method chaining detected in class "+c.getName()+" in method "+m.getName()+" at line "+line+"\n";
+							found=true;
+						}
+						method=true;
 					}else if(node instanceof FieldInsnNode) {
 						i=0;
 					}
@@ -54,7 +54,7 @@ public class CheckMethodChaining extends Check {
 			}
 		}
 		if(result.isBlank()) {
-			result="no issue found";
+			result="no method chaining found";
 		}
 		return result;
 	}
