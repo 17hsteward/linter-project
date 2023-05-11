@@ -22,7 +22,6 @@ public class TestCheckObserverPattern {
         	System.out.println(c.getFields().get(0).getName());
         }
         String result = check.test(classes);
-        System.out.println(result);
         assertTrue(result.contains("noObserverPattern.A")&&result.contains("noObserverPattern.B"));
     }
 }
