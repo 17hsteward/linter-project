@@ -40,7 +40,8 @@ public class CheckMethodChaining extends Check {
 							i++;
 						}
 						if(i>1&&!found) {
-							result+="method chaining detected in class "+c.getName()+" in method "+m.getName()+" at line "+line+"\n";
+							result+="method chaining detected in class "+c.getName()+" in method "+m.getName()+" at line "+line+":\n";
+							result+="\""+c.getCodeByLine(line).strip()+"\"\n";
 							found=true;
 						}
 						method=true;

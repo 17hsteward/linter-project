@@ -1,6 +1,8 @@
 package domain;
 
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.AbstractInsnNode;
@@ -17,6 +19,12 @@ public class CheckAccessModifier extends Check{
 		//for all class, check their path relationship
 		//for all method call
 		//check whether exists same field or method and compare privacy
+		Map<Integer,String> accessModifier=new HashMap<>();
+		accessModifier.put(Opcodes.ACC_PRIVATE, "private");
+		accessModifier.put(Opcodes.ACC_PROTECTED, "protected");
+		accessModifier.put(Opcodes.ACC_PUBLIC, "private");
+		accessModifier.put(0, "default");
+		
 		String result="";
 		for(MyClass c:myClasses) {
 			//check field
@@ -48,7 +56,7 @@ public class CheckAccessModifier extends Check{
 						}
 					}
 					if(!has) {
-						result+="field \""+f.getName()+"\" in class \""+c.getName()+"\" can be private\n";
+						result+="field \""+accessModifier.get(f.getAccess()%(Opcodes.ACC_PRIVATE+Opcodes.ACC_PROTECTED+Opcodes.ACC_PUBLIC))+" "+f.getName()+"\" in class \""+c.getName()+"\" can be private\n";
 					}
 				}
 			}
@@ -62,7 +70,8 @@ public class CheckAccessModifier extends Check{
 					continue;
 				}
 				String methodName=c.getName()+"."+m.getName();
-				if((m.getAccess()&Opcodes.ACC_PRIVATE)==0) {
+//				System.out.println(m.getAccess()%(Opcodes.ACC_PRIVATE+Opcodes.ACC_PROTECTED+Opcodes.ACC_PUBLIC));
+				if((m.getAccess()%(Opcodes.ACC_PRIVATE+Opcodes.ACC_PROTECTED+Opcodes.ACC_PUBLIC))!=Opcodes.ACC_PRIVATE) {
 					boolean has=false;
 					for(MyClass c2:myClasses) {
 						if(c==c2) {
@@ -83,7 +92,7 @@ public class CheckAccessModifier extends Check{
 						}
 					}
 					if(!has) {
-						result+="method \""+m.getName()+"\" in class \""+c.getName()+"\" can be private\n";
+						result+="method \""+accessModifier.get(m.getAccess()%(Opcodes.ACC_PRIVATE+Opcodes.ACC_PROTECTED+Opcodes.ACC_PUBLIC))+" "+m.getName()+"\" in class \""+c.getName()+"\" can be private\n";
 					}
 				}
 			}
