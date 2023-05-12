@@ -55,6 +55,7 @@ public class Compiler {
 
 						MyClass c = new ASMClass(classNode);//speicify for ASMClass
 						c.setPath(f.getAbsolutePath());
+						c.setCode(this.reader.getCode(f));
 						myClasses.add(c);
 						//mc.printClass();//print the class to verify
 						in.close();

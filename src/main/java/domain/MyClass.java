@@ -13,6 +13,7 @@ public abstract class MyClass {
 	boolean isAbstract;
 	boolean isInterface;
 	String path;
+	List<String> code;
 	public abstract void setDependent(List<String> classNames);
 	
 	public List<MyField> getFields(){
@@ -38,5 +39,11 @@ public abstract class MyClass {
 	}
 	public String getPath() {
 		return this.path;
+	}
+	public void setCode(List<String> code) {
+		this.code=code;
+	}
+	public String getCodeByLine(int line) {
+		return this.code.get(line-1);
 	}
 }
