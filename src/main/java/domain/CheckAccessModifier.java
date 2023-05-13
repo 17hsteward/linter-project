@@ -22,7 +22,7 @@ public class CheckAccessModifier extends Check{
 		Map<Integer,String> accessModifier=new HashMap<>();
 		accessModifier.put(Opcodes.ACC_PRIVATE, "private");
 		accessModifier.put(Opcodes.ACC_PROTECTED, "protected");
-		accessModifier.put(Opcodes.ACC_PUBLIC, "private");
+		accessModifier.put(Opcodes.ACC_PUBLIC, "public");
 		accessModifier.put(0, "default");
 		
 		String result="";
@@ -70,8 +70,7 @@ public class CheckAccessModifier extends Check{
 					continue;
 				}
 				String methodName=c.getName()+"."+m.getName();
-//				System.out.println(m.getAccess()%(Opcodes.ACC_PRIVATE+Opcodes.ACC_PROTECTED+Opcodes.ACC_PUBLIC));
-				if((m.getAccess()%(Opcodes.ACC_PRIVATE+Opcodes.ACC_PROTECTED+Opcodes.ACC_PUBLIC))!=Opcodes.ACC_PRIVATE) {
+				if((m.getAccess()&Opcodes.ACC_PRIVATE)==0) {
 					boolean has=false;
 					for(MyClass c2:myClasses) {
 						if(c==c2) {
@@ -92,7 +91,7 @@ public class CheckAccessModifier extends Check{
 						}
 					}
 					if(!has) {
-						result+="method \""+accessModifier.get(m.getAccess()%(Opcodes.ACC_PRIVATE+Opcodes.ACC_PROTECTED+Opcodes.ACC_PUBLIC))+" "+m.getName()+"\" in class \""+c.getName()+"\" can be private\n";
+						result+="method \""+accessModifier.get(m.getAccess()&(Opcodes.ACC_PRIVATE+Opcodes.ACC_PROTECTED+Opcodes.ACC_PUBLIC))+" "+m.getName()+"\" in class \""+c.getName()+"\" can be private\n";
 					}
 				}
 			}
