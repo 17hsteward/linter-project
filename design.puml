@@ -1,42 +1,50 @@
 @startuml
-abstract class Project{
-+Project(File[])
-}
-abstract class Package{
 
-}
-
-abstract class Class{
-
-}
-
-abstract class Method{
-
+package presentation{
+	class Main{
+	
+	}
+	
+	class MainView{}
+	
+	class UMLViewer{}
+	
 }
 
-abstract class Field{
+package domain{
 
+	class Compiler{
+	
+	}
+	
+	abstract class MyClass{
+	
+	}
+	
+	abstract class MyMethod{
+	
+	}
+	
+	abstract class MyField{
+	
+	}
+	
+	abstract class Check{
+		+{abstract}test(p:Project):String
+		+{abstract}getName():String
+	}
+	
 }
 
-abstract class Check{
-+{abstract}test(p:Project):String
+package data{
+	class Reader{
+	
+	}
 }
 
-enum AccessModifier{
-public
-private
-protected
-}
-
-enum ClassRelation{
-
-}
-
-Project-->"*"Package
-Package-->"*"Class
-Class-->"*"Method
-Class-->"*"Field
-
+MyClass-->"*"MyMethod
+MyClass-->"*"MyField
+MainView-->Compiler
 
 
 @enduml

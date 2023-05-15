@@ -32,6 +32,8 @@ public class MainView {
 		this.checks.add(new CheckAdapterPattern());
 		this.checks.add(new CheckCouplingCohesion());
 		this.checks.add(new CheckThreeLayer());
+		this.checks.add(new CheckNamingConvention());
+//		this.checks.add(new CheckTemplatePattern());
 
 		this.c=new Compiler();
 		JFrame frame=new JFrame();

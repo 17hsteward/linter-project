@@ -35,8 +35,8 @@ public class CheckMethodChaining extends Check {
 					}else if(node instanceof VarInsnNode) {
 						i=0;
 					}else if(node instanceof MethodInsnNode) {
-						//exclude init, system calls, iterator
-						if(!m.getName().equals("<init>")&&!((MethodInsnNode)node).owner.startsWith("java")&&!((MethodInsnNode)node).name.equals("iterator")){
+						//exclude java call or java type return
+						if(!((MethodInsnNode)node).owner.startsWith("java")&&!((MethodInsnNode)node).desc.contains("java")){//!m.getName().equals("<init>")&&!((MethodInsnNode)node).name.equals("iterator")
 							i++;
 						}
 						if(i>1&&!found&&!method) {
