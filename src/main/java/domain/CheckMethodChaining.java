@@ -39,14 +39,12 @@ public class CheckMethodChaining extends Check {
 						if(!m.getName().equals("<init>")&&!((MethodInsnNode)node).owner.startsWith("java")&&!((MethodInsnNode)node).name.equals("iterator")){
 							i++;
 						}
-						if(method) {
-							;
-						}else if(i>1&&!found) {
+						if(i>1&&!found&&!method) {
 							result+="method chaining detected in class "+c.getName()+" in method "+m.getName()+" at line "+line+":\n";
 							result+="\""+c.getCodeByLine(line).strip()+"\"\n\n";
 							found=true;
 						}
-						method=true;
+						method=!method;
 					}else if(node instanceof FieldInsnNode) {
 						i=0;
 					}

@@ -18,6 +18,6 @@ public class TestCheckMethodChaining {
     void existCanBePrivate_success() {
         classes = Helper.getClasses("hasMethodChaining");
         String result = check.test(classes);
-        assertTrue(result.length()>20);
+        assertTrue(result.contains("this.getB().getC().C1()"));
     }
 }
