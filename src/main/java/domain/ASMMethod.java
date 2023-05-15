@@ -6,6 +6,7 @@ import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.FieldInsnNode;
 import org.objectweb.asm.tree.InsnList;
 import org.objectweb.asm.tree.MethodNode;
+import org.objectweb.asm.tree.ParameterNode;
 import org.objectweb.asm.tree.TypeInsnNode;
 
 public class ASMMethod extends MyMethod implements UML{
@@ -70,12 +71,26 @@ public class ASMMethod extends MyMethod implements UML{
 				continue;
 			}
 			if(s.equals("List<")) {
+				//add list type
 				s+=">";
 			}
 			this.parameters.add(s);
 		}
 		//return type
 		this.returnType=this.desc.substring(i+1);
+//		if(this.desc.substring(i+1).equals("Ljava/util/List;")) {
+//			this.returnType="List<"+""+">";
+//		}else {
+//			
+//		}
+//		System.out.println("\n");
+//		System.out.println(this.name);
+//		System.out.println(mn.desc);
+//		System.out.println(mn.signature);
+		if(mn.signature!=null) {
+			this.returnType=mn.signature.substring(mn.signature.indexOf(")")+1);
+		}
+//		System.out.println("return type: "+this.returnType);
 	}
 
 	public String toUML() {
@@ -108,6 +123,7 @@ public class ASMMethod extends MyMethod implements UML{
 			s=s.substring(0, s.length()-1);
 		}
 		s+="):"+UML.typeConvert(this.returnType);
+//		System.out.println(this.returnType+"    "+UML.typeConvert(this.returnType));
 		return s;
 	}
 

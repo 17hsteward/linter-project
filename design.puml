@@ -1,50 +1,292 @@
 @startuml
-
-package presentation{
-	class Main{
-	
-	}
-	
-	class MainView{}
-	
-	class UMLViewer{}
-	
+class data.Reader{
+    +<init>():void
+    +getClassFromJava(String):File
+    +getCode(File):List<>
 }
 
-package domain{
-
-	class Compiler{
-	
-	}
-	
-	abstract class MyClass{
-	
-	}
-	
-	abstract class MyMethod{
-	
-	}
-	
-	abstract class MyField{
-	
-	}
-	
-	abstract class Check{
-		+{abstract}test(p:Project):String
-		+{abstract}getName():String
-	}
-	
+class domain.ASMClass{
+    +<init>(org.objectweb.asm.tree.ClassNode):void
+    +printClass():void
+    +toClassUML():String
+    +toRelationUML(List<>):String
+    +setDependent(List<>):void
 }
 
-package data{
-	class Reader{
-	
-	}
+class domain.ASMField{
+    +<init>(org.objectweb.asm.tree.FieldNode):void
+    +toUML():String
 }
 
-MyClass-->"*"MyMethod
-MyClass-->"*"MyField
-MainView-->Compiler
+class domain.ASMMethod{
+    -instructions:org.objectweb.asm.tree.InsnList
+    +<init>(org.objectweb.asm.tree.MethodNode):void
+    +toUML():String
+    +isGetter():boolean
+    +isSetter():boolean
+    +getInstructions():org.objectweb.asm.tree.InsnList
+}
 
+abstract class domain.Check{
+    +<init>():void
+    +test(List<>):String
+    +getName():String
+}
 
+class domain.CheckAbstractInstance{
+    +<init>():void
+    +getConcreteClassesAbstractClass(domain.MyClass,List<>):List<>
+    +getConcreteClassesInterface(domain.MyClass,List<>):List<>
+    +isInterface(domain.MyClass):boolean
+    +isAbstractClass(domain.MyClass):boolean
+    +test(List<>):String
+    +getName():String
+}
+
+class domain.CheckAccessModifier{
+    +<init>():void
+    +test(List<>):String
+    +getName():String
+}
+
+class domain.CheckAdapterPattern{
+    +<init>():void
+    +test(List<>):String
+    +getName():String
+}
+
+class domain.CheckCouplingCohesion{
+    +<init>():void
+    +test(List<>):String
+    +getName():String
+}
+
+class domain.CheckDataClass{
+    +<init>():void
+    +test(List<>):String
+    +getName():String
+}
+
+class domain.CheckHollyWoodPrinciple{
+    +<init>():void
+    +test(List<>):String
+    +getName():String
+}
+
+class domain.CheckMethodChaining{
+    +<init>():void
+    +test(List<>):String
+    +getName():String
+}
+
+class domain.CheckNamingConvention{
+    +<init>():void
+    +test(List<>):String
+    -checkFieldNaming(domain.MyClass):String
+    +getName():String
+    -checkPackageNaming(domain.MyClass):String
+    -checkClassNaming(domain.MyClass):String
+    -checkMethodNaming(domain.MyClass):String
+    -checkConstantsNaming(domain.MyClass):String
+}
+
+class domain.CheckObserverPattern{
+    +<init>():void
+    +test(List<>):String
+    +getName():String
+}
+
+class domain.CheckTemplatePatern{
+    +<init>():void
+    +test(List<>):String
+    +getName():String
+}
+
+class domain.CheckThreeLayer{
+    +<init>():void
+    +test(List<>):String
+    +getName():String
+}
+
+class domain.ClassRelation{
+    ~hasa:List<java.lang.String,Ljava.lang.String>
+    ~extend:List<java.lang.String,Ljava.lang.String>
+    ~implement:List<java.lang.String,Ljava.lang.String>
+    ~dependent:List<java.lang.String,Ljava.lang.String>
+    +<init>(List<>):void
+}
+
+abstract class domain.CohesionMetric{
+    +<init>():void
+}
+
+class domain.Compiler{
+    ~javac:javax.tools.JavaCompiler
+    ~reader:data.Reader
+    +<init>():void
+    +read(File[]):List<>
+}
+
+abstract class domain.CouplingMetric{
+    +<init>():void
+}
+
+class domain.FentonAndMeltonMetric{
+    +<init>():void
+}
+
+class domain.LCOM4{
+    +<init>():void
+}
+
+abstract class domain.MyClass{
+    ~className:String
+    ~packageName:String
+    ~extend:String
+    ~implement:List<String>
+    ~fields:List<domain.MyField>
+    ~methods:List<domain.MyMethod>
+    ~dependent:List<String>
+    ~isAbstract:boolean
+    ~isInterface:boolean
+    ~path:String
+    ~code:List<String>
+    +<init>():void
+    +setDependent(List<>):void
+    +getFields():List<>
+    +getMethods():List<>
+    +getExtend():String
+    +getImplement():List<>
+    +getName():String
+    +getDependent():List<>
+    +setPath(String):void
+    +getPath():String
+    +setCode(List<>):void
+    +getCodeByLine(int):String
+}
+
+abstract class domain.MyField{
+    ~name:String
+    ~desc:String
+    ~isList:boolean
+    ~listType:String
+    ~isStatic:boolean
+    ~isFinal:boolean
+    ~access:int
+    +<init>():void
+    +getType():String
+    +getName():String
+    +getAccess():int
+}
+
+abstract class domain.MyMethod{
+    ~name:String
+    ~access:int
+    ~desc:String
+    ~parameters:List<String>
+    ~returnType:String
+    ~isStatic:boolean
+    ~isFinal:boolean
+    ~dependent:List<String>
+    +<init>():void
+    +getDependent():List<>
+    +getName():String
+    +getAccess():int
+    +isGetter():boolean
+    +isSetter():boolean
+}
+
+interface domain.UML{
+    +toUML():String
+    +{static}typeConvert(String):String
+}
+
+class domain.UMLGenerator{
+    -myClasses:List<domain.MyClass>
+    -myClassNames:List<String>
+    +<init>(List<>):void
+    +generateAllUMLCode():String
+}
+
+class presentation.Main{
+    +<init>():void
+    +{static}main(String[]):void
+}
+
+class presentation.MainView{
+    ~myClasses:List<domain.MyClass>
+    ~c:domain.Compiler
+    ~checks:List<domain.Check>
+    ~textArea:javax.swing.JTextArea
+    +<init>():void
+    -showClasses():void
+}
+
+class presentation.UMLViewer{
+    +<init>(String):void
+}
+
+domain.ASMClass--|>domain.MyClass
+domain.ASMClass..>domain.ASMField
+domain.ASMClass..>domain.ASMMethod
+domain.ASMClass..>domain.MyField
+domain.ASMClass..>domain.MyMethod
+domain.ASMField--|>domain.MyField
+domain.ASMField..|>domain.UML
+domain.ASMMethod--|>domain.MyMethod
+domain.ASMMethod..|>domain.UML
+domain.CheckAbstractInstance--|>domain.Check
+domain.CheckAbstractInstance..>domain.MyClass
+domain.CheckAccessModifier--|>domain.Check
+domain.CheckAccessModifier..>domain.MyClass
+domain.CheckAccessModifier..>domain.MyField
+domain.CheckAccessModifier..>domain.MyMethod
+domain.CheckAccessModifier..>domain.ASMMethod
+domain.CheckAdapterPattern--|>domain.Check
+domain.CheckCouplingCohesion--|>domain.Check
+domain.CheckDataClass--|>domain.Check
+domain.CheckDataClass..>domain.MyClass
+domain.CheckDataClass..>domain.MyMethod
+domain.CheckHollyWoodPrinciple--|>domain.Check
+domain.CheckMethodChaining--|>domain.Check
+domain.CheckMethodChaining..>domain.MyClass
+domain.CheckMethodChaining..>domain.MyMethod
+domain.CheckMethodChaining..>domain.ASMMethod
+domain.CheckNamingConvention--|>domain.Check
+domain.CheckNamingConvention..>domain.MyClass
+domain.CheckObserverPattern--|>domain.Check
+domain.CheckObserverPattern..>domain.MyClass
+domain.CheckTemplatePatern--|>domain.Check
+domain.CheckThreeLayer--|>domain.Check
+domain.ClassRelation..>domain.MyClass
+domain.Compiler-->"*"data.Reader
+domain.Compiler..>domain.ASMClass
+domain.Compiler..>domain.MyClass
+domain.Compiler..>data.Reader
+domain.FentonAndMeltonMetric--|>domain.CouplingMetric
+domain.LCOM4--|>domain.CohesionMetric
+domain.MyClass-->"*"domain.MyField
+domain.MyClass-->"*"domain.MyMethod
+domain.MyField..|>domain.UML
+domain.MyMethod..|>domain.UML
+domain.UMLGenerator-->"*"domain.MyClass
+domain.UMLGenerator..>domain.MyClass
+domain.UMLGenerator..>domain.ASMClass
+presentation.Main..>presentation.MainView
+presentation.MainView-->"*"domain.MyClass
+presentation.MainView-->"*"domain.Compiler
+presentation.MainView-->"*"domain.Check
+presentation.MainView..>domain.CheckAccessModifier
+presentation.MainView..>domain.CheckMethodChaining
+presentation.MainView..>domain.CheckObserverPattern
+presentation.MainView..>domain.CheckDataClass
+presentation.MainView..>domain.CheckAbstractInstance
+presentation.MainView..>domain.CheckHollyWoodPrinciple
+presentation.MainView..>domain.CheckAdapterPattern
+presentation.MainView..>domain.CheckCouplingCohesion
+presentation.MainView..>domain.CheckThreeLayer
+presentation.MainView..>domain.CheckNamingConvention
+presentation.MainView..>domain.Compiler
+presentation.MainView..>domain.Check
+presentation.MainView..>domain.MyClass
 @enduml

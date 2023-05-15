@@ -27,13 +27,24 @@ public interface UML {
 		types.put("Ljava/lang/Integer","Integer");
 		types.put("Ljava/io/File;","File");
 		types.put("Ljava/io/File","File");
+//		types.put("java/lang/String;","String");
+//		types.put("java/lang/String","String");
+//		types.put("java/util/List;","List<>");//
+//		types.put("java/util/List","List<");//
+//		types.put("java/lang/Integer;","Integer");
+//		types.put("java/lang/Integer","Integer");
+//		types.put("java/io/File;","File");
+//		types.put("java/io/File","File");
 		if(types.containsKey(type)) {
 			return types.get(type);
 		}
-		type=type.replaceAll(";", ",").replaceAll("/",".");
+		
 		if(type.startsWith("Ljava/util/List<")) {
-			type=type.replaceFirst("Ljava/util/List<", "List<");
+			type=type.replaceFirst("Ljava.util.List<", "");
+			type=type.replaceAll(">","");
+			type="List<"+typeConvert(type)+">";
 		}
+		type=type.replaceAll(";", ",").replaceAll("/",".");
 		if(type.charAt(type.length()-1)==',') {
 			type=type.substring(0,type.length()-1);
 		}
