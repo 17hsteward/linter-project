@@ -25,3 +25,7 @@ Marcus Henderson, Hailey Steward,  Yuchen Cai, Kelly Xu
 1. Run "Main.java" in presentation package. 
 2. In the window, select to import input project files and select checks you want to perform. 
 3. Select "start". 
+
+## Checklist
+1. Does your tool take more than one class file to analyze? Yes
+2. Does your tool take input files from non-default directory? Yes
