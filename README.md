@@ -21,19 +21,7 @@ Marcus Henderson, Hailey Steward,  Yuchen Cai, Kelly Xu
 | Yuchen Cai      | Access modifier | Method chaining | Observer pattern | Generate plantUML code and diagram                                                                                        |
 | Kelly Xu     | Data Class Detection | Coupling and Cohesion | Three Layer Principle | Check if the input code faithfully translates a input PlantUML diagram; Compare the differences between two plantUML code |
 
-
-Possible principles:
-Single Responsibility Principle (SRP)
-Open-Closed Principle (OCP)
-Interface Segregation Principle (ISP)
-The ISP requires that clients should not be forced to depend on interfaces that they do not use.
-Favor Composition over Inheritance
-Programming for Interface not implementation
-
-Pattern Check:
-Strategy
-Decorator
-Template Method
-Observer
-Adapter & Facade
-
+## How to run the program
+1. Run "Main.java" in presentation package. 
+2. In the window, select to import input project files and select checks you want to perform. 
+3. Select "start". 
