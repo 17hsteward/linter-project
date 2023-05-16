@@ -12,6 +12,8 @@ public class ASMField extends MyField implements UML{
 		this.isFinal=(mf.access&Opcodes.ACC_FINAL)!=0;
 		this.name=mf.name;
 		this.desc=mf.desc;//field type in asm format
+		this.desc.replaceAll(";","");
+		
 		this.isList=mf.signature!=null;
 		if(this.isList) {
 			this.listType=mf.signature.substring(mf.signature.indexOf("<")+1,mf.signature.length()-3);

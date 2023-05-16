@@ -83,7 +83,6 @@ public class ASMClass extends MyClass {
 		//for all fields
 		for(MyField mf:fields) {
 			if(names.contains(UML.typeConvert(mf.getType()))) {
-				System.out.println(mf.getType());
 				if(mf.getType().startsWith("L")) {
 					s+=this.packageName+"."+this.className+"-->\"*\""+UML.typeConvert(mf.getType())+"\n";
 				}else {

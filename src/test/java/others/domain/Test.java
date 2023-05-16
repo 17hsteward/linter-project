@@ -47,7 +47,7 @@ public class Test {
 	public List<String> f7() {
 		return null;
 	}
-	public List<String> f8(List<List<Integer>> ll,List<Integer> l,Map<Integer,String> m,int a,String b) {
+	public Map<String,String> f8(List<List<Integer>> ll,List<Integer> l,Map<Integer,String> m,int a,String b) {
 		return null;
 	}
 }

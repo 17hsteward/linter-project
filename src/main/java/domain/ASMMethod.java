@@ -81,19 +81,24 @@ public class ASMMethod extends MyMethod implements UML{
 
 //		System.out.println("\n");
 //		System.out.println(this.name);
-//		System.out.println(mn.desc);
-//		System.out.println(mn.signature);
+//		System.out.println("desc:  "+mn.desc);
+//		System.out.println("signature:  "+mn.signature);
+//		System.out.println("parameters:");
 //		for(String s:this.parameters) {
 //			System.out.print(s+"  ");
 //		}
-//		System.out.println();
+//		System.out.println("\n");
 		if(mn.signature!=null) {
 //			System.out.println("contains list");
 			this.parameters=UML.inputFromSignature(mn.signature);
 			this.returnType=UML.returnFromSignature(mn.signature);
-//			System.out.println(parameters);
-//			System.out.println(returnType);
+//			System.out.println("parameter:  "+parameters);
+//			System.out.println("return:  "+returnType);
 		}
+		
+//		for(String s:this.dependent) {
+//			System.out.println(s);
+//		}
 	}
 
 	public String toUML() {
@@ -126,7 +131,6 @@ public class ASMMethod extends MyMethod implements UML{
 			s=s.substring(0, s.length()-1);
 		}
 		s+="):"+UML.typeConvert(this.returnType);
-//		System.out.println(this.returnType+"    "+UML.typeConvert(this.returnType));
 		return s;
 	}
 
