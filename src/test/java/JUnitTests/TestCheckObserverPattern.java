@@ -17,10 +17,6 @@ public class TestCheckObserverPattern {
     @Test
     void existCanBePrivate_success() {
         classes = Helper.getClasses("noObserverPattern");
-        for(MyClass c:classes) {
-        	System.out.println(c.getName());
-        	System.out.println(c.getFields().get(0).getName());
-        }
         String result = check.test(classes);
         assertTrue(result.contains("noObserverPattern.A")&&result.contains("noObserverPattern.B"));
     }

@@ -78,19 +78,22 @@ public class ASMMethod extends MyMethod implements UML{
 		}
 		//return type
 		this.returnType=this.desc.substring(i+1);
-//		if(this.desc.substring(i+1).equals("Ljava/util/List;")) {
-//			this.returnType="List<"+""+">";
-//		}else {
-//			
-//		}
+
 //		System.out.println("\n");
 //		System.out.println(this.name);
 //		System.out.println(mn.desc);
 //		System.out.println(mn.signature);
+//		for(String s:this.parameters) {
+//			System.out.print(s+"  ");
+//		}
+//		System.out.println();
 		if(mn.signature!=null) {
-			this.returnType=mn.signature.substring(mn.signature.indexOf(")")+1);
+//			System.out.println("contains list");
+			this.parameters=UML.inputFromSignature(mn.signature);
+			this.returnType=UML.returnFromSignature(mn.signature);
+//			System.out.println(parameters);
+//			System.out.println(returnType);
 		}
-//		System.out.println("return type: "+this.returnType);
 	}
 
 	public String toUML() {

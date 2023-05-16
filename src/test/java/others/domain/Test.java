@@ -1,5 +1,6 @@
 package others.domain;
 import java.util.List;
+import java.util.Map;
 
 public class Test {
 	public int a;
@@ -39,5 +40,14 @@ public class Test {
 		String s=String.valueOf(k);
 		char cha=s.charAt(0);
 		int in=this.f2(k);
+	}
+	public void f6(List<String> s) {
+		;
+	}
+	public List<String> f7() {
+		return null;
+	}
+	public List<String> f8(List<List<Integer>> ll,List<Integer> l,Map<Integer,String> m,int a,String b) {
+		return null;
 	}
 }
