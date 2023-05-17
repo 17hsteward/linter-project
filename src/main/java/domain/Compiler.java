@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+import javax.swing.JTextArea;
 import javax.tools.JavaCompiler;
 import javax.tools.ToolProvider;
 
@@ -19,9 +20,11 @@ import java.util.LinkedList;
 public class Compiler {
 	JavaCompiler javac;
 	Reader reader;
-	public Compiler() {
+	JTextArea textArea;
+	public Compiler(JTextArea textArea) {
 		javac = ToolProvider.getSystemJavaCompiler();
 		this.reader=new Reader();
+		this.textArea=textArea;
 	}
 	public List<MyClass> read(File[] files){
 		List<MyClass> myClasses=new LinkedList<>();
@@ -64,7 +67,10 @@ public class Compiler {
 						}//comment this line to keep the class file with their java file
 					} catch (IOException e) {
 						System.out.println("fail to compile " + f.getName());
+						textArea.append("fail to compile: ");
 					}
+					textArea.append(f.getName()+"                "+f.getAbsolutePath()+"\n");
+					textArea.update(textArea.getGraphics());
 				}
 		}
 		List<String> classNames=new LinkedList<>();

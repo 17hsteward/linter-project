@@ -34,8 +34,7 @@ public class MainView {
 		this.checks.add(new CheckThreeLayer());
 		this.checks.add(new CheckNamingConvention());
 //		this.checks.add(new CheckTemplatePattern());
-
-		this.c=new Compiler();
+		
 		JFrame frame=new JFrame();
 		frame.setTitle("linter");
 		frame.setSize(1440,810);
@@ -53,6 +52,7 @@ public class MainView {
 		JScrollPane scrollPane = new JScrollPane(textArea); 
 		textArea.setEditable(false);
 		p3.add(scrollPane);
+		this.c=new Compiler(textArea);
 		
 		JLabel l1=new JLabel("please import java files");
 		p1.add(l1);
@@ -70,9 +70,10 @@ public class MainView {
 		        chooser.setFileFilter(filter);
 		        chooser.showOpenDialog(null);
 		    	File[] files=chooser.getSelectedFiles();
+		    	textArea.setText("loading files\n\n");
 		    	myClasses=c.read(files);
 		    	l1.setText("files imported");
-		    	showClasses();
+		    	textArea.append("\nfinish reading and compiling");
 			}
 			
 		});
@@ -85,9 +86,10 @@ public class MainView {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 		    	File[] files=new File[]{new File("./src/test/java/others/domain/Test.java")};//choose specific file to test accessing
+		    	textArea.setText("loading files\n\n");
 				myClasses=c.read(files);
 		    	l1.setText("test file imported");
-		    	showClasses();
+		    	textArea.append("\nfinish reading and compiling");
 			}
 			
 		});
@@ -100,9 +102,10 @@ public class MainView {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 		    	File[] files=new File[]{new File("./src/main/java")};
+		    	textArea.setText("loading files\n\n");
 		    	myClasses=c.read(files);
 		    	l1.setText("test file imported");
-		    	showClasses();
+		    	textArea.append("\nfinish reading and compiling");
 			}
 			
 		});
@@ -200,12 +203,13 @@ public class MainView {
 					textArea.setText("please load files first");
 					return;
 				}
+				textArea.setText("");
 				for(int i=0;i<checkBoxes.size();i++) {
 					if(checkBoxes.get(i).isSelected()) {
-						checkResult+=checks.get(i).getName()+":\n"+checks.get(i).test(myClasses)+"\n\n";
+						textArea.append(checks.get(i).getName()+":\n"+checks.get(i).test(myClasses)+"\n\n\n");
+						textArea.update(textArea.getGraphics());
 					}
 				}
-				textArea.setText(checkResult);
 			}
 			
 		});

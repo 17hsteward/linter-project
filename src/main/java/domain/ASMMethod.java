@@ -76,10 +76,6 @@ public class ASMMethod extends MyMethod implements UML{
 				}
 				continue;
 			}
-			if(s.equals("List<")) {
-				//add list type
-				s+=">";
-			}
 			this.parameters.add(s);
 		}
 		//return type

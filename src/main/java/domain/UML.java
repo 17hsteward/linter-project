@@ -90,6 +90,7 @@ public interface UML {
 	}
 	
 	public static String typeConvert(String type) {
+		type=replace(type);
 		if(type.charAt(0)=='[') {
 			return typeConvert(type.substring(1))+"[]";
 		}
@@ -103,31 +104,8 @@ public interface UML {
 		types.put("C","char");
 		types.put("B","byte");
 		types.put("S","short");
-		types.put("Ljava/lang/String;","String");
-		types.put("Ljava/lang/String","String");
-		types.put("Ljava/util/List;","List<>");
-		types.put("Ljava/util/List","List<");
-		types.put("Ljava/util/Map;","Map<>");
-		types.put("Ljava/util/Map","Map<");
-		types.put("Ljava/lang/Integer;","Integer");
-		types.put("Ljava/lang/Integer","Integer");
-		types.put("Ljava/io/File;","File");
-		types.put("Ljava/io/File","File");
 		if(types.containsKey(type)) {
 			return types.get(type);
-		}
-		
-		
-		
-		if(type.startsWith("Ljava/util/List<")) {
-			type=type.replaceAll("Ljava.util.List<", "");
-			type=type.replaceAll(";>",";");
-			type="List<"+typeConvert(type)+">";
-		}
-		if(type.startsWith("Ljava/util/Map<")) {
-			type=type.replaceAll("Ljava.util.Map<", "");
-			type=type.replaceAll(";>",";");
-			type="Map<"+typeConvert(type)+">";
 		}
 		
 		
