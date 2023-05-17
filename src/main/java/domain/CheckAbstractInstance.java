@@ -5,6 +5,31 @@ import java.util.List;
 
 public class CheckAbstractInstance extends Check {
 
+    @Override
+    public String test(List<MyClass> myClasses) {
+        StringBuilder violationString = new StringBuilder();
+        for(MyClass classNode:myClasses){
+
+            if(isInterface(classNode)){
+                if(getConcreteClassesInterface(classNode,myClasses).size()<1){
+                    String[] name_arr = classNode.getName().split("\\.");
+                    String actualName = name_arr[name_arr.length - 1];
+                    violationString.append(actualName).append(" interface does not have any concrete implementation\n");
+                }
+            }
+            else if(isAbstractClass(classNode)){
+                if(getConcreteClassesAbstractClass(classNode,myClasses).size()<1){
+                    String[] name_arr = classNode.getName().split("\\.");
+                    String actualName = name_arr[name_arr.length - 1];
+                    violationString.append(actualName).append(" abstract class does not have any concrete implementation\n");
+                }
+            }
+        }
+        if(violationString.length()==0)
+            violationString.append("No issues found");
+        return violationString.toString();
+    }
+
     public List<MyClass> getConcreteClassesAbstractClass(MyClass classNode, List<MyClass> classNodes){
         List<MyClass> concreteClasses = new ArrayList<>();
         String className = classNode.getName();
@@ -46,30 +71,7 @@ public class CheckAbstractInstance extends Check {
         return classNode.isAbstract;
     }
 
-    @Override
-    public String test(List<MyClass> myClasses) {
-        StringBuilder violationString = new StringBuilder();
-        for(MyClass classNode:myClasses){
 
-             if(isInterface(classNode)){
-                if(getConcreteClassesInterface(classNode,myClasses).size()<1){
-                    String[] name_arr = classNode.getName().split("\\.");
-                    String actualName = name_arr[name_arr.length - 1];
-                    violationString.append(actualName).append(" interface does not have any concrete implementation\n");
-                }
-            }
-            else if(isAbstractClass(classNode)){
-                if(getConcreteClassesAbstractClass(classNode,myClasses).size()<1){
-                    String[] name_arr = classNode.getName().split("\\.");
-                    String actualName = name_arr[name_arr.length - 1];
-                    violationString.append(actualName).append(" abstract class does not have any concrete implementation\n");
-                }
-            }
-        }
-        if(violationString.length()==0)
-            violationString.append("No issues found");
-        return violationString.toString();
-    }
 
     @Override
     public String getName() {

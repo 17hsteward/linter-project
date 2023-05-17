@@ -1,4 +1,4 @@
-package filesToTest.AbstractInstance;
+package filesToTest.abstractInstance;
 
 public class RedHead extends Duck {
     @Override

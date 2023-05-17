@@ -29,7 +29,7 @@ public class TestCheckAbstractInstance {
     public void checkIfClassAbstract_Failed(){
         Compiler compiler = new Compiler();
         File[] files = new File[1];
-        files[0]= new File("./src/test/java/filesToTest/AbstractInstance/Mallard.java");
+        files[0]= new File("./src/test/java/filesToTest/abstractInstance/Mallard.java");
         List<MyClass> classNodes = compiler.read(files);
         /*Using direct CheckAbstractInstance to test specific method in this class which will not be and doesn't need to be implemented
         in the Check interface since it's only used in CheckAbstractInstance.*/
@@ -42,7 +42,7 @@ public class TestCheckAbstractInstance {
     public void checkIfInterface_Success(){
         Compiler compiler = new Compiler();
         File[] files = new File[1];
-        files[0]= new File("./src/test/java/filesToTest/AbstractInstance/Animal.java");
+        files[0]= new File("./src/test/java/filesToTest/abstractInstance/Animal.java");
         List<MyClass> classNodes = compiler.read(files);
         /*Using direct CheckAbstractInstance to test specific method in this class which will not be and doesn't need to be implemented
         in the Check interface since it's only used in CheckAbstractInstance.*/
@@ -54,7 +54,7 @@ public class TestCheckAbstractInstance {
     public void checkIfInterface_Failed(){
         Compiler compiler = new Compiler();
         File[] files = new File[1];
-        files[0]= new File("./src/test/java/filesToTest/AbstractInstance/Dog.java");
+        files[0]= new File("./src/test/java/filesToTest/abstractInstance/Dog.java");
         List<MyClass> classNodes = compiler.read(files);
         /*Using direct CheckAbstractInstance to test specific method in this class which will not be and doesn't need to be implemented
         in the Check interface since it's only used in CheckAbstractInstance.*/
@@ -66,10 +66,10 @@ public class TestCheckAbstractInstance {
     public void returnConcreteClassesOfAbstractClass(){
         Compiler compiler = new Compiler();
         File[] files = new File[4];
-        files[0]= new File("./src/test/java/filesToTest/AbstractInstance/RedHead.java");
-        files[1]= new File("./src/test/java/filesToTest/AbstractInstance/Duck.java");
-        files[2]= new File("./src/test/java/filesToTest/AbstractInstance/Dog.java");
-        files[3]= new File("./src/test/java/filesToTest/AbstractInstance/Mallard.java");
+        files[0]= new File("./src/test/java/filesToTest/abstractInstance/RedHead.java");
+        files[1]= new File("./src/test/java/filesToTest/abstractInstance/Duck.java");
+        files[2]= new File("./src/test/java/filesToTest/abstractInstance/Dog.java");
+        files[3]= new File("./src/test/java/filesToTest/abstractInstance/Mallard.java");
 
         List<MyClass> classNodes = compiler.read(files);
         /*Using direct CheckAbstractInstance to test specific method in this class which will not be and doesn't need to be implemented
@@ -84,11 +84,11 @@ public class TestCheckAbstractInstance {
     public void returnConcreteClassesOfInterface(){
         Compiler compiler = new Compiler();
         File[] files = new File[5];
-        files[0]= new File("./src/test/java/filesToTest/AbstractInstance/Dog.java");
-        files[1]= new File("./src/test/java/filesToTest/AbstractInstance/Mallard.java");
-        files[2]= new File("./src/test/java/filesToTest/AbstractInstance/Cat.java");
-        files[3]= new File("./src/test/java/filesToTest/AbstractInstance/Tiger.java");
-        files[4]= new File("./src/test/java/filesToTest/AbstractInstance/Animal.java");
+        files[0]= new File("./src/test/java/filesToTest/abstractInstance/Dog.java");
+        files[1]= new File("./src/test/java/filesToTest/abstractInstance/Mallard.java");
+        files[2]= new File("./src/test/java/filesToTest/abstractInstance/Cat.java");
+        files[3]= new File("./src/test/java/filesToTest/abstractInstance/Tiger.java");
+        files[4]= new File("./src/test/java/filesToTest/abstractInstance/Animal.java");
 
         List<MyClass> classNodes = compiler.read(files);
         /*Using direct CheckAbstractInstance to test specific method in this class which will not be and doesn't need to be implemented
@@ -105,12 +105,12 @@ public class TestCheckAbstractInstance {
     public void returnConcreteClassesOfInterface_ConcreteClassesHaveMultipleInterfaces(){
         Compiler compiler = new Compiler();
         File[] files = new File[6];
-        files[0]= new File("./src/test/java/filesToTest/AbstractInstance/Dog.java");
-        files[1]= new File("./src/test/java/filesToTest/AbstractInstance/Mallard.java");
-        files[2]= new File("./src/test/java/filesToTest/AbstractInstance/Cat.java");
-        files[3]= new File("./src/test/java/filesToTest/AbstractInstance/Tiger.java");
-        files[4]= new File("./src/test/java/filesToTest/AbstractInstance/Animal.java");
-        files[5]= new File("./src/test/java/filesToTest/AbstractInstance/Pet.java");
+        files[0]= new File("./src/test/java/filesToTest/abstractInstance/Dog.java");
+        files[1]= new File("./src/test/java/filesToTest/abstractInstance/Mallard.java");
+        files[2]= new File("./src/test/java/filesToTest/abstractInstance/Cat.java");
+        files[3]= new File("./src/test/java/filesToTest/abstractInstance/Tiger.java");
+        files[4]= new File("./src/test/java/filesToTest/abstractInstance/Animal.java");
+        files[5]= new File("./src/test/java/filesToTest/abstractInstance/Pet.java");
         List<MyClass> classNodes = compiler.read(files);
         /*Using direct CheckAbstractInstance to test specific method in this class which will not be and doesn't need to be implemented
         in the Check interface since it's only used in CheckAbstractInstance.*/
@@ -132,9 +132,9 @@ public class TestCheckAbstractInstance {
     public void checkIfAbstractClassImplemented_ReturnEmptyString(){
         Compiler compiler = new Compiler();
         File[] files = new File[3];
-        files[0]= new File("./src/test/java/filesToTest/AbstractInstance/Duck.java");
-        files[1]= new File("./src/test/java/filesToTest/AbstractInstance/Mallard.java");
-        files[2]= new File("./src/test/java/filesToTest/AbstractInstance/RedHead.java");
+        files[0]= new File("./src/test/java/filesToTest/abstractInstance/Duck.java");
+        files[1]= new File("./src/test/java/filesToTest/abstractInstance/Mallard.java");
+        files[2]= new File("./src/test/java/filesToTest/abstractInstance/RedHead.java");
         List<MyClass> classNodes = compiler.read(files);
         Check abstractInstanceCheck = new CheckAbstractInstance();
         String violationString = abstractInstanceCheck.test(classNodes);
@@ -145,9 +145,9 @@ public class TestCheckAbstractInstance {
     public void checkIfAbstractClassImplemented_ReturnOneString(){
         Compiler compiler = new Compiler();
         File[] files = new File[3];
-        files[0]= new File("./src/test/java/filesToTest/AbstractInstance/Duck.java");
-        files[1]= new File("./src/test/java/filesToTest/AbstractInstance/Animal.java");
-        files[2]= new File("./src/test/java/filesToTest/AbstractInstance/Dog.java");
+        files[0]= new File("./src/test/java/filesToTest/abstractInstance/Duck.java");
+        files[1]= new File("./src/test/java/filesToTest/abstractInstance/Animal.java");
+        files[2]= new File("./src/test/java/filesToTest/abstractInstance/Dog.java");
         List<MyClass> classNodes = compiler.read(files);
         Check abstractInstanceCheck = new CheckAbstractInstance();
         String violationString = abstractInstanceCheck.test(classNodes);
@@ -157,11 +157,11 @@ public class TestCheckAbstractInstance {
     public void checkIfAbstractClassImplemented_ReturnMultipleString(){
         Compiler compiler = new Compiler();
         File[] files = new File[5];
-        files[0]= new File("./src/test/java/filesToTest/AbstractInstance/Duck.java");
-        files[1]= new File("./src/test/java/filesToTest/AbstractInstance/Animal.java");
-        files[2]= new File("./src/test/java/filesToTest/AbstractInstance/Dog.java");
-        files[3]= new File("./src/test/java/filesToTest/AbstractInstance/Coffee.java");
-        files[4]= new File("./src/test/java/filesToTest/AbstractInstance/Student.java");
+        files[0]= new File("./src/test/java/filesToTest/abstractInstance/Duck.java");
+        files[1]= new File("./src/test/java/filesToTest/abstractInstance/Animal.java");
+        files[2]= new File("./src/test/java/filesToTest/abstractInstance/Dog.java");
+        files[3]= new File("./src/test/java/filesToTest/abstractInstance/Coffee.java");
+        files[4]= new File("./src/test/java/filesToTest/abstractInstance/Student.java");
         List<MyClass> classNodes = compiler.read(files);
         Check abstractInstanceCheck = new CheckAbstractInstance();
         String violationString = abstractInstanceCheck.test(classNodes);
@@ -172,11 +172,11 @@ public class TestCheckAbstractInstance {
     public void checkIfInterfaceImplemented_ReturnEmptyString(){
         Compiler compiler = new Compiler();
         File[] files = new File[5];
-        files[0]= new File("./src/test/java/filesToTest/AbstractInstance/Animal.java");
-        files[1]= new File("./src/test/java/filesToTest/AbstractInstance/Cat.java");
-        files[2]= new File("./src/test/java/filesToTest/AbstractInstance/Pet.java");
-        files[3]= new File("./src/test/java/filesToTest/AbstractInstance/Dog.java");
-        files[4]= new File("./src/test/java/filesToTest/AbstractInstance/Tiger.java");
+        files[0]= new File("./src/test/java/filesToTest/abstractInstance/Animal.java");
+        files[1]= new File("./src/test/java/filesToTest/abstractInstance/Cat.java");
+        files[2]= new File("./src/test/java/filesToTest/abstractInstance/Pet.java");
+        files[3]= new File("./src/test/java/filesToTest/abstractInstance/Dog.java");
+        files[4]= new File("./src/test/java/filesToTest/abstractInstance/Tiger.java");
         List<MyClass> classNodes = compiler.read(files);
         Check abstractInstanceCheck = new CheckAbstractInstance();
         String violationString = abstractInstanceCheck.test(classNodes);
@@ -187,9 +187,9 @@ public class TestCheckAbstractInstance {
     public void checkIfInterfaceImplemented_ReturnOneString(){
         Compiler compiler = new Compiler();
         File[] files = new File[3];
-        files[0]= new File("./src/test/java/filesToTest/AbstractInstance/Animal.java");
-        files[1]= new File("./src/test/java/filesToTest/AbstractInstance/Pet.java");
-        files[2]= new File("./src/test/java/filesToTest/AbstractInstance/Tiger.java");
+        files[0]= new File("./src/test/java/filesToTest/abstractInstance/Animal.java");
+        files[1]= new File("./src/test/java/filesToTest/abstractInstance/Pet.java");
+        files[2]= new File("./src/test/java/filesToTest/abstractInstance/Tiger.java");
         List<MyClass> classNodes = compiler.read(files);
         Check abstractInstanceCheck = new CheckAbstractInstance();
         String violationString = abstractInstanceCheck.test(classNodes);
@@ -200,9 +200,9 @@ public class TestCheckAbstractInstance {
     public void checkIfInterfaceImplemented_ReturnMultipleString(){
         Compiler compiler = new Compiler();
         File[] files = new File[3];
-        files[0]= new File("./src/test/java/filesToTest/AbstractInstance/Animal.java");
-        files[1]= new File("./src/test/java/filesToTest/AbstractInstance/Mallard.java");
-        files[2]= new File("./src/test/java/filesToTest/AbstractInstance/Pet.java");
+        files[0]= new File("./src/test/java/filesToTest/abstractInstance/Animal.java");
+        files[1]= new File("./src/test/java/filesToTest/abstractInstance/Mallard.java");
+        files[2]= new File("./src/test/java/filesToTest/abstractInstance/Pet.java");
         List<MyClass> classNodes = compiler.read(files);
         Check abstractInstanceCheck = new CheckAbstractInstance();
         String violationString = abstractInstanceCheck.test(classNodes);

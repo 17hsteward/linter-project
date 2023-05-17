@@ -1,4 +1,4 @@
-package filesToTest.AbstractInstance;
+package filesToTest.abstractInstance;
 
 public class Tiger implements Animal{
     @Override
