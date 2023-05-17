@@ -6,6 +6,7 @@ import domain.Compiler;
 import domain.MyClass;
 import org.junit.jupiter.api.Test;
 
+import javax.swing.*;
 import java.io.File;
 import java.util.List;
 
@@ -15,24 +16,26 @@ public class TestCheckAbstractInstance {
 
     @Test
     public void checkIfClassAbstract_Success(){
-        Compiler compiler = new Compiler();
+        JTextArea textArea = new JTextArea();
+        Compiler compiler = new Compiler(textArea);
         File[] files = new File[1];
         files[0]= new File("./src/test/java/filesToTest/AbstractInstance/Duck.java");
         List<MyClass> classNodes = compiler.read(files);
         /*Using direct CheckAbstractInstance to test specific method in this class which will not be and doesn't need to be implemented
-        in the Check interface since it's only used in CheckAbstractInstance.*/
+        in the Check interface since it's only used in CheckabstractInstance.*/
         CheckAbstractInstance abstractInstanceCheck = new CheckAbstractInstance();
         boolean isAbstract = abstractInstanceCheck.isAbstractClass(classNodes.get(0));
         assertTrue(isAbstract);
     }
     @Test
     public void checkIfClassAbstract_Failed(){
-        Compiler compiler = new Compiler();
+        JTextArea textArea = new JTextArea();
+        Compiler compiler = new Compiler(textArea);
         File[] files = new File[1];
         files[0]= new File("./src/test/java/filesToTest/abstractInstance/Mallard.java");
         List<MyClass> classNodes = compiler.read(files);
         /*Using direct CheckAbstractInstance to test specific method in this class which will not be and doesn't need to be implemented
-        in the Check interface since it's only used in CheckAbstractInstance.*/
+        in the Check interface since it's only used in CheckabstractInstance.*/
         CheckAbstractInstance abstractInstanceCheck = new CheckAbstractInstance();
         boolean isAbstract = abstractInstanceCheck.isAbstractClass(classNodes.get(0));
         assertFalse(isAbstract);
@@ -40,31 +43,34 @@ public class TestCheckAbstractInstance {
 
     @Test
     public void checkIfInterface_Success(){
-        Compiler compiler = new Compiler();
+        JTextArea textArea = new JTextArea();
+        Compiler compiler = new Compiler(textArea);
         File[] files = new File[1];
         files[0]= new File("./src/test/java/filesToTest/abstractInstance/Animal.java");
         List<MyClass> classNodes = compiler.read(files);
         /*Using direct CheckAbstractInstance to test specific method in this class which will not be and doesn't need to be implemented
-        in the Check interface since it's only used in CheckAbstractInstance.*/
+        in the Check interface since it's only used in CheckabstractInstance.*/
         CheckAbstractInstance abstractInstanceCheck = new CheckAbstractInstance();
         boolean isInterface = abstractInstanceCheck.isInterface(classNodes.get(0));
         assertTrue(isInterface);
     }
     @Test
     public void checkIfInterface_Failed(){
-        Compiler compiler = new Compiler();
+        JTextArea textArea = new JTextArea();
+        Compiler compiler = new Compiler(textArea);
         File[] files = new File[1];
         files[0]= new File("./src/test/java/filesToTest/abstractInstance/Dog.java");
         List<MyClass> classNodes = compiler.read(files);
         /*Using direct CheckAbstractInstance to test specific method in this class which will not be and doesn't need to be implemented
-        in the Check interface since it's only used in CheckAbstractInstance.*/
+        in the Check interface since it's only used in CheckabstractInstance.*/
         CheckAbstractInstance abstractInstanceCheck = new CheckAbstractInstance();
         boolean isInterface = abstractInstanceCheck.isInterface(classNodes.get(0));
         assertFalse(isInterface);
     }
     @Test
     public void returnConcreteClassesOfAbstractClass(){
-        Compiler compiler = new Compiler();
+        JTextArea textArea = new JTextArea();
+        Compiler compiler = new Compiler(textArea);
         File[] files = new File[4];
         files[0]= new File("./src/test/java/filesToTest/abstractInstance/RedHead.java");
         files[1]= new File("./src/test/java/filesToTest/abstractInstance/Duck.java");
@@ -73,16 +79,17 @@ public class TestCheckAbstractInstance {
 
         List<MyClass> classNodes = compiler.read(files);
         /*Using direct CheckAbstractInstance to test specific method in this class which will not be and doesn't need to be implemented
-        in the Check interface since it's only used in CheckAbstractInstance.*/
+        in the Check interface since it's only used in CheckabstractInstance.*/
         CheckAbstractInstance abstractInstanceCheck = new CheckAbstractInstance();
         List<MyClass> concreteClasses = abstractInstanceCheck.getConcreteClassesAbstractClass(classNodes.get(1),classNodes);
         assertEquals(2,concreteClasses.size());
-        assertEquals("filesToTest.AbstractInstance.RedHead",concreteClasses.get(0).getName());
-        assertEquals("filesToTest.AbstractInstance.Mallard",concreteClasses.get(1).getName());
+        assertEquals("filesToTest.abstractInstance.RedHead",concreteClasses.get(0).getName());
+        assertEquals("filesToTest.abstractInstance.Mallard",concreteClasses.get(1).getName());
     }
     @Test
     public void returnConcreteClassesOfInterface(){
-        Compiler compiler = new Compiler();
+        JTextArea textArea = new JTextArea();
+        Compiler compiler = new Compiler(textArea);
         File[] files = new File[5];
         files[0]= new File("./src/test/java/filesToTest/abstractInstance/Dog.java");
         files[1]= new File("./src/test/java/filesToTest/abstractInstance/Mallard.java");
@@ -92,18 +99,19 @@ public class TestCheckAbstractInstance {
 
         List<MyClass> classNodes = compiler.read(files);
         /*Using direct CheckAbstractInstance to test specific method in this class which will not be and doesn't need to be implemented
-        in the Check interface since it's only used in CheckAbstractInstance.*/
+        in the Check interface since it's only used in CheckabstractInstance.*/
         CheckAbstractInstance abstractInstanceCheck = new CheckAbstractInstance();
         List<MyClass> concreteClasses = abstractInstanceCheck.getConcreteClassesInterface(classNodes.get(4),classNodes);
         assertEquals(3,concreteClasses.size());
-        assertEquals("filesToTest.AbstractInstance.Dog",concreteClasses.get(0).getName());
-        assertEquals("filesToTest.AbstractInstance.Cat",concreteClasses.get(1).getName());
-        assertEquals("filesToTest.AbstractInstance.Tiger",concreteClasses.get(2).getName());
+        assertEquals("filesToTest.abstractInstance.Dog",concreteClasses.get(0).getName());
+        assertEquals("filesToTest.abstractInstance.Cat",concreteClasses.get(1).getName());
+        assertEquals("filesToTest.abstractInstance.Tiger",concreteClasses.get(2).getName());
     }
 
     @Test
     public void returnConcreteClassesOfInterface_ConcreteClassesHaveMultipleInterfaces(){
-        Compiler compiler = new Compiler();
+        JTextArea textArea = new JTextArea();
+        Compiler compiler = new Compiler(textArea);
         File[] files = new File[6];
         files[0]= new File("./src/test/java/filesToTest/abstractInstance/Dog.java");
         files[1]= new File("./src/test/java/filesToTest/abstractInstance/Mallard.java");
@@ -113,24 +121,25 @@ public class TestCheckAbstractInstance {
         files[5]= new File("./src/test/java/filesToTest/abstractInstance/Pet.java");
         List<MyClass> classNodes = compiler.read(files);
         /*Using direct CheckAbstractInstance to test specific method in this class which will not be and doesn't need to be implemented
-        in the Check interface since it's only used in CheckAbstractInstance.*/
+        in the Check interface since it's only used in CheckabstractInstance.*/
         CheckAbstractInstance abstractInstanceCheck = new CheckAbstractInstance();
         //First interface Animal
         List<MyClass> concreteClasses = abstractInstanceCheck.getConcreteClassesInterface(classNodes.get(4),classNodes);
         assertEquals(3,concreteClasses.size());
-        assertEquals("filesToTest.AbstractInstance.Dog",concreteClasses.get(0).getName());
-        assertEquals("filesToTest.AbstractInstance.Cat",concreteClasses.get(1).getName());
-        assertEquals("filesToTest.AbstractInstance.Tiger",concreteClasses.get(2).getName());
+        assertEquals("filesToTest.abstractInstance.Dog",concreteClasses.get(0).getName());
+        assertEquals("filesToTest.abstractInstance.Cat",concreteClasses.get(1).getName());
+        assertEquals("filesToTest.abstractInstance.Tiger",concreteClasses.get(2).getName());
         //Second interface Pet
         concreteClasses = abstractInstanceCheck.getConcreteClassesInterface(classNodes.get(5),classNodes);
         assertEquals(2,concreteClasses.size());
-        assertEquals("filesToTest.AbstractInstance.Dog",concreteClasses.get(0).getName());
-        assertEquals("filesToTest.AbstractInstance.Cat",concreteClasses.get(1).getName());
+        assertEquals("filesToTest.abstractInstance.Dog",concreteClasses.get(0).getName());
+        assertEquals("filesToTest.abstractInstance.Cat",concreteClasses.get(1).getName());
     }
 
     @Test
     public void checkIfAbstractClassImplemented_ReturnEmptyString(){
-        Compiler compiler = new Compiler();
+        JTextArea textArea = new JTextArea();
+        Compiler compiler = new Compiler(textArea);
         File[] files = new File[3];
         files[0]= new File("./src/test/java/filesToTest/abstractInstance/Duck.java");
         files[1]= new File("./src/test/java/filesToTest/abstractInstance/Mallard.java");
@@ -143,7 +152,8 @@ public class TestCheckAbstractInstance {
 
     @Test
     public void checkIfAbstractClassImplemented_ReturnOneString(){
-        Compiler compiler = new Compiler();
+        JTextArea textArea = new JTextArea();
+        Compiler compiler = new Compiler(textArea);
         File[] files = new File[3];
         files[0]= new File("./src/test/java/filesToTest/abstractInstance/Duck.java");
         files[1]= new File("./src/test/java/filesToTest/abstractInstance/Animal.java");
@@ -155,7 +165,8 @@ public class TestCheckAbstractInstance {
     }
     @Test
     public void checkIfAbstractClassImplemented_ReturnMultipleString(){
-        Compiler compiler = new Compiler();
+        JTextArea textArea = new JTextArea();
+        Compiler compiler = new Compiler(textArea);
         File[] files = new File[5];
         files[0]= new File("./src/test/java/filesToTest/abstractInstance/Duck.java");
         files[1]= new File("./src/test/java/filesToTest/abstractInstance/Animal.java");
@@ -170,7 +181,8 @@ public class TestCheckAbstractInstance {
 
     @Test
     public void checkIfInterfaceImplemented_ReturnEmptyString(){
-        Compiler compiler = new Compiler();
+        JTextArea textArea = new JTextArea();
+        Compiler compiler = new Compiler(textArea);
         File[] files = new File[5];
         files[0]= new File("./src/test/java/filesToTest/abstractInstance/Animal.java");
         files[1]= new File("./src/test/java/filesToTest/abstractInstance/Cat.java");
@@ -185,7 +197,8 @@ public class TestCheckAbstractInstance {
 
     @Test
     public void checkIfInterfaceImplemented_ReturnOneString(){
-        Compiler compiler = new Compiler();
+        JTextArea textArea = new JTextArea();
+        Compiler compiler = new Compiler(textArea);
         File[] files = new File[3];
         files[0]= new File("./src/test/java/filesToTest/abstractInstance/Animal.java");
         files[1]= new File("./src/test/java/filesToTest/abstractInstance/Pet.java");
@@ -198,7 +211,8 @@ public class TestCheckAbstractInstance {
 
     @Test
     public void checkIfInterfaceImplemented_ReturnMultipleString(){
-        Compiler compiler = new Compiler();
+        JTextArea textArea = new JTextArea();
+        Compiler compiler = new Compiler(textArea);
         File[] files = new File[3];
         files[0]= new File("./src/test/java/filesToTest/abstractInstance/Animal.java");
         files[1]= new File("./src/test/java/filesToTest/abstractInstance/Mallard.java");
