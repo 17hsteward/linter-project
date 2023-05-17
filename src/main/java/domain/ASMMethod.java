@@ -5,8 +5,8 @@ import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.FieldInsnNode;
 import org.objectweb.asm.tree.InsnList;
+import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
-import org.objectweb.asm.tree.ParameterNode;
 import org.objectweb.asm.tree.TypeInsnNode;
 
 public class ASMMethod extends MyMethod implements UML{
@@ -35,6 +35,12 @@ public class ASMMethod extends MyMethod implements UML{
 				if(!this.dependent.contains(m)) {
 					this.dependent.add(m);
 				}
+			}else if(node instanceof MethodInsnNode) {
+//				System.out.println(((MethodInsnNode)node).owner+" "+((MethodInsnNode)node).name);
+//				String owner=((MethodInsnNode)node).owner;
+//				String name=((MethodInsnNode)node).name;
+				//exclude java function and method 
+				
 			}
 			//LabelNode					for jump purpose, usually appear before LineNumberNode
 			//LineNumberNode			line number of original code
@@ -79,26 +85,12 @@ public class ASMMethod extends MyMethod implements UML{
 		//return type
 		this.returnType=this.desc.substring(i+1);
 
-//		System.out.println("\n");
-//		System.out.println(this.name);
-//		System.out.println("desc:  "+mn.desc);
-//		System.out.println("signature:  "+mn.signature);
-//		System.out.println("parameters:");
-//		for(String s:this.parameters) {
-//			System.out.print(s+"  ");
-//		}
-//		System.out.println("\n");
 		if(mn.signature!=null) {
-//			System.out.println("contains list");
 			this.parameters=UML.inputFromSignature(mn.signature);
 			this.returnType=UML.returnFromSignature(mn.signature);
-//			System.out.println("parameter:  "+parameters);
-//			System.out.println("return:  "+returnType);
+			System.out.println("parameter:  "+parameters);
 		}
 		
-//		for(String s:this.dependent) {
-//			System.out.println(s);
-//		}
 	}
 
 	public String toUML() {

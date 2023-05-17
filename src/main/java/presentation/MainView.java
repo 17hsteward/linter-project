@@ -93,7 +93,7 @@ public class MainView {
 		});
 		p1.add(b1);
 		
-		JButton b2=new JButton("import this project");
+		JButton b2=new JButton("import this linter project");
 		b2.addActionListener(new ActionListener() {
 
 			@Override
