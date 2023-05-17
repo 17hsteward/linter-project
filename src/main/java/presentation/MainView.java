@@ -34,6 +34,7 @@ public class MainView {
 		this.checks.add(new CheckThreeLayer());
 		this.checks.add(new CheckNamingConvention());
 //		this.checks.add(new CheckTemplatePattern());
+//		substitutionPrinciple();
 		
 		JFrame frame=new JFrame();
 		frame.setTitle("linter");
@@ -74,6 +75,7 @@ public class MainView {
 		    	myClasses=c.read(files);
 		    	l1.setText("files imported");
 		    	textArea.append("\nfinish reading and compiling");
+		    	setDependent(myClasses);
 			}
 			
 		});
@@ -90,6 +92,7 @@ public class MainView {
 				myClasses=c.read(files);
 		    	l1.setText("test file imported");
 		    	textArea.append("\nfinish reading and compiling");
+		    	setDependent(myClasses);
 			}
 			
 		});
@@ -106,6 +109,7 @@ public class MainView {
 		    	myClasses=c.read(files);
 		    	l1.setText("test file imported");
 		    	textArea.append("\nfinish reading and compiling");
+		    	setDependent(myClasses);
 			}
 			
 		});
@@ -197,8 +201,6 @@ public class MainView {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				String checkResult="";
 				if(myClasses==null) {
 					textArea.setText("please load files first");
 					return;
@@ -218,6 +220,16 @@ public class MainView {
 		
 	}
 	
+	private void setDependent(List<MyClass> myClasses2) {
+		List<String> classNames=new LinkedList<>();
+		for(MyClass c:myClasses) {
+			classNames.add(c.getName());
+		}
+		for(MyClass c:myClasses) {
+			c.setDependent(classNames);
+		}
+	}
+
 	private void showClasses() {
 		String s="";
 		if(this.myClasses==null) {

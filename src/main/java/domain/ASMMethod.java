@@ -86,6 +86,32 @@ public class ASMMethod extends MyMethod implements UML{
 			this.returnType=UML.returnFromSignature(mn.signature);
 		}
 		
+		//add input type and return type to dependency, especially for abstract method
+		for(String s:this.parameters) {
+			String s1=s.replaceAll("List<", "").replaceAll(">",",");
+			String[] strings=s1.split(",");
+			for(String s2:strings) {
+				if(s2.isBlank()) {
+					continue;
+				}
+				s2=UML.typeConvert(s2);
+				if(!this.dependent.contains(s2)) {
+					this.dependent.add(s2);
+				}
+			}
+		}
+		String s1=this.returnType.replaceAll("List<", "").replaceAll(">",",");
+		String[] strings=s1.split(",");
+		for(String s2:strings) {
+			if(s2.isBlank()) {
+				continue;
+			}
+			s2=UML.typeConvert(s2);
+			if(!this.dependent.contains(s2)) {
+				this.dependent.add(s2);
+			}
+		}
+		
 	}
 
 	public String toUML() {

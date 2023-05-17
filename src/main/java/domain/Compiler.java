@@ -73,13 +73,6 @@ public class Compiler {
 					textArea.update(textArea.getGraphics());
 				}
 		}
-		List<String> classNames=new LinkedList<>();
-		for(MyClass c:myClasses) {
-			classNames.add(c.getName());
-		}
-		for(MyClass c:myClasses) {
-			c.setDependent(classNames);
-		}
 		return myClasses;
 	}
 
