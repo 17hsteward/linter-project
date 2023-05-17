@@ -88,7 +88,6 @@ public class ASMMethod extends MyMethod implements UML{
 		if(mn.signature!=null) {
 			this.parameters=UML.inputFromSignature(mn.signature);
 			this.returnType=UML.returnFromSignature(mn.signature);
-			System.out.println("parameter:  "+parameters);
 		}
 		
 	}

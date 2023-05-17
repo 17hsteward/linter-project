@@ -15,9 +15,16 @@ public class TestCheckMethodChaining {
     public Check check = new CheckMethodChaining();
 
     @Test
-    void existCanBePrivate_success() {
+    void has_method_chain() {
         classes = Helper.getClasses("hasMethodChaining");
         String result = check.test(classes);
         assertTrue(result.contains("this.getB().getC().C1()"));
+    }
+    
+    @Test
+    void no_method_chain() {
+        classes = Helper.getClasses("noUnusedNonPrivate");
+        String result = check.test(classes);
+        assertTrue(result.equals("no method chaining found"));
     }
 }

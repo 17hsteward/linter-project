@@ -20,4 +20,11 @@ public class TestCheckAccessModifier {
         String result = check.test(classes);
         assertTrue(result.contains("public_unused")&&result.contains("protected_unused")&&result.contains("default_unused")&&result.contains("notCalled"));
     }
+    
+    @Test
+    void noViolation_success() {
+    	classes = Helper.getClasses("noUnusedNonPrivate");
+        String result = check.test(classes);
+        assertTrue(result.equals("no issue found"));
+    }
 }
