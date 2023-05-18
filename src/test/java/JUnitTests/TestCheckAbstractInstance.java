@@ -223,5 +223,17 @@ public class TestCheckAbstractInstance {
         assertEquals("Animal interface does not have any concrete implementation\nPet interface does not have any concrete implementation\n",violationString);
     }
 
+    @Test
+    public void checkIfPackageImplements(){
+        JTextArea textArea = new JTextArea();
+        Compiler compiler = new Compiler(textArea);
+        File[] files = new File[1];
+        files[0]= new File("./src/test/java/filesToTest/abstractInstance");
+        List<MyClass> classNodes = compiler.read(files);
+        Check abstractInstanceCheck = new CheckAbstractInstance();
+        String violationString = abstractInstanceCheck.test(classNodes);
+        assertEquals("Coffee abstract class does not have any concrete implementation\nStudent abstract class does not have any concrete implementation\n",violationString);
+    }
+
 
 }

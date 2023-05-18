@@ -19,7 +19,7 @@ public class CheckAdapterPattern extends Check {
             }
 
         } else
-            return "No adapter pattern found";
+            violationString.append("No adapter pattern found");
         return violationString.toString();
     }
 
