@@ -9,16 +9,15 @@ public class CheckAbstractInstance extends Check {
     public String test(List<MyClass> myClasses) {
         StringBuilder violationString = new StringBuilder();
         for(MyClass classNode:myClasses){
-
             if(isInterface(classNode)){
-                if(getConcreteClassesInterface(classNode,myClasses).size()<1){
+                if(getConcreteClassesInterface(classNode,myClasses).isEmpty()){
                     String[] name_arr = classNode.getName().split("\\.");
                     String actualName = name_arr[name_arr.length - 1];
                     violationString.append(actualName).append(" interface does not have any concrete implementation\n");
                 }
             }
             else if(isAbstractClass(classNode)){
-                if(getConcreteClassesAbstractClass(classNode,myClasses).size()<1){
+                if(getConcreteClassesAbstractClass(classNode,myClasses).isEmpty()){
                     String[] name_arr = classNode.getName().split("\\.");
                     String actualName = name_arr[name_arr.length - 1];
                     violationString.append(actualName).append(" abstract class does not have any concrete implementation\n");

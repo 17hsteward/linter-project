@@ -222,10 +222,6 @@ public class TestCheckAdapterPattern {
         List<MyClass> classNodes = compiler.read(files);
         Check adapterPatternCheck = new  CheckAdapterPattern();
         String  violationString = adapterPatternCheck.test(classNodes);
-        assertEquals("""
-                Possible use of adapter pattern using the adapter AbstractAdapter
-                Possible use of adapter pattern using the adapter Adapter
-                Possible use of adapter pattern using the adapter AnotherAdapter
-                """,violationString);
+        assertEquals("Possible use of adapter pattern using the adapter AbstractAdapter\nPossible use of adapter pattern using the adapter Adapter\nPossible use of adapter pattern using the adapter AnotherAdapter\n",violationString);
     }
 }
