@@ -85,13 +85,12 @@ public class CheckAdapterPattern extends Check{
 
     private String getFieldType(MyField fieldNode) {
         String fieldType = fieldNode.getType();
-        if(fieldType.contains("/")){
             String[] name_arr = fieldType.split("/");
             fieldType = name_arr[name_arr.length - 1];
             if(fieldType.contains(";")){
                 fieldType = fieldType.substring(0,fieldType.length()-1);
             }
-        }
+
         return fieldType;
     }
 
