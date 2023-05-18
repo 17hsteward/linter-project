@@ -2,7 +2,7 @@ package domain;
 
 import java.util.List;
 
-public class CheckTemplatePatern extends Check {
+public class CheckTemplatePattern extends Check {
 
 	@Override
 	public String test(List<MyClass> myClasses) {

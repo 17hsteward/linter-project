@@ -34,13 +34,7 @@ public class ASMClass extends MyClass {
 			this.packageName="";
 		}
 		this.className=this.className.substring(this.className.lastIndexOf(".")+1);
-	}
-	
-	/**
-	 * print class UML content
-	 */
-	public void printClass() {
-		System.out.println(this.toClassUML());
+		
 	}
 	
 	/**
@@ -104,7 +98,7 @@ public class ASMClass extends MyClass {
 		}
 		
 		//dependent
-		//for all methods internal types
+		//for all methods dependency
 		for(String d:this.dependent) {
 			s+=this.packageName+"."+this.className+"..>"+d+"\n";
 		}
