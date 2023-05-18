@@ -34,6 +34,15 @@ public class ASMClass extends MyClass {
 			this.packageName="";
 		}
 		this.className=this.className.substring(this.className.lastIndexOf(".")+1);
+		
+//		if(cn.nestMembers!=null) {
+//			System.out.println("\n"+this.className);
+////			cn.visitNestMember(className)
+//			for(String cnn:cn.nestMembers) {
+//				System.out.println(cnn);
+//			}
+//		}
+		
 	}
 	
 	/**

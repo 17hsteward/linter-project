@@ -75,7 +75,6 @@ public class MainView {
 		    	myClasses=c.read(files);
 		    	l1.setText("files imported");
 		    	textArea.append("\nfinish reading and compiling");
-		    	setDependent(myClasses);
 			}
 			
 		});
@@ -92,7 +91,6 @@ public class MainView {
 				myClasses=c.read(files);
 		    	l1.setText("test file imported");
 		    	textArea.append("\nfinish reading and compiling");
-		    	setDependent(myClasses);
 			}
 			
 		});
@@ -109,7 +107,6 @@ public class MainView {
 		    	myClasses=c.read(files);
 		    	l1.setText("test file imported");
 		    	textArea.append("\nfinish reading and compiling");
-		    	setDependent(myClasses);
 			}
 			
 		});
@@ -124,7 +121,7 @@ public class MainView {
 				if(myClasses==null||myClasses.size()==0) {
 					l1.setText("please import files first");
 				}else {
-					//open UMLViewer
+					//print UML code in both console and GUI
 					UMLGenerator uml=new UMLGenerator(myClasses);
 					String code=uml.generateAllUMLCode();
 			    	System.out.println(code);
@@ -162,7 +159,14 @@ public class MainView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				showClasses();
+				String s="";
+				if(myClasses==null) {
+					return;
+				}
+				for(MyClass c:myClasses) {
+					s+=c.getName()+"\n";
+				}
+				textArea.setText(s);
 			}
 			
 		});
@@ -220,24 +224,4 @@ public class MainView {
 		
 	}
 	
-	private void setDependent(List<MyClass> myClasses2) {
-		List<String> classNames=new LinkedList<>();
-		for(MyClass c:myClasses) {
-			classNames.add(c.getName());
-		}
-		for(MyClass c:myClasses) {
-			c.setDependent(classNames);
-		}
-	}
-
-	private void showClasses() {
-		String s="";
-		if(this.myClasses==null) {
-			return;
-		}
-		for(MyClass c:this.myClasses) {
-			s+=c.getName()+"\n";
-		}
-		this.textArea.setText(s);
-	}
 }

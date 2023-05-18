@@ -27,6 +27,18 @@ public class Compiler {
 		this.textArea=textArea;
 	}
 	public List<MyClass> read(File[] files){
+		List<MyClass> myClasses=this.readSub(files);
+		List<String> classNames=new LinkedList<>();
+		for(MyClass c:myClasses) {
+			classNames.add(c.getName());
+		}
+		for(MyClass c:myClasses) {
+			c.setDependent(classNames);
+		}
+		return myClasses;
+	}
+	
+	public List<MyClass> readSub(File[] files){
 		List<MyClass> myClasses=new LinkedList<>();
 		int length = 0;
 		for(File f:files){
@@ -38,7 +50,7 @@ public class Compiler {
 		int i = 0;
 		for(File f:files) {
 			if (f.isDirectory()) {
-				myClasses.addAll(this.read(f.listFiles()));
+				myClasses.addAll(this.readSub(f.listFiles()));
 			} else if (f.getName().endsWith(".java")) {
 				trueFiles[i] = f;
 				filePaths[i] = f.getAbsolutePath();

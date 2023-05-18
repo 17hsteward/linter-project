@@ -15,7 +15,7 @@ public class TestCheckObserverPattern {
     public Check check = new CheckObserverPattern();
 
     @Test
-    void noObserverPattern_mutuallyCalled() {
+    void hasObserverPattern_mutuallyCalled() {
         classes = Helper.getClasses("noObserverPattern");
         String result = check.test(classes);
         assertTrue(result.contains("noObserverPattern.A")&&result.contains("noObserverPattern.B"));

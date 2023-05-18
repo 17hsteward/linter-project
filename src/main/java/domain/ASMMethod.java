@@ -36,6 +36,7 @@ public class ASMMethod extends MyMethod implements UML{
 					this.dependent.add(m);
 				}
 			}else if(node instanceof MethodInsnNode) {
+//				set dependent method here
 //				System.out.println(((MethodInsnNode)node).owner+" "+((MethodInsnNode)node).name);
 //				String owner=((MethodInsnNode)node).owner;
 //				String name=((MethodInsnNode)node).name;
@@ -111,7 +112,6 @@ public class ASMMethod extends MyMethod implements UML{
 				this.dependent.add(s2);
 			}
 		}
-		
 	}
 
 	public String toUML() {
