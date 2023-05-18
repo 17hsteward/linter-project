@@ -66,7 +66,6 @@ public class Compiler {
 							this.reader.getClassFromJava(file.getAbsolutePath()).delete();
 						}//comment this line to keep the class file with their java file
 					} catch (IOException e) {
-						System.out.println("fail to compile " + f.getName());
 						textArea.append("fail to compile: ");
 					}
 					textArea.append(f.getName()+"                "+f.getAbsolutePath()+"\n");
