@@ -11,7 +11,7 @@ import org.objectweb.asm.tree.MethodNode;
 public class ASMClass extends MyClass {
 //	private ClassNode classNode;
 	
-	public ASMClass(ClassNode cn) {
+	public ASMClass(ClassNode cn,String path) {
 //		this.classNode=cn;
 		this.className=cn.name;
 		this.isAbstract=(cn.access & Opcodes.ACC_ABSTRACT) != 0;
@@ -34,6 +34,17 @@ public class ASMClass extends MyClass {
 			this.packageName="";
 		}
 		this.className=this.className.substring(this.className.lastIndexOf(".")+1);
+		
+		this.path=path;
+		if(cn.nestMembers!=null) {
+//			System.out.println(this.className);
+//			System.out.println(this.path);
+//			System.out.println(cn.nestMembers);
+			for(String nest:cn.nestMembers) {
+				String nestPath=this.path.replace(this.className+".java",nest.replaceAll("/","\\")+".class");
+//				System.out.println(nestPath);
+			}
+		}
 		
 	}
 	

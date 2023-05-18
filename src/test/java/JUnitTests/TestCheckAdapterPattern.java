@@ -6,7 +6,6 @@ import domain.Compiler;
 import domain.MyClass;
 import org.junit.jupiter.api.Test;
 
-import javax.swing.*;
 import java.io.File;
 import java.util.List;
 
@@ -15,8 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestCheckAdapterPattern {
     @Test
     public void isClientAndTargetPresent_NotPresent(){
-        JTextArea textArea = new JTextArea();
-        Compiler compiler = new Compiler(textArea);
+        Compiler compiler = new Compiler();
         File[] files = new File[2];
         files[0]= new File("./src/test/java/filesToTest/adapterPattern/NotClient.java");
         files[1]= new File("./src/test/java/filesToTest/adapterPattern/NotTarget.java");
@@ -30,8 +28,7 @@ public class TestCheckAdapterPattern {
 
     @Test
     public void isClientAndTargetPresent_OnePresent(){
-        JTextArea textArea = new JTextArea();
-        Compiler compiler = new Compiler(textArea);
+        Compiler compiler = new Compiler();
         File[] files = new File[2];
         files[0]= new File("./src/test/java/filesToTest/adapterPattern/Client.java");
         files[1]= new File("./src/test/java/filesToTest/adapterPattern/Target.java");
@@ -47,8 +44,7 @@ public class TestCheckAdapterPattern {
 
     @Test
     public void isClientAndTargetPresent_MultiplePresent(){
-        JTextArea textArea = new JTextArea();
-        Compiler compiler = new Compiler(textArea);
+        Compiler compiler = new Compiler();
         File[] files = new File[4];
         files[0]= new File("./src/test/java/filesToTest/adapterPattern/Client.java");
         files[1]= new File("./src/test/java/filesToTest/adapterPattern/Target.java");
@@ -67,8 +63,7 @@ public class TestCheckAdapterPattern {
 
     @Test
     public void isAdapterAndAdpteePresent_NonePresent(){
-        JTextArea textArea = new JTextArea();
-        Compiler compiler = new Compiler(textArea);
+        Compiler compiler = new Compiler();
         File[] files = new File[2];
         files[0]= new File("./src/test/java/filesToTest/adapterPattern/NotAdapter.java");
         files[1]= new File("./src/test/java/filesToTest/adapterPattern/NotAdaptee.java");
@@ -81,8 +76,7 @@ public class TestCheckAdapterPattern {
     }
     @Test
     public void isAdapterAndAdpteePresent_OnePresent(){
-        JTextArea textArea = new JTextArea();
-        Compiler compiler = new Compiler(textArea);
+        Compiler compiler = new Compiler();
         File[] files = new File[2];
         files[0]= new File("./src/test/java/filesToTest/adapterPattern/Adapter.java");
         files[1]= new File("./src/test/java/filesToTest/adapterPattern/Adaptee.java");
@@ -97,8 +91,7 @@ public class TestCheckAdapterPattern {
     }
     @Test
     public void isAdapterAndAdopteePresent_MultiplePresent(){
-        JTextArea textArea = new JTextArea();
-        Compiler compiler = new Compiler(textArea);
+        Compiler compiler = new Compiler();
         File[] files = new File[4];
         files[0]= new File("./src/test/java/filesToTest/adapterPattern/Adapter.java");
         files[1]= new File("./src/test/java/filesToTest/adapterPattern/Adaptee.java");
@@ -117,8 +110,7 @@ public class TestCheckAdapterPattern {
 
     @Test
     public void isTargetandAdapterConnected_NoConnection(){
-        JTextArea textArea = new JTextArea();
-        Compiler compiler = new Compiler(textArea);
+        Compiler compiler = new Compiler();
         File[] files = new File[5];
         files[0]= new File("./src/test/java/filesToTest/adapterPattern/Client.java");
         files[1]= new File("./src/test/java/filesToTest/adapterPattern/Target.java");
@@ -137,8 +129,7 @@ public class TestCheckAdapterPattern {
 
     @Test
     public void isTargetandAdapterConnected_Connection(){
-        JTextArea textArea = new JTextArea();
-        Compiler compiler = new Compiler(textArea);
+        Compiler compiler = new Compiler();
         File[] files = new File[4];
         files[0]= new File("./src/test/java/filesToTest/adapterPattern/AnotherClient.java");
         files[1]= new File("./src/test/java/filesToTest/adapterPattern/Duck.java");
@@ -158,8 +149,7 @@ public class TestCheckAdapterPattern {
 
     @Test
     public void isTargetandAdapterConnected_ConnectionWithAbstractClass(){
-        JTextArea textArea = new JTextArea();
-        Compiler compiler = new Compiler(textArea);
+        Compiler compiler = new Compiler();
         File[] files = new File[4];
         files[0]= new File("./src/test/java/filesToTest/adapterPattern/AbstractClient.java");
         files[1]= new File("./src/test/java/filesToTest/adapterPattern/AbstractTarget.java");
@@ -179,8 +169,7 @@ public class TestCheckAdapterPattern {
 
     @Test
     public void isTargetandAdapterConnected_MultipleConnection(){
-        JTextArea textArea = new JTextArea();
-        Compiler compiler = new Compiler(textArea);
+        Compiler compiler = new Compiler();
         File[] files = new File[1];
         files[0]= new File("./src/test/java/filesToTest/adapterPattern");
         List<MyClass> classNodes = compiler.read(files);
@@ -199,8 +188,7 @@ public class TestCheckAdapterPattern {
 
     @Test
     public void isAdapterPatternPresent_NotPresent(){
-        JTextArea textArea = new JTextArea();
-        Compiler compiler = new Compiler(textArea);
+        Compiler compiler = new Compiler();
         File[] files = new File[5];
         files[0]= new File("./src/test/java/filesToTest/adapterPattern/Client.java");
         files[1]= new File("./src/test/java/filesToTest/adapterPattern/Target.java");
@@ -215,8 +203,7 @@ public class TestCheckAdapterPattern {
 
     @Test
     public void isAdapterPatternPresent_Present(){
-        JTextArea textArea = new JTextArea();
-        Compiler compiler = new Compiler(textArea);
+        Compiler compiler = new Compiler();
         File[] files = new File[1];
         files[0]= new File("./src/test/java/filesToTest/adapterPattern");
         List<MyClass> classNodes = compiler.read(files);

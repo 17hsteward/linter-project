@@ -6,7 +6,6 @@ import domain.Compiler;
 import domain.MyClass;
 import org.junit.jupiter.api.Test;
 
-import javax.swing.*;
 import java.io.File;
 import java.util.List;
 
@@ -16,8 +15,7 @@ public class TestCheckAbstractInstance {
 
     @Test
     public void checkIfClassAbstract_Success(){
-        JTextArea textArea = new JTextArea();
-        Compiler compiler = new Compiler(textArea);
+        Compiler compiler = new Compiler();
         File[] files = new File[1];
         files[0]= new File("./src/test/java/filesToTest/AbstractInstance/Duck.java");
         List<MyClass> classNodes = compiler.read(files);
@@ -29,8 +27,7 @@ public class TestCheckAbstractInstance {
     }
     @Test
     public void checkIfClassAbstract_Failed(){
-        JTextArea textArea = new JTextArea();
-        Compiler compiler = new Compiler(textArea);
+        Compiler compiler = new Compiler();
         File[] files = new File[1];
         files[0]= new File("./src/test/java/filesToTest/abstractInstance/Mallard.java");
         List<MyClass> classNodes = compiler.read(files);
@@ -43,8 +40,7 @@ public class TestCheckAbstractInstance {
 
     @Test
     public void checkIfInterface_Success(){
-        JTextArea textArea = new JTextArea();
-        Compiler compiler = new Compiler(textArea);
+        Compiler compiler = new Compiler();
         File[] files = new File[1];
         files[0]= new File("./src/test/java/filesToTest/abstractInstance/Animal.java");
         List<MyClass> classNodes = compiler.read(files);
@@ -56,8 +52,7 @@ public class TestCheckAbstractInstance {
     }
     @Test
     public void checkIfInterface_Failed(){
-        JTextArea textArea = new JTextArea();
-        Compiler compiler = new Compiler(textArea);
+        Compiler compiler = new Compiler();
         File[] files = new File[1];
         files[0]= new File("./src/test/java/filesToTest/abstractInstance/Dog.java");
         List<MyClass> classNodes = compiler.read(files);
@@ -69,8 +64,7 @@ public class TestCheckAbstractInstance {
     }
     @Test
     public void returnConcreteClassesOfAbstractClass(){
-        JTextArea textArea = new JTextArea();
-        Compiler compiler = new Compiler(textArea);
+        Compiler compiler = new Compiler();
         File[] files = new File[4];
         files[0]= new File("./src/test/java/filesToTest/abstractInstance/RedHead.java");
         files[1]= new File("./src/test/java/filesToTest/abstractInstance/Duck.java");
@@ -88,8 +82,7 @@ public class TestCheckAbstractInstance {
     }
     @Test
     public void returnConcreteClassesOfInterface(){
-        JTextArea textArea = new JTextArea();
-        Compiler compiler = new Compiler(textArea);
+        Compiler compiler = new Compiler();
         File[] files = new File[5];
         files[0]= new File("./src/test/java/filesToTest/abstractInstance/Dog.java");
         files[1]= new File("./src/test/java/filesToTest/abstractInstance/Mallard.java");
@@ -110,8 +103,7 @@ public class TestCheckAbstractInstance {
 
     @Test
     public void returnConcreteClassesOfInterface_ConcreteClassesHaveMultipleInterfaces(){
-        JTextArea textArea = new JTextArea();
-        Compiler compiler = new Compiler(textArea);
+        Compiler compiler = new Compiler();
         File[] files = new File[6];
         files[0]= new File("./src/test/java/filesToTest/abstractInstance/Dog.java");
         files[1]= new File("./src/test/java/filesToTest/abstractInstance/Mallard.java");
@@ -138,8 +130,7 @@ public class TestCheckAbstractInstance {
 
     @Test
     public void checkIfAbstractClassImplemented_ReturnEmptyString(){
-        JTextArea textArea = new JTextArea();
-        Compiler compiler = new Compiler(textArea);
+        Compiler compiler = new Compiler();
         File[] files = new File[3];
         files[0]= new File("./src/test/java/filesToTest/abstractInstance/Duck.java");
         files[1]= new File("./src/test/java/filesToTest/abstractInstance/Mallard.java");
@@ -152,8 +143,7 @@ public class TestCheckAbstractInstance {
 
     @Test
     public void checkIfAbstractClassImplemented_ReturnOneString(){
-        JTextArea textArea = new JTextArea();
-        Compiler compiler = new Compiler(textArea);
+        Compiler compiler = new Compiler();
         File[] files = new File[3];
         files[0]= new File("./src/test/java/filesToTest/abstractInstance/Duck.java");
         files[1]= new File("./src/test/java/filesToTest/abstractInstance/Animal.java");
@@ -165,8 +155,7 @@ public class TestCheckAbstractInstance {
     }
     @Test
     public void checkIfAbstractClassImplemented_ReturnMultipleString(){
-        JTextArea textArea = new JTextArea();
-        Compiler compiler = new Compiler(textArea);
+        Compiler compiler = new Compiler();
         File[] files = new File[5];
         files[0]= new File("./src/test/java/filesToTest/abstractInstance/Duck.java");
         files[1]= new File("./src/test/java/filesToTest/abstractInstance/Animal.java");
@@ -181,8 +170,7 @@ public class TestCheckAbstractInstance {
 
     @Test
     public void checkIfInterfaceImplemented_ReturnEmptyString(){
-        JTextArea textArea = new JTextArea();
-        Compiler compiler = new Compiler(textArea);
+        Compiler compiler = new Compiler();
         File[] files = new File[5];
         files[0]= new File("./src/test/java/filesToTest/abstractInstance/Animal.java");
         files[1]= new File("./src/test/java/filesToTest/abstractInstance/Cat.java");
@@ -197,8 +185,7 @@ public class TestCheckAbstractInstance {
 
     @Test
     public void checkIfInterfaceImplemented_ReturnOneString(){
-        JTextArea textArea = new JTextArea();
-        Compiler compiler = new Compiler(textArea);
+        Compiler compiler = new Compiler();
         File[] files = new File[3];
         files[0]= new File("./src/test/java/filesToTest/abstractInstance/Animal.java");
         files[1]= new File("./src/test/java/filesToTest/abstractInstance/Pet.java");
@@ -211,8 +198,7 @@ public class TestCheckAbstractInstance {
 
     @Test
     public void checkIfInterfaceImplemented_ReturnMultipleString(){
-        JTextArea textArea = new JTextArea();
-        Compiler compiler = new Compiler(textArea);
+        Compiler compiler = new Compiler();
         File[] files = new File[3];
         files[0]= new File("./src/test/java/filesToTest/abstractInstance/Animal.java");
         files[1]= new File("./src/test/java/filesToTest/abstractInstance/Mallard.java");
@@ -225,8 +211,7 @@ public class TestCheckAbstractInstance {
 
     @Test
     public void checkIfPackageImplements(){
-        JTextArea textArea = new JTextArea();
-        Compiler compiler = new Compiler(textArea);
+        Compiler compiler = new Compiler();
         File[] files = new File[1];
         files[0]= new File("./src/test/java/filesToTest/abstractInstance");
         List<MyClass> classNodes = compiler.read(files);

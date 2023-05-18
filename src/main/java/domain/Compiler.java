@@ -22,11 +22,15 @@ public class Compiler {
 	JavaCompiler javac;
 	Reader reader;
 	JTextArea textArea;
-	public Compiler(JTextArea textArea) {
+	public Compiler() {
 		javac = ToolProvider.getSystemJavaCompiler();
 		this.reader=new Reader();
+		
+	}
+	public void setTextArea(JTextArea textArea) {
 		this.textArea=textArea;
 	}
+	
 	public List<MyClass> read(File[] files){
 		List<MyClass> myClasses=this.readSub(files);
 		List<String> classNames=new LinkedList<>();
@@ -43,22 +47,17 @@ public class Compiler {
 		List<MyClass> myClasses=new LinkedList<>();
 		//get file number
 		int javaFileNumber=0;
-		int classFileNumber=0;
+		
 		for(File f:files){
 			if(f.getName().endsWith(".java")) {
 				javaFileNumber++;
-			}else if(f.getName().endsWith(".class")) {
-				classFileNumber++;
 			}
 		}
 		//get files
 		File[] javaFiles = new File[javaFileNumber];
 		String[] javaFilePaths = new String[javaFileNumber];
-		File[] classFiles = new File[classFileNumber];
-		String[] classFilePaths = new String[classFileNumber];
 		
 		int i = 0;
-		int j = 0;
 		for(File f:files) {
 			if (f.isDirectory()) {
 				myClasses.addAll(this.readSub(f.listFiles()));
@@ -66,10 +65,6 @@ public class Compiler {
 				javaFiles[i] = f;
 				javaFilePaths[i] = f.getAbsolutePath();
 				i++;
-			} else if (f.getName().endsWith(".class")) {
-				classFiles[j] = f;
-				classFilePaths[j] = f.getAbsolutePath();
-				j++;
 			}
 		}
 		
@@ -85,8 +80,8 @@ public class Compiler {
 					ClassNode classNode = new ClassNode();
 					reader.accept(classNode, ClassReader.EXPAND_FRAMES);
 
-					MyClass c = new ASMClass(classNode);//speicify for ASMClass
-					c.setPath(f.getAbsolutePath());
+					MyClass c = new ASMClass(classNode,f.getAbsolutePath());//speicify for ASMClass
+//					c.setPath(f.getAbsolutePath());
 					c.setCode(this.reader.getCode(f));
 					myClasses.add(c);
 					in.close();
@@ -94,33 +89,67 @@ public class Compiler {
 						this.reader.deleteClassFromJava(file.getAbsolutePath());//remove class file
 					}
 				} catch (IOException e) {
-					textArea.append("fail to compile: ");
+					if(textArea!=null) {
+						textArea.append("fail to compile: ");
+					}
 				}
-				textArea.append(f.getName()+"                "+f.getAbsolutePath()+"\n");
-				textArea.update(textArea.getGraphics());
+				if(textArea!=null) {
+					textArea.append(f.getName()+"                "+f.getAbsolutePath()+"\n");
+					textArea.update(textArea.getGraphics());
+				}
 			}
 		}
 		
-//		for(File classFile:classFiles) {
-//			InputStream in = null;
-//			try {
-//				in = new FileInputStream(classFile);
-//				ClassReader reader = null;
-//				reader = new ClassReader(in);
-//				ClassNode classNode = new ClassNode();
-//				reader.accept(classNode, ClassReader.EXPAND_FRAMES);
-//
-//				MyClass c = new ASMClass(classNode);//speicify for ASMClass
+
+		
+		return myClasses;
+	}
+	
+	public List<MyClass> readClass(File[] files){
+		List<MyClass> myClasses=new LinkedList<>();
+		int classFileNumber=0;
+		for(File f:files){
+			if(f.getName().endsWith(".class")) {
+				classFileNumber++;
+			}
+		}
+		File[] classFiles = new File[classFileNumber];
+		String[] classFilePaths = new String[classFileNumber];
+		int i = 0;
+		for(File f:files) {
+			if (f.isDirectory()) {
+				myClasses.addAll(this.readSub(f.listFiles()));
+			} else if (f.getName().endsWith(".class")) {
+				classFiles[i] = f;
+				classFilePaths[i] = f.getAbsolutePath();
+				i++;
+			}
+		}
+		
+			for(File classFile:classFiles) {
+			InputStream in = null;
+			try {
+				in = new FileInputStream(classFile);
+				ClassReader reader = null;
+				reader = new ClassReader(in);
+				ClassNode classNode = new ClassNode();
+				reader.accept(classNode, ClassReader.EXPAND_FRAMES);
+	
+				MyClass c = new ASMClass(classNode,classFile.getAbsolutePath());//speicify for ASMClass
 //				c.setPath(classFile.getAbsolutePath());
-//				c.setCode(this.reader.getCode(classFile));
-//				myClasses.add(c);
-//				in.close();
-//			} catch (IOException e) {
-//				textArea.append("fail to compile: ");
-//			}
-//			textArea.append(classFile.getName()+"                "+classFile.getAbsolutePath()+"\n");
-//			textArea.update(textArea.getGraphics());
-//		}
+				c.setCode(this.reader.getCode(classFile));
+				myClasses.add(c);
+				in.close();
+			} catch (IOException e) {
+				if(textArea!=null) {
+					textArea.append("fail to compile: ");
+				}
+			}
+			if(textArea!=null) {
+				textArea.append(classFile.getName()+"                "+classFile.getAbsolutePath()+"\n");
+				textArea.update(textArea.getGraphics());
+			}
+		}
 		
 		return myClasses;
 	}

@@ -53,9 +53,10 @@ public class MainView {
 		JScrollPane scrollPane = new JScrollPane(textArea); 
 		textArea.setEditable(false);
 		p3.add(scrollPane);
-		this.c=new Compiler(textArea);
+		this.c=new Compiler();
+		this.c.setTextArea(textArea);
 		
-		JLabel l1=new JLabel("please import java files");
+		JLabel l1=new JLabel("please import files");
 		p1.add(l1);
 		
 		JButton b0=new JButton("import java files");
@@ -80,16 +81,21 @@ public class MainView {
 		});
 		p1.add(b0);
 		
-		//reserved for import class file
-		JButton b1=new JButton("import src/test/java/domain/Test.java");
+		JButton b1=new JButton("import class files");
 		b1.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-		    	File[] files=new File[]{new File("./src/test/java/others/domain/Test.java")};//choose specific file to test accessing
+				JFileChooser chooser=new JFileChooser("./");
+		        chooser.setMultiSelectionEnabled(true);
+		        chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+		        FileNameExtensionFilter filter = new FileNameExtensionFilter("Class Files", "class");
+		        chooser.setFileFilter(filter);
+		        chooser.showOpenDialog(null);
+		    	File[] files=chooser.getSelectedFiles();
 		    	textArea.setText("loading files\n\n");
-				myClasses=c.read(files);
+				myClasses=c.readClass(files);
 		    	l1.setText("test file imported");
 		    	textArea.append("\nfinish reading and compiling");
 			}

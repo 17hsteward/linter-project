@@ -34,12 +34,6 @@ public abstract class MyClass {
 	public List<String> getDependent() {
 		return this.dependent;
 	}
-	public void setPath(String p) {
-		this.path=p;
-	}
-	public String getPath() {
-		return this.path;
-	}
 	public void setCode(List<String> code) {
 		this.code=code;
 	}

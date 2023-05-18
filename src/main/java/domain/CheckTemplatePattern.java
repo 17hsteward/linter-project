@@ -13,7 +13,7 @@ public class CheckTemplatePattern extends Check {
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return null;
+		return "check template pattern";
 	}
 
 }
