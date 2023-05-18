@@ -35,21 +35,6 @@ public class ASMClass extends MyClass {
 		}
 		this.className=this.className.substring(this.className.lastIndexOf(".")+1);
 		
-//		if(cn.nestMembers!=null) {
-//			System.out.println("\n"+this.className);
-////			cn.visitNestMember(className)
-//			for(String cnn:cn.nestMembers) {
-//				System.out.println(cnn);
-//			}
-//		}
-		
-	}
-	
-	/**
-	 * print class UML content
-	 */
-	public void printClass() {
-		System.out.println(this.toClassUML());
 	}
 	
 	/**
@@ -113,7 +98,7 @@ public class ASMClass extends MyClass {
 		}
 		
 		//dependent
-		//for all methods internal types
+		//for all methods dependency
 		for(String d:this.dependent) {
 			s+=this.packageName+"."+this.className+"..>"+d+"\n";
 		}

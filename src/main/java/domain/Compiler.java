@@ -58,32 +58,31 @@ public class Compiler {
 			}
 		}
 		for(File f: trueFiles){
-				if(javac.run(null, null, null, filePaths)==0) {
-					File classFile = this.reader.getClassFromJava(f.getAbsolutePath());
-					InputStream in = null;
-					try {
-						in = new FileInputStream(classFile);
-						ClassReader reader = null;
-						reader = new ClassReader(in);
-						ClassNode classNode = new ClassNode();
-						reader.accept(classNode, ClassReader.EXPAND_FRAMES);
+			if(javac.run(null, null, null, filePaths)==0) {
+				File classFile = this.reader.getClassFromJava(f.getAbsolutePath());
+				InputStream in = null;
+				try {
+					in = new FileInputStream(classFile);
+					ClassReader reader = null;
+					reader = new ClassReader(in);
+					ClassNode classNode = new ClassNode();
+					reader.accept(classNode, ClassReader.EXPAND_FRAMES);
 
-						MyClass c = new ASMClass(classNode);//speicify for ASMClass
-						c.setPath(f.getAbsolutePath());
-						c.setCode(this.reader.getCode(f));
-						myClasses.add(c);
-						//mc.printClass();//print the class to verify
-						in.close();
-						for(File file:trueFiles){
-							this.reader.getClassFromJava(file.getAbsolutePath()).delete();
-						}//comment this line to keep the class file with their java file
-					} catch (IOException e) {
-						System.out.println("fail to compile " + f.getName());
-						textArea.append("fail to compile: ");
+					MyClass c = new ASMClass(classNode);//speicify for ASMClass
+					c.setPath(f.getAbsolutePath());
+					c.setCode(this.reader.getCode(f));
+					myClasses.add(c);
+					in.close();
+					for(File file:trueFiles){
+						this.reader.getClassFromJava(file.getAbsolutePath()).delete();//remove delete 
 					}
-					textArea.append(f.getName()+"                "+f.getAbsolutePath()+"\n");
-					textArea.update(textArea.getGraphics());
+				} catch (IOException e) {
+					System.out.println("fail to compile " + f.getName());
+					textArea.append("fail to compile: ");
 				}
+				textArea.append(f.getName()+"                "+f.getAbsolutePath()+"\n");
+				textArea.update(textArea.getGraphics());
+			}
 		}
 		return myClasses;
 	}

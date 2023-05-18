@@ -33,7 +33,7 @@ public class MainView {
 		this.checks.add(new CheckCouplingCohesion());
 		this.checks.add(new CheckThreeLayer());
 		this.checks.add(new CheckNamingConvention());
-//		this.checks.add(new CheckTemplatePattern());
+		this.checks.add(new CheckTemplatePattern());
 //		substitutionPrinciple();
 		
 		JFrame frame=new JFrame();
