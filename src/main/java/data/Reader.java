@@ -12,6 +12,10 @@ public class Reader {
         return new File(classPath);
 	}
 	
+	public void deleteClassFromJava(String javaPath) {
+		this.getClassFromJava(javaPath).delete();
+	}
+	
 	public List<String> getCode(File file){
 		List<String> a=new ArrayList<>();
 		Scanner s;

@@ -80,6 +80,7 @@ public class MainView {
 		});
 		p1.add(b0);
 		
+		//reserved for import class file
 		JButton b1=new JButton("import src/test/java/domain/Test.java");
 		b1.addActionListener(new ActionListener() {
 
