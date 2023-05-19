@@ -2,7 +2,6 @@ package domain;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -43,6 +42,27 @@ public class Compiler {
 		return myClasses;
 	}
 	
+	public MyClass readSingleClass(File file) {
+		InputStream in = null;
+		MyClass c = null;
+		try {
+			in = new FileInputStream(file);
+			ClassReader reader = null;
+			reader = new ClassReader(in);
+			ClassNode classNode = new ClassNode();
+			reader.accept(classNode, ClassReader.EXPAND_FRAMES);
+
+			c=new ASMClass(classNode,file.getAbsolutePath());//speicify for ASMClass
+			c.setCode(this.reader.getCode(file));
+			in.close();
+		} catch (IOException e) {
+			if(textArea!=null) {
+				textArea.append("fail to compile: ");
+			}
+		}
+		return c;
+	}
+	
 	public List<MyClass> readSub(File[] files){
 		List<MyClass> myClasses=new LinkedList<>();
 		//get file number
@@ -81,7 +101,6 @@ public class Compiler {
 					reader.accept(classNode, ClassReader.EXPAND_FRAMES);
 
 					MyClass c = new ASMClass(classNode,f.getAbsolutePath());//speicify for ASMClass
-//					c.setPath(f.getAbsolutePath());
 					c.setCode(this.reader.getCode(f));
 					myClasses.add(c);
 					in.close();
@@ -136,7 +155,6 @@ public class Compiler {
 				reader.accept(classNode, ClassReader.EXPAND_FRAMES);
 	
 				MyClass c = new ASMClass(classNode,classFile.getAbsolutePath());//speicify for ASMClass
-//				c.setPath(classFile.getAbsolutePath());
 				c.setCode(this.reader.getCode(classFile));
 				myClasses.add(c);
 				in.close();

@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.List;
+import java.io.File;
 import java.util.LinkedList;
 
 import org.objectweb.asm.Opcodes;
@@ -37,12 +38,14 @@ public class ASMClass extends MyClass {
 		
 		this.path=path;
 		if(cn.nestMembers!=null) {
-//			System.out.println(this.className);
-//			System.out.println(this.path);
-//			System.out.println(cn.nestMembers);
+			Compiler c=new Compiler();
 			for(String nest:cn.nestMembers) {
-				String nestPath=this.path.replace(this.className+".java",nest.replaceAll("/","\\")+".class");
-//				System.out.println(nestPath);
+				String nestPath=this.path.replace(this.className+".java",nest.split("/")[nest.split("/").length-1]+".class");
+				nestPath=nestPath.replace(".\\","");
+				File f=new File(nestPath);
+				MyClass nestClass=c.readSingleClass(new File(nestPath));
+//				System.out.println(nestClass);
+//				System.out.println(nestClass.getDependent());
 			}
 		}
 		
