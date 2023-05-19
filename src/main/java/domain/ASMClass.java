@@ -11,9 +11,9 @@ import org.objectweb.asm.tree.MethodNode;
 
 public class ASMClass extends MyClass {
 //	private ClassNode classNode;
+	private List<MyClass> nestClasses;
 	
 	public ASMClass(ClassNode cn,String path) {
-//		this.classNode=cn;
 		this.className=cn.name;
 		this.isAbstract=(cn.access & Opcodes.ACC_ABSTRACT) != 0;
 		this.isInterface=(cn.access & Opcodes.ACC_INTERFACE) != 0;
@@ -39,13 +39,12 @@ public class ASMClass extends MyClass {
 		this.path=path;
 		if(cn.nestMembers!=null) {
 			Compiler c=new Compiler();
+			this.nestClasses=new LinkedList<>();
 			for(String nest:cn.nestMembers) {
 				String nestPath=this.path.replace(this.className+".java",nest.split("/")[nest.split("/").length-1]+".class");
 				nestPath=nestPath.replace(".\\","");
-				File f=new File(nestPath);
 				MyClass nestClass=c.readSingleClass(new File(nestPath));
-//				System.out.println(nestClass);
-//				System.out.println(nestClass.getDependent());
+				nestClasses.add(nestClass);
 			}
 		}
 		
@@ -114,6 +113,9 @@ public class ASMClass extends MyClass {
 		//dependent
 		//for all methods dependency
 		for(String d:this.dependent) {
+			if(d.equals(this.packageName+"."+this.className)) {
+				continue;
+			}
 			s+=this.packageName+"."+this.className+"..>"+d+"\n";
 		}
 
@@ -128,6 +130,14 @@ public class ASMClass extends MyClass {
 				if(names.contains(d)&&!this.dependent.contains(d)) {
 					this.dependent.add(d);
 				}
+			}
+		}
+		if(this.nestClasses!=null) {
+			for(MyClass nc:this.nestClasses) {
+				nc.setDependent(names);
+				List<String> a=nc.getDependent();
+				a.remove(this.packageName+"."+this.className);
+				this.dependent.addAll(a);
 			}
 		}
 	}
