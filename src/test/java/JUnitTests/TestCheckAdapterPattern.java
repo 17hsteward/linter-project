@@ -20,7 +20,7 @@ public class TestCheckAdapterPattern {
         files[1]= new File("./src/test/java/filesToTest/adapterPattern/NotTarget.java");
         List<MyClass> classNodes = compiler.read(files);
         /*Using direct CheckAdapterPattern object to test specific method in this class which will not be and doesn't need to be implemented
-        in the Check interface since it's only used in CheckAbstractInstance.*/
+        in the Check interface since it's only used in CheckAdapterPattern.*/
         CheckAdapterPattern adapterPatternCheck = new  CheckAdapterPattern();
         List<MyClass> possibleTargets = adapterPatternCheck.getPossibleTargetsFromPossibleClients(classNodes);
         assertTrue(possibleTargets.isEmpty());
@@ -34,7 +34,7 @@ public class TestCheckAdapterPattern {
         files[1]= new File("./src/test/java/filesToTest/adapterPattern/Target.java");
         List<MyClass> classNodes = compiler.read(files);
         /*Using direct CheckAdapterPattern object to test specific method in this class which will not be and doesn't need to be implemented
-        in the Check interface since it's only used in CheckAbstractInstance.*/
+        in the Check interface since it's only used in CheckAdapterPattern.*/
         CheckAdapterPattern adapterPatternCheck = new  CheckAdapterPattern();
         List<MyClass> possibleTargets = adapterPatternCheck.getPossibleTargetsFromPossibleClients(classNodes);
         assertFalse(possibleTargets.isEmpty());
@@ -52,7 +52,7 @@ public class TestCheckAdapterPattern {
         files[3]= new File("./src/test/java/filesToTest/adapterPattern/Duck.java");
         List<MyClass> classNodes = compiler.read(files);
         /*Using direct CheckAdapterPattern object to test specific method in this class which will not be and doesn't need to be implemented
-        in the Check interface since it's only used in CheckAbstractInstance.*/
+        in the Check interface since it's only used in CheckAdapterPattern.*/
         CheckAdapterPattern adapterPatternCheck = new  CheckAdapterPattern();
         List<MyClass> possibleTargets = adapterPatternCheck.getPossibleTargetsFromPossibleClients(classNodes);
         assertFalse(possibleTargets.isEmpty());
@@ -69,7 +69,7 @@ public class TestCheckAdapterPattern {
         files[1]= new File("./src/test/java/filesToTest/adapterPattern/NotAdaptee.java");
         List<MyClass> classNodes = compiler.read(files);
         /*Using direct CheckAdapterPattern object to test specific method in this class which will not be and doesn't need to be implemented
-        in the Check interface since it's only used in CheckAbstractInstance.*/
+        in the Check interface since it's only used in CheckAdapterPattern.*/
         CheckAdapterPattern adapterPatternCheck = new  CheckAdapterPattern();
         List<MyClass> possibleAdapters = adapterPatternCheck.getPossibleAdaptersFromAdaptees(classNodes);
         assertTrue(possibleAdapters.isEmpty());
@@ -82,7 +82,7 @@ public class TestCheckAdapterPattern {
         files[1]= new File("./src/test/java/filesToTest/adapterPattern/Adaptee.java");
         List<MyClass> classNodes = compiler.read(files);
         /*Using direct CheckAdapterPattern object to test specific method in this class which will not be and doesn't need to be implemented
-        in the Check interface since it's only used in CheckAbstractInstance.*/
+        in the Check interface since it's only used in CheckAdapterPattern.*/
         CheckAdapterPattern adapterPatternCheck = new CheckAdapterPattern();
         List<MyClass> possibleAdapters = adapterPatternCheck.getPossibleAdaptersFromAdaptees(classNodes);
         assertFalse(possibleAdapters.isEmpty());
@@ -99,7 +99,7 @@ public class TestCheckAdapterPattern {
         files[3]= new File("./src/test/java/filesToTest/adapterPattern/Turkey.java");
         List<MyClass> classNodes = compiler.read(files);
         /*Using direct CheckAdapterPattern object to test specific method in this class which will not be and doesn't need to be implemented
-        in the Check interface since it's only used in CheckAbstractInstance.*/
+        in the Check interface since it's only used in CheckAdapterPattern.*/
         CheckAdapterPattern adapterPatternCheck = new CheckAdapterPattern();
         List<MyClass> possibleAdapters = adapterPatternCheck.getPossibleAdaptersFromAdaptees(classNodes);
         assertFalse(possibleAdapters.isEmpty());
@@ -119,7 +119,7 @@ public class TestCheckAdapterPattern {
         files[4]= new File("./src/test/java/filesToTest/adapterPattern/Duck.java");
         List<MyClass> classNodes = compiler.read(files);
         /*Using direct CheckAdapterPattern object to test specific method in this class which will not be and doesn't need to be implemented
-        in the Check interface since it's only used in CheckAbstractInstance.*/
+        in the Check interface since it's only used in CheckAdapterPattern.*/
         CheckAdapterPattern adapterPatternCheck = new  CheckAdapterPattern();
         List<MyClass> possibleTargets = adapterPatternCheck.getPossibleTargetsFromPossibleClients(classNodes);
         List<MyClass> possibleAdapters = adapterPatternCheck.getPossibleAdaptersFromAdaptees(classNodes);
@@ -137,7 +137,7 @@ public class TestCheckAdapterPattern {
         files[3]= new File("./src/test/java/filesToTest/adapterPattern/Turkey.java");
         List<MyClass> classNodes = compiler.read(files);
         /*Using direct CheckAdapterPattern object to test specific method in this class which will not be and doesn't need to be implemented
-        in the Check interface since it's only used in CheckAbstractInstance.*/
+        in the Check interface since it's only used in CheckAdapterPattern.*/
         CheckAdapterPattern adapterPatternCheck = new  CheckAdapterPattern();
         List<MyClass> possibleTargets = adapterPatternCheck.getPossibleTargetsFromPossibleClients(classNodes);
         List<MyClass> possibleAdapters = adapterPatternCheck.getPossibleAdaptersFromAdaptees(classNodes);
@@ -157,7 +157,7 @@ public class TestCheckAdapterPattern {
         files[3]= new File("./src/test/java/filesToTest/adapterPattern/AbstractAdaptee.java");
         List<MyClass> classNodes = compiler.read(files);
         /*Using direct CheckAdapterPattern object to test specific method in this class which will not be and doesn't need to be implemented
-        in the Check interface since it's only used in CheckAbstractInstance.*/
+        in the Check interface since it's only used in CheckAdapterPattern.*/
         CheckAdapterPattern adapterPatternCheck = new  CheckAdapterPattern();
         List<MyClass> possibleTargets = adapterPatternCheck.getPossibleTargetsFromPossibleClients(classNodes);
         List<MyClass> possibleAdapters = adapterPatternCheck.getPossibleAdaptersFromAdaptees(classNodes);
@@ -174,7 +174,7 @@ public class TestCheckAdapterPattern {
         files[0]= new File("./src/test/java/filesToTest/adapterPattern");
         List<MyClass> classNodes = compiler.read(files);
         /*Using direct CheckAdapterPattern object to test specific method in this class which will not be and doesn't need to be implemented
-        in the Check interface since it's only used in CheckAbstractInstance.*/
+        in the Check interface since it's only used in CheckAdapterPattern.*/
         CheckAdapterPattern adapterPatternCheck = new  CheckAdapterPattern();
         List<MyClass> possibleTargets = adapterPatternCheck.getPossibleTargetsFromPossibleClients(classNodes);
         List<MyClass> possibleAdapters = adapterPatternCheck.getPossibleAdaptersFromAdaptees(classNodes);

@@ -17,10 +17,10 @@ public class TestCheckAbstractInstance {
     public void checkIfClassAbstract_Success(){
         Compiler compiler = new Compiler();
         File[] files = new File[1];
-        files[0]= new File("./src/test/java/filesToTest/AbstractInstance/Duck.java");
+        files[0]= new File("./src/test/java/filesToTest/abstractInstance/Duck.java");
         List<MyClass> classNodes = compiler.read(files);
         /*Using direct CheckAbstractInstance to test specific method in this class which will not be and doesn't need to be implemented
-        in the Check interface since it's only used in CheckabstractInstance.*/
+        in the Check interface since it's only used in CheckAbstractInstance.*/
         CheckAbstractInstance abstractInstanceCheck = new CheckAbstractInstance();
         boolean isAbstract = abstractInstanceCheck.isAbstractClass(classNodes.get(0));
         assertTrue(isAbstract);
@@ -32,7 +32,7 @@ public class TestCheckAbstractInstance {
         files[0]= new File("./src/test/java/filesToTest/abstractInstance/Mallard.java");
         List<MyClass> classNodes = compiler.read(files);
         /*Using direct CheckAbstractInstance to test specific method in this class which will not be and doesn't need to be implemented
-        in the Check interface since it's only used in CheckabstractInstance.*/
+        in the Check interface since it's only used in CheckAbstractInstance.*/
         CheckAbstractInstance abstractInstanceCheck = new CheckAbstractInstance();
         boolean isAbstract = abstractInstanceCheck.isAbstractClass(classNodes.get(0));
         assertFalse(isAbstract);
@@ -45,7 +45,7 @@ public class TestCheckAbstractInstance {
         files[0]= new File("./src/test/java/filesToTest/abstractInstance/Animal.java");
         List<MyClass> classNodes = compiler.read(files);
         /*Using direct CheckAbstractInstance to test specific method in this class which will not be and doesn't need to be implemented
-        in the Check interface since it's only used in CheckabstractInstance.*/
+        in the Check interface since it's only used in CheckAbstractInstance.*/
         CheckAbstractInstance abstractInstanceCheck = new CheckAbstractInstance();
         boolean isInterface = abstractInstanceCheck.isInterface(classNodes.get(0));
         assertTrue(isInterface);
@@ -57,7 +57,7 @@ public class TestCheckAbstractInstance {
         files[0]= new File("./src/test/java/filesToTest/abstractInstance/Dog.java");
         List<MyClass> classNodes = compiler.read(files);
         /*Using direct CheckAbstractInstance to test specific method in this class which will not be and doesn't need to be implemented
-        in the Check interface since it's only used in CheckabstractInstance.*/
+        in the Check interface since it's only used in CheckAbstractInstance.*/
         CheckAbstractInstance abstractInstanceCheck = new CheckAbstractInstance();
         boolean isInterface = abstractInstanceCheck.isInterface(classNodes.get(0));
         assertFalse(isInterface);
@@ -73,7 +73,7 @@ public class TestCheckAbstractInstance {
 
         List<MyClass> classNodes = compiler.read(files);
         /*Using direct CheckAbstractInstance to test specific method in this class which will not be and doesn't need to be implemented
-        in the Check interface since it's only used in CheckabstractInstance.*/
+        in the Check interface since it's only used in CheckAbstractInstance.*/
         CheckAbstractInstance abstractInstanceCheck = new CheckAbstractInstance();
         List<MyClass> concreteClasses = abstractInstanceCheck.getConcreteClassesAbstractClass(classNodes.get(1),classNodes);
         assertEquals(2,concreteClasses.size());
@@ -92,7 +92,7 @@ public class TestCheckAbstractInstance {
 
         List<MyClass> classNodes = compiler.read(files);
         /*Using direct CheckAbstractInstance to test specific method in this class which will not be and doesn't need to be implemented
-        in the Check interface since it's only used in CheckabstractInstance.*/
+        in the Check interface since it's only used in CheckAbstractInstance.*/
         CheckAbstractInstance abstractInstanceCheck = new CheckAbstractInstance();
         List<MyClass> concreteClasses = abstractInstanceCheck.getConcreteClassesInterface(classNodes.get(4),classNodes);
         assertEquals(3,concreteClasses.size());
@@ -113,7 +113,7 @@ public class TestCheckAbstractInstance {
         files[5]= new File("./src/test/java/filesToTest/abstractInstance/Pet.java");
         List<MyClass> classNodes = compiler.read(files);
         /*Using direct CheckAbstractInstance to test specific method in this class which will not be and doesn't need to be implemented
-        in the Check interface since it's only used in CheckabstractInstance.*/
+        in the Check interface since it's only used in CheckAbstractInstance.*/
         CheckAbstractInstance abstractInstanceCheck = new CheckAbstractInstance();
         //First interface Animal
         List<MyClass> concreteClasses = abstractInstanceCheck.getConcreteClassesInterface(classNodes.get(4),classNodes);
