@@ -2,15 +2,16 @@
 class data.Reader{
     +<init>():void
     +getClassFromJava(String):File
-    +getCode(File):List<>
+    +deleteClassFromJava(String):void
+    +getCode(File):List<String>
 }
 
 class domain.ASMClass{
-    +<init>(org.objectweb.asm.tree.ClassNode):void
-    +printClass():void
+    -nestClasses:List<domain.MyClass>
+    +<init>(org.objectweb.asm.tree.ClassNode,String):void
     +toClassUML():String
-    +toRelationUML(List<>):String
-    +setDependent(List<>):void
+    +toRelationUML(List<String>):String
+    +setDependent(List<String>):void
 }
 
 class domain.ASMField{
@@ -29,59 +30,65 @@ class domain.ASMMethod{
 
 abstract class domain.Check{
     +<init>():void
-    +test(List<>):String
+    +test(List<Ldomain.MyClass>):String
     +getName():String
 }
 
 class domain.CheckAbstractInstance{
     +<init>():void
-    +getConcreteClassesAbstractClass(domain.MyClass,List<>):List<>
-    +getConcreteClassesInterface(domain.MyClass,List<>):List<>
+    +test(List<Ldomain.MyClass>):String
+    +getConcreteClassesAbstractClass(domain.MyClass,List<Ldomain.MyClass>):List<Ldomain.MyClass>
+    +getConcreteClassesInterface(domain.MyClass,List<Ldomain.MyClass>):List<Ldomain.MyClass>
     +isInterface(domain.MyClass):boolean
     +isAbstractClass(domain.MyClass):boolean
-    +test(List<>):String
     +getName():String
 }
 
 class domain.CheckAccessModifier{
     +<init>():void
-    +test(List<>):String
+    +test(List<Ldomain.MyClass>):String
     +getName():String
 }
 
 class domain.CheckAdapterPattern{
     +<init>():void
-    +test(List<>):String
+    +test(List<Ldomain.MyClass>):String
+    +getPossibleTargetsFromPossibleClients(List<Ldomain.MyClass>):List<Ldomain.MyClass>
+    -getClassNode(String,List<Ldomain.MyClass>):domain.MyClass
+    -getClassNames(List<Ldomain.MyClass>):List<String>
+    +getPossibleAdaptersFromAdaptees(List<Ldomain.MyClass>):List<Ldomain.MyClass>
+    -getFieldType(domain.MyField):String
+    +getAdapters(List<Ldomain.MyClass>,List<Ldomain.MyClass>):List<Ldomain.MyClass>
     +getName():String
 }
 
 class domain.CheckCouplingCohesion{
     +<init>():void
-    +test(List<>):String
+    +test(List<Ldomain.MyClass>):String
     +getName():String
 }
 
 class domain.CheckDataClass{
     +<init>():void
-    +test(List<>):String
+    +test(List<Ldomain.MyClass>):String
     +getName():String
 }
 
 class domain.CheckHollyWoodPrinciple{
     +<init>():void
-    +test(List<>):String
+    +test(List<Ldomain.MyClass>):String
     +getName():String
 }
 
 class domain.CheckMethodChaining{
     +<init>():void
-    +test(List<>):String
+    +test(List<Ldomain.MyClass>):String
     +getName():String
 }
 
 class domain.CheckNamingConvention{
     +<init>():void
-    +test(List<>):String
+    +test(List<Ldomain.MyClass>):String
     -checkFieldNaming(domain.MyClass):String
     +getName():String
     -checkPackageNaming(domain.MyClass):String
@@ -92,28 +99,28 @@ class domain.CheckNamingConvention{
 
 class domain.CheckObserverPattern{
     +<init>():void
-    +test(List<>):String
+    +test(List<Ldomain.MyClass>):String
     +getName():String
 }
 
-class domain.CheckTemplatePatern{
+class domain.CheckTemplatePattern{
     +<init>():void
-    +test(List<>):String
+    +test(List<Ldomain.MyClass>):String
     +getName():String
 }
 
 class domain.CheckThreeLayer{
     +<init>():void
-    +test(List<>):String
+    +test(List<Ldomain.MyClass>):String
     +getName():String
 }
 
 class domain.ClassRelation{
-    ~hasa:List<java.lang.String,Ljava.lang.String>
-    ~extend:List<java.lang.String,Ljava.lang.String>
-    ~implement:List<java.lang.String,Ljava.lang.String>
-    ~dependent:List<java.lang.String,Ljava.lang.String>
-    +<init>(List<>):void
+    ~hasa:List<String,String>
+    ~extend:List<String,String>
+    ~implement:List<String,String>
+    ~dependent:List<String,String>
+    +<init>(List<Ldomain.MyClass>):void
 }
 
 abstract class domain.CohesionMetric{
@@ -123,8 +130,13 @@ abstract class domain.CohesionMetric{
 class domain.Compiler{
     ~javac:javax.tools.JavaCompiler
     ~reader:data.Reader
+    ~textArea:javax.swing.JTextArea
     +<init>():void
-    +read(File[]):List<>
+    +setTextArea(javax.swing.JTextArea):void
+    +read(File[]):List<Ldomain.MyClass>
+    +readSingleClass(File):domain.MyClass
+    +readSub(File[]):List<Ldomain.MyClass>
+    +readClass(File[]):List<Ldomain.MyClass>
 }
 
 abstract class domain.CouplingMetric{
@@ -152,16 +164,14 @@ abstract class domain.MyClass{
     ~path:String
     ~code:List<String>
     +<init>():void
-    +setDependent(List<>):void
-    +getFields():List<>
-    +getMethods():List<>
+    +setDependent(List<String>):void
+    +getFields():List<Ldomain.MyField>
+    +getMethods():List<Ldomain.MyMethod>
     +getExtend():String
-    +getImplement():List<>
+    +getImplement():List<String>
     +getName():String
-    +getDependent():List<>
-    +setPath(String):void
-    +getPath():String
-    +setCode(List<>):void
+    +getDependent():List<String>
+    +setCode(List<String>):void
     +getCodeByLine(int):String
 }
 
@@ -189,7 +199,7 @@ abstract class domain.MyMethod{
     ~isFinal:boolean
     ~dependent:List<String>
     +<init>():void
-    +getDependent():List<>
+    +getDependent():List<String>
     +getName():String
     +getAccess():int
     +isGetter():boolean
@@ -198,13 +208,16 @@ abstract class domain.MyMethod{
 
 interface domain.UML{
     +toUML():String
+    +{static}inputFromSignature(String):List<String>
+    +{static}returnFromSignature(String):String
+    +{static}replace(String):String
     +{static}typeConvert(String):String
 }
 
 class domain.UMLGenerator{
     -myClasses:List<domain.MyClass>
     -myClassNames:List<String>
-    +<init>(List<>):void
+    +<init>(List<Ldomain.MyClass>):void
     +generateAllUMLCode():String
 }
 
@@ -219,22 +232,25 @@ class presentation.MainView{
     ~checks:List<domain.Check>
     ~textArea:javax.swing.JTextArea
     +<init>():void
-    -showClasses():void
 }
 
 class presentation.UMLViewer{
     +<init>(String):void
 }
 
+domain.ASMClass-->"*"domain.MyClass
 domain.ASMClass--|>domain.MyClass
 domain.ASMClass..>domain.ASMField
 domain.ASMClass..>domain.ASMMethod
+domain.ASMClass..>domain.Compiler
 domain.ASMClass..>domain.MyField
 domain.ASMClass..>domain.MyMethod
+domain.ASMClass..>domain.MyClass
 domain.ASMField--|>domain.MyField
 domain.ASMField..|>domain.UML
 domain.ASMMethod--|>domain.MyMethod
 domain.ASMMethod..|>domain.UML
+domain.Check..>domain.MyClass
 domain.CheckAbstractInstance--|>domain.Check
 domain.CheckAbstractInstance..>domain.MyClass
 domain.CheckAccessModifier--|>domain.Check
@@ -243,11 +259,15 @@ domain.CheckAccessModifier..>domain.MyField
 domain.CheckAccessModifier..>domain.MyMethod
 domain.CheckAccessModifier..>domain.ASMMethod
 domain.CheckAdapterPattern--|>domain.Check
+domain.CheckAdapterPattern..>domain.MyClass
+domain.CheckAdapterPattern..>domain.MyField
 domain.CheckCouplingCohesion--|>domain.Check
+domain.CheckCouplingCohesion..>domain.MyClass
 domain.CheckDataClass--|>domain.Check
 domain.CheckDataClass..>domain.MyClass
 domain.CheckDataClass..>domain.MyMethod
 domain.CheckHollyWoodPrinciple--|>domain.Check
+domain.CheckHollyWoodPrinciple..>domain.MyClass
 domain.CheckMethodChaining--|>domain.Check
 domain.CheckMethodChaining..>domain.MyClass
 domain.CheckMethodChaining..>domain.MyMethod
@@ -256,17 +276,21 @@ domain.CheckNamingConvention--|>domain.Check
 domain.CheckNamingConvention..>domain.MyClass
 domain.CheckObserverPattern--|>domain.Check
 domain.CheckObserverPattern..>domain.MyClass
-domain.CheckTemplatePatern--|>domain.Check
+domain.CheckTemplatePattern--|>domain.Check
+domain.CheckTemplatePattern..>domain.MyClass
 domain.CheckThreeLayer--|>domain.Check
+domain.CheckThreeLayer..>domain.MyClass
 domain.ClassRelation..>domain.MyClass
 domain.Compiler-->"*"data.Reader
-domain.Compiler..>domain.ASMClass
-domain.Compiler..>domain.MyClass
 domain.Compiler..>data.Reader
+domain.Compiler..>domain.MyClass
+domain.Compiler..>domain.ASMClass
 domain.FentonAndMeltonMetric--|>domain.CouplingMetric
 domain.LCOM4--|>domain.CohesionMetric
 domain.MyClass-->"*"domain.MyField
 domain.MyClass-->"*"domain.MyMethod
+domain.MyClass..>domain.MyField
+domain.MyClass..>domain.MyMethod
 domain.MyField..|>domain.UML
 domain.MyMethod..|>domain.UML
 domain.UMLGenerator-->"*"domain.MyClass
@@ -286,7 +310,15 @@ presentation.MainView..>domain.CheckAdapterPattern
 presentation.MainView..>domain.CheckCouplingCohesion
 presentation.MainView..>domain.CheckThreeLayer
 presentation.MainView..>domain.CheckNamingConvention
+presentation.MainView..>domain.CheckTemplatePattern
 presentation.MainView..>domain.Compiler
 presentation.MainView..>domain.Check
+presentation.MainView..>domain.Check
 presentation.MainView..>domain.MyClass
+presentation.MainView..>domain.UMLGenerator
+presentation.MainView..>presentation.UMLViewer
+presentation.MainView..>domain.UMLGenerator
+presentation.MainView..>domain.Compiler
+presentation.MainView..>domain.Compiler
+presentation.MainView..>domain.Compiler
 @enduml
