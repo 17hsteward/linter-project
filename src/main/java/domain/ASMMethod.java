@@ -1,17 +1,16 @@
 package domain;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
+
 import org.objectweb.asm.Opcodes;
-import org.objectweb.asm.tree.AbstractInsnNode;
-import org.objectweb.asm.tree.FieldInsnNode;
-import org.objectweb.asm.tree.InsnList;
-import org.objectweb.asm.tree.MethodInsnNode;
-import org.objectweb.asm.tree.MethodNode;
-import org.objectweb.asm.tree.TypeInsnNode;
+import org.objectweb.asm.tree.*;
 
 public class ASMMethod extends MyMethod implements UML{
 //	private MethodNode methodNode;
 	private InsnList instructions;
+	private List<MyMethodInsn> methodInstructions;
 	
 	public ASMMethod(MethodNode mn) {
 		this.access=mn.access&(Opcodes.ACC_PUBLIC+Opcodes.ACC_PROTECTED+Opcodes.ACC_PRIVATE);
@@ -23,6 +22,7 @@ public class ASMMethod extends MyMethod implements UML{
 		this.parameters=new LinkedList<>();
 		this.dependent=new LinkedList<>();//for all InstNode, identify type and add to it
 		this.instructions=mn.instructions;
+		this.methodInstructions = parseInstructions(mn);
 		
 		for(AbstractInsnNode node:this.instructions) {
 			if(node instanceof FieldInsnNode) {
@@ -179,5 +179,21 @@ public class ASMMethod extends MyMethod implements UML{
 
 	public InsnList getInstructions() {
 		return this.instructions;
+	}
+
+	public List<MyMethodInsn> parseInstructions(MethodNode methodNode){
+		List<MyMethodInsn> methodInsnsNodes = new ArrayList<>();
+		InsnList insns = methodNode.instructions;
+		for(AbstractInsnNode insnNode: insns)
+		if(insnNode instanceof MethodInsnNode){
+			ASMMethodInsn node = new ASMMethodInsn(insnNode);
+			methodInsnsNodes.add(node);
+		}
+		return methodInsnsNodes;
+	}
+
+	@Override
+	public List<MyMethodInsn> getMethodInstructions(){
+		return this.methodInstructions;
 	}
 }

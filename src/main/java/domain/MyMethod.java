@@ -1,9 +1,12 @@
 package domain;
 
+import org.objectweb.asm.tree.InsnList;
+import org.objectweb.asm.tree.MethodNode;
+
 import java.util.List;
 
 public abstract class MyMethod implements UML{
-	String name;
+    String name;
 	int access;
 	String desc;
 	List<String> parameters;
@@ -21,7 +24,8 @@ public abstract class MyMethod implements UML{
 	public int getAccess() {
 		return this.access;
 	}
-
+	public abstract InsnList getInstructions();
 	public abstract boolean isGetter();
 	public abstract boolean isSetter();
+	public abstract List<MyMethodInsn> getMethodInstructions();
 }
