@@ -49,28 +49,30 @@ public class CheckHollyWoodPrinciple extends Check{
         List<String> classNodeNames = getClassNames(classNodes);
             List<String> owners = new ArrayList<>();
             List<MyMethod> methodNodes = classNode.methods;
-            for(MyMethod methodNode:methodNodes){
+            for(MyMethod methodNode:methodNodes) {
                 List<MyMethodInsn> insns = methodNode.getMethodInstructions();
-                for(MyMethodInsn insn: insns){
+                for (MyMethodInsn insn : insns) {
                     String[] name_arr = insn.getOwner().split("/");
                     String actualName = name_arr[name_arr.length - 1];
-                    if(classNodeNames.contains(actualName)){
+                    String[] classname_arr = classNode.getName().split("\\.");
+                    String classactualName = classname_arr[classname_arr.length - 1];
+                    if (!classactualName.equals(actualName)&&classNodeNames.contains(actualName)) {
                         owners.add(insn.getOwner());
                     }
                 }
-            }
-            List<MyClass> ownerClasses = getClassNode(owners,classNodes);
-            for(MyClass owner:ownerClasses){
-                List<MyMethod> ownerMethodNodes = owner.methods;
-                for(MyMethod methodNode:ownerMethodNodes){
-                    List<MyMethodInsn> insns = methodNode.getMethodInstructions();
-                    for(MyMethodInsn insn: insns){
-                        String[] name_arr = insn.getOwner().split("/");
-                        String actualName = name_arr[name_arr.length - 1];
-                        String[] className_arr = classNode.getName().split("\\.");
-                        String classActualName = className_arr[className_arr.length - 1];
-                        if(classActualName.equals(actualName)){
-                            return true;
+                List<MyClass> ownerClasses = getClassNode(owners, classNodes);
+                for (MyClass owner : ownerClasses) {
+                    List<MyMethod> ownerMethodNodes = owner.methods;
+                    for (MyMethod methodNoded : ownerMethodNodes) {
+                        List<MyMethodInsn> instructions = methodNoded.getMethodInstructions();
+                        for (MyMethodInsn insn : instructions) {
+                            String[] name_arr = insn.getOwner().split("/");
+                            String actualName = name_arr[name_arr.length - 1];
+                            String[] className_arr = classNode.getName().split("\\.");
+                            String classActualName = className_arr[className_arr.length - 1];
+                            if (classActualName.equals(actualName) && !insn.getName().equals("<init>")) {
+                                return true;
+                            }
                         }
                     }
                 }
