@@ -73,7 +73,6 @@ public class CheckAdapterPattern extends Check {
             for (MyField fieldNode : fieldNodes) {
                 String fieldType = getFieldType(fieldNode);
                 if (classNames.contains(fieldType)) {
-                    ;
                     adapters.add(classNode);
                 }
             }

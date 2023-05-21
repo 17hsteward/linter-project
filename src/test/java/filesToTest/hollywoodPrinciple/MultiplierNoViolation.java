@@ -4,7 +4,7 @@ public class MultiplierNoViolation {
     public int multiply() {
         return 2*5;
     }
-    public void multipling(){
+    public void multiplying(){
         int amount = this.multiply();
 
     }
