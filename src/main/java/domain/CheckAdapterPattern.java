@@ -73,7 +73,15 @@ public class CheckAdapterPattern extends Check {
             for (MyField fieldNode : fieldNodes) {
                 String fieldType = getFieldType(fieldNode);
                 if (classNames.contains(fieldType)) {
-                    adapters.add(classNode);
+                    for(MyMethod method:classNode.methods){
+                        for(MyMethodInsn insn:method.getMethodInstructions()){
+                            String[] name_arr = insn.getOwner().split("/");
+                            String actualName = name_arr[name_arr.length - 1];
+                            if(actualName.equals(fieldType)&&!adapters.contains(classNode)){
+                                adapters.add(classNode);
+                            }
+                        }
+                    }
                 }
             }
         }

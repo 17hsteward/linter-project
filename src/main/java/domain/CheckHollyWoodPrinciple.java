@@ -38,6 +38,7 @@ public class CheckHollyWoodPrinciple extends Check{
                 List<MyMethodInsn> insns = methodNode.getMethodInstructions();
                 for(MyMethodInsn insn: insns){
                     if((interfaces.contains(insn.getOwner()) || superclass.equals(insn.getOwner())) && !insn.getName().equals("<init>")){
+                        System.out.println(insn.getName());
                         return true;
                     }
                 }
