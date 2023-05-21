@@ -1,7 +1,11 @@
 package filesToTest.hollywoodPrinciple;
 
 public class MultiplierNoViolation {
-    public void multiply() {
-        int amount = 2*5;
+    public int multiply() {
+        return 2*5;
+    }
+    public void multipling(){
+        int amount = this.multiply();
+
     }
 }
