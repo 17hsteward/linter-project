@@ -16,7 +16,7 @@ public class CheckDRY extends Check {
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return null;
+		return "check DRY";
 	}
 
 }

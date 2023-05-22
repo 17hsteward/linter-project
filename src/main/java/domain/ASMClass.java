@@ -43,8 +43,10 @@ public class ASMClass extends MyClass {
 			for(String nest:cn.nestMembers) {
 				String nestPath=this.path.replace(this.className+".java",nest.split("/")[nest.split("/").length-1]+".class");
 				nestPath=nestPath.replace(".\\","");
-				MyClass nestClass=c.readSingleClass(new File(nestPath));
+				File classFile=new File(nestPath);
+				MyClass nestClass=c.readSingleClass(classFile);
 				nestClasses.add(nestClass);
+				classFile.deleteOnExit();
 			}
 		}
 		

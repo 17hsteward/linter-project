@@ -84,6 +84,12 @@ class domain.CheckDataClass{
     +getName():String
 }
 
+class domain.CheckDRY{
+    +<init>():void
+    +test(List<Ldomain.MyClass>):String
+    +getName():String
+}
+
 class domain.CheckHollyWoodPrinciple{
     +<init>():void
     +test(List<Ldomain.MyClass>):String
@@ -112,12 +118,6 @@ class domain.CheckNamingConvention{
 }
 
 class domain.CheckObserverPattern{
-    +<init>():void
-    +test(List<Ldomain.MyClass>):String
-    +getName():String
-}
-
-class domain.CheckSubstitutionPrinciple{
     +<init>():void
     +test(List<Ldomain.MyClass>):String
     +getName():String
@@ -300,6 +300,8 @@ domain.CheckCouplingCohesion..>domain.MyClass
 domain.CheckDataClass--|>domain.Check
 domain.CheckDataClass..>domain.MyClass
 domain.CheckDataClass..>domain.MyMethod
+domain.CheckDRY--|>domain.Check
+domain.CheckDRY..>domain.MyClass
 domain.CheckHollyWoodPrinciple--|>domain.Check
 domain.CheckHollyWoodPrinciple..>domain.MyClass
 domain.CheckHollyWoodPrinciple..>domain.MyMethod
@@ -312,8 +314,6 @@ domain.CheckNamingConvention--|>domain.Check
 domain.CheckNamingConvention..>domain.MyClass
 domain.CheckObserverPattern--|>domain.Check
 domain.CheckObserverPattern..>domain.MyClass
-domain.CheckSubstitutionPrinciple--|>domain.Check
-domain.CheckSubstitutionPrinciple..>domain.MyClass
 domain.CheckTemplatePattern--|>domain.Check
 domain.CheckTemplatePattern..>domain.MyClass
 domain.CheckThreeLayer--|>domain.Check
@@ -350,7 +350,7 @@ presentation.MainView..>domain.CheckCouplingCohesion
 presentation.MainView..>domain.CheckThreeLayer
 presentation.MainView..>domain.CheckNamingConvention
 presentation.MainView..>domain.CheckTemplatePattern
-presentation.MainView..>domain.CheckSubstitutionPrinciple
+presentation.MainView..>domain.CheckDRY
 presentation.MainView..>domain.Compiler
 presentation.MainView..>domain.Check
 presentation.MainView..>domain.Check

@@ -34,7 +34,7 @@ public class MainView {
 		this.checks.add(new CheckThreeLayer());
 		this.checks.add(new CheckNamingConvention());
 		this.checks.add(new CheckTemplatePattern());
-		this.checks.add(new CheckSubstitutionPrinciple());
+		this.checks.add(new CheckDRY());
 		
 		JFrame frame=new JFrame();
 		frame.setTitle("linter");
