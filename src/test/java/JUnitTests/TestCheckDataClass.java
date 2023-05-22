@@ -3,7 +3,6 @@ package JUnitTests;
 import domain.Check;
 import domain.CheckDataClass;
 import domain.MyClass;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -18,7 +17,7 @@ public class TestCheckDataClass {
     void detectDataClass_success() {
         classes = Helper.getClasses("hasDataClass");
         String result = check.test(classes);
-        assertEquals("", result);
+        assertEquals("There's no data class.", result);
     }
 
     @Test

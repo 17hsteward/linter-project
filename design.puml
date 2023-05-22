@@ -21,11 +21,21 @@ class domain.ASMField{
 
 class domain.ASMMethod{
     -instructions:org.objectweb.asm.tree.InsnList
+    -methodInstructions:List<domain.MyMethodInsn>
     +<init>(org.objectweb.asm.tree.MethodNode):void
     +toUML():String
     +isGetter():boolean
     +isSetter():boolean
     +getInstructions():org.objectweb.asm.tree.InsnList
+    +parseInstructions(org.objectweb.asm.tree.MethodNode):List<Ldomain.MyMethodInsn>
+    +getMethodInstructions():List<Ldomain.MyMethodInsn>
+}
+
+class domain.ASMMethodInsn{
+    -{final}methodInsnNode:org.objectweb.asm.tree.MethodInsnNode
+    +<init>(org.objectweb.asm.tree.AbstractInsnNode):void
+    +getOwner():String
+    +getName():String
 }
 
 abstract class domain.Check{
@@ -78,6 +88,10 @@ class domain.CheckHollyWoodPrinciple{
     +<init>():void
     +test(List<Ldomain.MyClass>):String
     +getName():String
+    +checkSuperClasses(domain.MyClass):boolean
+    +checkHigherLevelClasses(domain.MyClass,List<Ldomain.MyClass>):boolean
+    -getClassNames(List<Ldomain.MyClass>):List<String>
+    -getClassNode(List<String>,List<Ldomain.MyClass>):List<Ldomain.MyClass>
 }
 
 class domain.CheckMethodChaining{
@@ -98,6 +112,12 @@ class domain.CheckNamingConvention{
 }
 
 class domain.CheckObserverPattern{
+    +<init>():void
+    +test(List<Ldomain.MyClass>):String
+    +getName():String
+}
+
+class domain.CheckSubstitutionPrinciple{
     +<init>():void
     +test(List<Ldomain.MyClass>):String
     +getName():String
@@ -202,8 +222,16 @@ abstract class domain.MyMethod{
     +getDependent():List<String>
     +getName():String
     +getAccess():int
+    +getInstructions():org.objectweb.asm.tree.InsnList
     +isGetter():boolean
     +isSetter():boolean
+    +getMethodInstructions():List<Ldomain.MyMethodInsn>
+}
+
+abstract class domain.MyMethodInsn{
+    +<init>():void
+    +getOwner():String
+    +getName():String
 }
 
 interface domain.UML{
@@ -248,8 +276,12 @@ domain.ASMClass..>domain.MyMethod
 domain.ASMClass..>domain.MyClass
 domain.ASMField--|>domain.MyField
 domain.ASMField..|>domain.UML
+domain.ASMMethod-->"*"domain.MyMethodInsn
 domain.ASMMethod--|>domain.MyMethod
 domain.ASMMethod..|>domain.UML
+domain.ASMMethod..>domain.ASMMethodInsn
+domain.ASMMethod..>domain.MyMethodInsn
+domain.ASMMethodInsn--|>domain.MyMethodInsn
 domain.Check..>domain.MyClass
 domain.CheckAbstractInstance--|>domain.Check
 domain.CheckAbstractInstance..>domain.MyClass
@@ -261,6 +293,8 @@ domain.CheckAccessModifier..>domain.ASMMethod
 domain.CheckAdapterPattern--|>domain.Check
 domain.CheckAdapterPattern..>domain.MyClass
 domain.CheckAdapterPattern..>domain.MyField
+domain.CheckAdapterPattern..>domain.MyMethod
+domain.CheckAdapterPattern..>domain.MyMethodInsn
 domain.CheckCouplingCohesion--|>domain.Check
 domain.CheckCouplingCohesion..>domain.MyClass
 domain.CheckDataClass--|>domain.Check
@@ -268,6 +302,8 @@ domain.CheckDataClass..>domain.MyClass
 domain.CheckDataClass..>domain.MyMethod
 domain.CheckHollyWoodPrinciple--|>domain.Check
 domain.CheckHollyWoodPrinciple..>domain.MyClass
+domain.CheckHollyWoodPrinciple..>domain.MyMethod
+domain.CheckHollyWoodPrinciple..>domain.MyMethodInsn
 domain.CheckMethodChaining--|>domain.Check
 domain.CheckMethodChaining..>domain.MyClass
 domain.CheckMethodChaining..>domain.MyMethod
@@ -276,6 +312,8 @@ domain.CheckNamingConvention--|>domain.Check
 domain.CheckNamingConvention..>domain.MyClass
 domain.CheckObserverPattern--|>domain.Check
 domain.CheckObserverPattern..>domain.MyClass
+domain.CheckSubstitutionPrinciple--|>domain.Check
+domain.CheckSubstitutionPrinciple..>domain.MyClass
 domain.CheckTemplatePattern--|>domain.Check
 domain.CheckTemplatePattern..>domain.MyClass
 domain.CheckThreeLayer--|>domain.Check
@@ -293,6 +331,7 @@ domain.MyClass..>domain.MyField
 domain.MyClass..>domain.MyMethod
 domain.MyField..|>domain.UML
 domain.MyMethod..|>domain.UML
+domain.MyMethod..>domain.MyMethodInsn
 domain.UMLGenerator-->"*"domain.MyClass
 domain.UMLGenerator..>domain.MyClass
 domain.UMLGenerator..>domain.ASMClass
@@ -311,6 +350,7 @@ presentation.MainView..>domain.CheckCouplingCohesion
 presentation.MainView..>domain.CheckThreeLayer
 presentation.MainView..>domain.CheckNamingConvention
 presentation.MainView..>domain.CheckTemplatePattern
+presentation.MainView..>domain.CheckSubstitutionPrinciple
 presentation.MainView..>domain.Compiler
 presentation.MainView..>domain.Check
 presentation.MainView..>domain.Check

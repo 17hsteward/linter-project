@@ -34,7 +34,7 @@ public class MainView {
 		this.checks.add(new CheckThreeLayer());
 		this.checks.add(new CheckNamingConvention());
 		this.checks.add(new CheckTemplatePattern());
-//		substitutionPrinciple();
+		this.checks.add(new CheckSubstitutionPrinciple());
 		
 		JFrame frame=new JFrame();
 		frame.setTitle("linter");
@@ -160,7 +160,7 @@ public class MainView {
 		});
 		p1.add(b4);
 		
-		JButton b5=new JButton("show class names");
+		JButton b5=new JButton("show loaded class names");
 		b5.addActionListener(new ActionListener() {
 
 			@Override
