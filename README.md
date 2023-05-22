@@ -16,7 +16,7 @@ Marcus Henderson, Hailey Steward,  Yuchen Cai, Kelly Xu
 
 | Developer | Style Check | Principle Check | Pattern Check | A Feature (optional)                                                                                                      |
 |:----------|:------------|:----------------|:--------------|:--------------------------------------------------------------------------------------------------------------------------|
-| Marcus Henderson      |    Oracle Naming Conventions        |       Liskov's Substitution Principle          |     Template Method Pattern          |                                                                                                                           |
+| Marcus Henderson      |    Oracle Naming Conventions        |       DRY          |     Template Method Pattern          |                                                                                                                           |
 | Hailey Steward    |  Missing implementations of abstract types     |        Hollywood         |     Adapter Pattern          |                                                                                                                           |
 | Yuchen Cai      | Access modifier | Method chaining | Observer pattern | Generate plantUML code and diagram, compile java file for reading including nest class                                                                                        |
 | Kelly Xu     | Data Class Detection | Coupling and Cohesion | Three Layer Principle | Check if the input code faithfully translates a input PlantUML diagram; Compare the differences between two plantUML code |
