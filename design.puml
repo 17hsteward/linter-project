@@ -151,6 +151,7 @@ class domain.Compiler{
     ~javac:javax.tools.JavaCompiler
     ~reader:data.Reader
     ~textArea:javax.swing.JTextArea
+    ~in:java.io.InputStream
     +<init>():void
     +setTextArea(javax.swing.JTextArea):void
     +read(File[]):List<Ldomain.MyClass>
@@ -259,6 +260,7 @@ class presentation.MainView{
     ~c:domain.Compiler
     ~checks:List<domain.Check>
     ~textArea:javax.swing.JTextArea
+    ~uml:domain.UMLGenerator
     +<init>():void
 }
 
@@ -339,6 +341,7 @@ presentation.Main..>presentation.MainView
 presentation.MainView-->"*"domain.MyClass
 presentation.MainView-->"*"domain.Compiler
 presentation.MainView-->"*"domain.Check
+presentation.MainView-->"*"domain.UMLGenerator
 presentation.MainView..>domain.CheckAccessModifier
 presentation.MainView..>domain.CheckMethodChaining
 presentation.MainView..>domain.CheckObserverPattern

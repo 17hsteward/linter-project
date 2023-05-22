@@ -13,7 +13,7 @@ public class Reader {
 	}
 	
 	public void deleteClassFromJava(String javaPath) {
-		this.getClassFromJava(javaPath).delete();
+		this.getClassFromJava(javaPath).deleteOnExit();
 	}
 	
 	public List<String> getCode(File file){

@@ -20,18 +20,23 @@ public class MainView {
 	Compiler c;
 	List<Check> checks;
 	JTextArea textArea;
+	UMLGenerator uml;
+	
 	public MainView() {
 		this.checks=new LinkedList<>();
 		//add checks here
 		this.checks.add(new CheckAccessModifier());
 		this.checks.add(new CheckMethodChaining());
 		this.checks.add(new CheckObserverPattern());
+		
 		this.checks.add(new CheckDataClass());
 		this.checks.add(new CheckAbstractInstance());
 		this.checks.add(new CheckHollyWoodPrinciple());
+		
 		this.checks.add(new CheckAdapterPattern());
 		this.checks.add(new CheckCouplingCohesion());
 		this.checks.add(new CheckThreeLayer());
+		
 		this.checks.add(new CheckNamingConvention());
 		this.checks.add(new CheckTemplatePattern());
 		this.checks.add(new CheckDRY());
@@ -129,7 +134,7 @@ public class MainView {
 					l1.setText("please import files first");
 				}else {
 					//print UML code in both console and GUI
-					UMLGenerator uml=new UMLGenerator(myClasses);
+					uml=new UMLGenerator(myClasses);
 					String code=uml.generateAllUMLCode();
 			    	System.out.println(code);
 			    	l1.setText("UML printed");
