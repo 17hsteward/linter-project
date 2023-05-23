@@ -13,6 +13,7 @@ public abstract class MyMethod implements UML{
 	String returnType;
 	boolean isStatic;
 	boolean isFinal;
+	boolean isAbstract;
 	List<String> dependent;
 
 	public List<String> getDependent(){

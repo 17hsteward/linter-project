@@ -16,6 +16,7 @@ public class ASMMethod extends MyMethod implements UML{
 		this.access=mn.access&(Opcodes.ACC_PUBLIC+Opcodes.ACC_PROTECTED+Opcodes.ACC_PRIVATE);
 		this.isStatic=(mn.access&Opcodes.ACC_STATIC)!=0;
 		this.isFinal=(mn.access&Opcodes.ACC_FINAL)!=0;
+		this.isAbstract=(mn.access&Opcodes.ACC_ABSTRACT)!=0;
 		this.name=mn.name;
 		this.desc=mn.desc;
 		int i=desc.lastIndexOf(')');
