@@ -137,7 +137,7 @@ public class Compiler {
 		int i = 0;
 		for(File f:files) {
 			if (f.isDirectory()) {
-				myClasses.addAll(this.readSub(f.listFiles()));
+				myClasses.addAll(this.readClass(f.listFiles()));
 			} else if (f.getName().endsWith(".class")) {
 				classFiles[i] = f;
 				classFilePaths[i] = f.getAbsolutePath();
