@@ -8,6 +8,7 @@ public abstract class MyClass {
 	String extend;
 	List<String> implement;
 	List<MyField> fields;
+	List<MyField> constants;
 	List<MyMethod> methods;
 	List<String> dependent;
 	boolean isAbstract;
@@ -18,6 +19,9 @@ public abstract class MyClass {
 	
 	public List<MyField> getFields(){
 		return this.fields;
+	}
+	public List<MyField> getConstants(){
+		return this.constants;
 	}
 	public List<MyMethod> getMethods(){
 		return this.methods;

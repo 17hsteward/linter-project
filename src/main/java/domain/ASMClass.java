@@ -22,8 +22,13 @@ public class ASMClass extends MyClass {
 		this.dependent=new LinkedList<>();
 		this.fields=new LinkedList<>();
 		this.methods=new LinkedList<>();
+		this.constants=new LinkedList<>();
 		for(FieldNode f:cn.fields) {
-			this.fields.add(new ASMField(f));
+			if((f.access & Opcodes.ACC_STATIC)!=0 && (f.access &Opcodes.ACC_FINAL) != 0) {
+				this.constants.add(new ASMField(f));
+			} else {
+				this.fields.add(new ASMField(f));
+			}
 		}
 		for(MethodNode m:cn.methods) {
 			this.methods.add(new ASMMethod(m));
