@@ -15,6 +15,7 @@ public abstract class MyMethod implements UML{
 	boolean isFinal;
 	boolean isAbstract;
 	List<String> dependent;
+	List<Integer> methodLineNumbers;
 
 	public List<String> getDependent(){
 		return this.dependent;
@@ -29,4 +30,5 @@ public abstract class MyMethod implements UML{
 	public abstract boolean isGetter();
 	public abstract boolean isSetter();
 	public abstract List<MyMethodInsn> getMethodInstructions();
+	public abstract List<Integer> getMethodLineNumbers();
 }

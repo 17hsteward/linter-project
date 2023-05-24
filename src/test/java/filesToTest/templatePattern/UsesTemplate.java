@@ -3,10 +3,10 @@ package filesToTest.templatePattern;
 import java.util.ArrayList;
 import java.util.List;
 public abstract class UsesTemplate {
-	private Piece p;
+	private Integer p;
 	
 	public UsesTemplate() {
-		this.p = new Piece();
+		this.p = 0;
 	}
 	
 	public final void templateMethod() {
@@ -26,13 +26,13 @@ public abstract class UsesTemplate {
 	public boolean instructionSample(String path) {
 		int i = 0;
 		// 0 usually refers to this so what about getting a field
-		if(this.p instanceof Piece) {
-			Piece m = (Piece)this.p;
+		if(this.p instanceof Integer) {
+			Integer m = (Integer)this.p;
 			System.out.println("poop");
 		}
 		List<String> stringSet;
 		stringSet = new ArrayList<>();
-		this.p.makeDiversion();
+		this.p.intValue();
 		System.out.println(stringSet);
 		System.out.println(path);
 		return true;
@@ -64,11 +64,5 @@ public abstract class UsesTemplate {
 		p++;
 		x.charAt(0);
 		return;
-	}
-	
-	public class Piece {
-		public void makeDiversion() {
-			return;
-		}
 	}
 }

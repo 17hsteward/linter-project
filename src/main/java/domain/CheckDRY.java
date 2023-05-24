@@ -4,7 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 
 public class CheckDRY extends Check {
-
+	public boolean projectPassDuplication(List<MyClass> myClasses) {
+		return test(myClasses).isEmpty();
+	}
+	
 	@Override
 	public String test(List<MyClass> myClasses) {
 		// TODO Auto-generated method stub
@@ -14,8 +17,11 @@ public class CheckDRY extends Check {
 		StringBuilder b = new StringBuilder();
 		for(int classAdex = 0; classAdex < myClasses.size(); classAdex++) {
 			for(int classBdex = classAdex; classBdex < myClasses.size();classBdex++) {
-				b.append("Classes: " + myClasses.get(classAdex).className  + ", " + myClasses.get(classBdex).className+ "\n");
-				b.append(getDupResMethods(myClasses.get(classAdex), myClasses.get(classBdex)));
+				String dupRes = getDupResMethods(myClasses.get(classAdex), myClasses.get(classBdex));
+				if(!dupRes.isEmpty()) {
+					b.append("Classes: " + myClasses.get(classAdex).className  + ", " + myClasses.get(classBdex).className+ "\n");
+					b.append(dupRes);
+				} 
 			}
 		}
 		return b.toString();
@@ -40,32 +46,31 @@ public class CheckDRY extends Check {
 		StringBuilder b = new StringBuilder();
 		List<MyMethodInsn> instrA = methodA.getMethodInstructions();
 		List<MyMethodInsn> instrB = methodB.getMethodInstructions();
-		int totalSubsetMatches = 0;
 		int min = Integer.min(instrA.size(), instrB.size());
 		for (int subsetSize = 2; subsetSize < min; subsetSize++) {
 			for (int startDexA = 0; startDexA < (instrA.size()-subsetSize)+1; startDexA++) {
 				for (int startDexB = 0; startDexB < (instrB.size()-subsetSize)+1; startDexB++) {
+					
 					List<MyMethodInsn> aSubset = instrA.subList(startDexA, startDexA+subsetSize);
 					List<MyMethodInsn> bSubset = instrB.subList(startDexB, startDexB+subsetSize);
+					List<Integer> aLineNums = methodA.getMethodLineNumbers().subList(startDexA, startDexA+subsetSize);
+					List<Integer> bLineNums = methodB.getMethodLineNumbers().subList(startDexB, startDexB+subsetSize);
 					int matchSize = 0;
 					for (int i = 0; i < subsetSize; i++) {
 						if(myEquals(aSubset.get(i), bSubset.get(i))) {
 							matchSize++;
-							// b.append("			Instructions: "+ aSubset.get(i).getOwner()+"-"+aSubset.get(i).getName()+" and " +bSubset.get(i).getOwner()+"-"+bSubset.get(i).getName()+" matches\n");
 						}
 					}
+					
 					if(matchSize == subsetSize) {
-						totalSubsetMatches++;
 						b.append("\n");
-						b.append("		Methods, " + methodA.name + " and " + methodB.name+ ", Show Duplication for an Instruction Subset of Size: " + Integer.toString(subsetSize) +"\n");
-						b.append("			First Instruction in Each Respectively Starts with "+ aSubset.get(0).getOwner()+"."+aSubset.get(0).getName()+" and " +bSubset.get(0).getOwner()+"."+bSubset.get(0).getName()+"\n");
+						b.append("\t\tMethods ||-- " + methodA.getName() + " and " + methodB.getName() + " --|| Show Duplication for an Instruction Subset of Size: " + Integer.toString(subsetSize) +"\n");
+						b.append("\t\t\tFirst Instruction in Each Respectively Starts with "+ aSubset.get(0).getOwner()+"."+aSubset.get(0).getName()+" and " +bSubset.get(0).getOwner()+"."+bSubset.get(0).getName()+"\n");
+						b.append("\t\t\tRespective Line Numbers are " + aLineNums.get(0) +" to "+ aLineNums.get(aLineNums.size()-1) + " and " + bLineNums.get(0) + " to " + bLineNums.get(bLineNums.size()-1) + "\n");
 					}
 				}
 			}
 		}
-//		if(totalSubsetMatches == 0) {
-//			b.append("		The Following Methods Don't Show Signs of Duplication: " +methodA.name +", "+ methodB.name +"\n");
-//		}
 		return b.toString();
 	}
 	

@@ -23,6 +23,7 @@ public class ASMMethod extends MyMethod implements UML{
 		this.parameters=new LinkedList<>();
 		this.dependent=new LinkedList<>();//for all InstNode, identify type and add to it
 		this.instructions=mn.instructions;
+		this.methodLineNumbers=new LinkedList<>();
 		this.methodInstructions = parseInstructions(mn);
 		
 		for(AbstractInsnNode node:this.instructions) {
@@ -185,10 +186,16 @@ public class ASMMethod extends MyMethod implements UML{
 	public List<MyMethodInsn> parseInstructions(MethodNode methodNode){
 		List<MyMethodInsn> methodInsnsNodes = new ArrayList<>();
 		InsnList insns = methodNode.instructions;
-		for(AbstractInsnNode insnNode: insns)
-		if(insnNode instanceof MethodInsnNode){
-			ASMMethodInsn node = new ASMMethodInsn(insnNode);
-			methodInsnsNodes.add(node);
+		Integer curLineNumber = null;
+		for(AbstractInsnNode insnNode: insns) {
+			if(insnNode instanceof LineNumberNode) {
+				curLineNumber = ((LineNumberNode) insnNode).line; 
+			}
+			if(insnNode instanceof MethodInsnNode){
+				ASMMethodInsn node = new ASMMethodInsn(insnNode);
+				methodInsnsNodes.add(node);
+				this.methodLineNumbers.add(curLineNumber);
+			}
 		}
 		return methodInsnsNodes;
 	}
@@ -196,5 +203,11 @@ public class ASMMethod extends MyMethod implements UML{
 	@Override
 	public List<MyMethodInsn> getMethodInstructions(){
 		return this.methodInstructions;
+	}
+
+	@Override
+	public List<Integer> getMethodLineNumbers() {
+		// TODO Auto-generated method stub
+		return this.methodLineNumbers;
 	}
 }
