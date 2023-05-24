@@ -87,6 +87,9 @@ class domain.CheckDataClass{
 class domain.CheckDRY{
     +<init>():void
     +test(List<Ldomain.MyClass>):String
+    -getDupResMethods(domain.MyClass,domain.MyClass):String
+    -methodComparison(domain.MyMethod,domain.MyMethod):String
+    -myEquals(domain.MyMethodInsn,domain.MyMethodInsn):boolean
     +getName():String
 }
 
@@ -126,7 +129,11 @@ class domain.CheckObserverPattern{
 class domain.CheckTemplatePattern{
     +<init>():void
     +test(List<Ldomain.MyClass>):String
+    -findAbstractClasses(List<Ldomain.MyClass>):List<Ldomain.MyClass>
+    -classFollowsTemplateMethod(domain.MyClass):String
+    -callsAbstract(domain.MyMethod,List<String>):boolean
     +getName():String
+    -{static}lambda$classFollowsTemplateMethod$0(domain.MyMethod):boolean
 }
 
 class domain.CheckThreeLayer{
@@ -151,7 +158,6 @@ class domain.Compiler{
     ~javac:javax.tools.JavaCompiler
     ~reader:data.Reader
     ~textArea:javax.swing.JTextArea
-    ~in:java.io.InputStream
     +<init>():void
     +setTextArea(javax.swing.JTextArea):void
     +read(File[]):List<Ldomain.MyClass>
@@ -218,6 +224,7 @@ abstract class domain.MyMethod{
     ~returnType:String
     ~isStatic:boolean
     ~isFinal:boolean
+    ~isAbstract:boolean
     ~dependent:List<String>
     +<init>():void
     +getDependent():List<String>
@@ -304,6 +311,8 @@ domain.CheckDataClass..>domain.MyClass
 domain.CheckDataClass..>domain.MyMethod
 domain.CheckDRY--|>domain.Check
 domain.CheckDRY..>domain.MyClass
+domain.CheckDRY..>domain.MyMethod
+domain.CheckDRY..>domain.MyMethodInsn
 domain.CheckHollyWoodPrinciple--|>domain.Check
 domain.CheckHollyWoodPrinciple..>domain.MyClass
 domain.CheckHollyWoodPrinciple..>domain.MyMethod
@@ -318,10 +327,12 @@ domain.CheckObserverPattern--|>domain.Check
 domain.CheckObserverPattern..>domain.MyClass
 domain.CheckTemplatePattern--|>domain.Check
 domain.CheckTemplatePattern..>domain.MyClass
+domain.CheckTemplatePattern..>domain.MyMethod
+domain.CheckTemplatePattern..>domain.MyMethodInsn
 domain.CheckThreeLayer--|>domain.Check
 domain.CheckThreeLayer..>domain.MyClass
 domain.ClassRelation..>domain.MyClass
-domain.Compiler-->"*"data.Reader
+domain.Compiler-->data.Reader
 domain.Compiler..>data.Reader
 domain.Compiler..>domain.MyClass
 domain.Compiler..>domain.ASMClass
@@ -339,9 +350,9 @@ domain.UMLGenerator..>domain.MyClass
 domain.UMLGenerator..>domain.ASMClass
 presentation.Main..>presentation.MainView
 presentation.MainView-->"*"domain.MyClass
-presentation.MainView-->"*"domain.Compiler
+presentation.MainView-->domain.Compiler
 presentation.MainView-->"*"domain.Check
-presentation.MainView-->"*"domain.UMLGenerator
+presentation.MainView-->domain.UMLGenerator
 presentation.MainView..>domain.CheckAccessModifier
 presentation.MainView..>domain.CheckMethodChaining
 presentation.MainView..>domain.CheckObserverPattern
