@@ -64,7 +64,7 @@ public class CheckTemplatePattern extends Check {
 					}
 				}
 				if (absUsageCount == 0) {
-					res.append("		" + mc.className + " has no final method that calls at least one abstract method.");
+					res.append("		" + mc.className + " has no final method that calls at least one abstract method.\n");
 				}
 			}
 		}

@@ -4,9 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 
 public class CheckDRY extends Check {
+	
+	// TESTING PURPOSES ONLY
 	public boolean projectPassDuplication(List<MyClass> myClasses) {
 		return test(myClasses).isEmpty();
 	}
+	
 	
 	@Override
 	public String test(List<MyClass> myClasses) {
